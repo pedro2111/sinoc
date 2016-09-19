@@ -5,7 +5,7 @@
       <!-- Painel de abertura de notificação --> 
         <div class="media leftpanel-profile">
           <div class="media-body">
-            <button class="btn btn-info btn-quirk" style="width:100%">Abrir notificação</button>
+            <a href="{{ url("notificacao/nova")}}"><button class="btn btn-info btn-quirk" style="width:100%">Abrir notificação</button></a>
           </div>
         </div>
       <!-- Painel de abertura de notificação --> 
@@ -28,7 +28,7 @@
             <h5 class="sidebar-title">Navegação</h5>
             <ul class="nav nav-pills nav-stacked nav-quirk">
               <li class="active"><a href="index.html"><i class="fa fa-home "></i> <span>Dashboard</span></a></li>
-              <li><a href="index.html"><i class="fa fa-home"></i> <span>Notificações</span></a></li>
+              <li><a href="{{ url("notificacao")}}"><i class="fa fa-home"></i> <span>Notificações</span></a></li>
 
               <li class="nav-parent">
                 <a href=""><i class="fa fa-check-square"></i> <span>Administração</span></a>

@@ -1,7 +1,7 @@
   <header>
     <div class="headerpanel">
       <div class="logopanel">
-        <h2><a href="index.html">NotificaApp</a></h2>
+        <h2><a href="index.html"><img src='{{ asset("theme/images/logo.jpg") }}'></a></h2>
       </div><!-- logopanel -->
 
       <div class="headerbar">
@@ -32,7 +32,6 @@
                   <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu pull-right">
-                  <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Preferências</a></li>
                   <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> Ajuda</a></li>
                   <li><a href="signin.html"><i class="glyphicon glyphicon-log-out"></i> Sair</a></li>
                 </ul>

@@ -3,6 +3,18 @@
 
 Route::Get('/', 'ContextoController@index');
 
+
+
+//Controller de Notificações
+Route::Get('/notificacao', 'NotificacaoController@index');
+Route::Get('/notificacao/nova', 'NotificacaoController@nova');
+//Route::Post('/contratos/incluir/{id}', 'ContratoController@incluir');
+//Route::Get('/contratos/delete/{id}', 'ContratoController@delete');
+//Route::Get('/contratos/editar/{id}', 'ContratoController@editar');
+
+
+
+
 //Controller de Contratos 
 Route::Get('/contratos', 'ContratoController@index');
 Route::Post('/contratos/incluir', 'ContratoController@incluir');
