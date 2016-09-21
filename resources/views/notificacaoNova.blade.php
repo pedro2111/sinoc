@@ -1,5 +1,5 @@
   @include('Default.head')
-
+ 
 <body>
 @include('Default.header')
 
@@ -40,57 +40,16 @@
                 </div>
                 <br>
                 <div class="panel-body nopaddingtop">
-                        <form id='basicForm' name='basicForm' action='{{ url("prepostos/incluir/")}}' method="post" class='form-horizontal'>
+                        <form id='basicForm' name='basicForm' action='{{ url("notificacao/incluir/")}}' method="post" class='form-horizontal'>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         
                         <div class="error"></div>
 
 
-
-                        <div class="form-group">
-                        <label class="col-sm-3 control-label">Contrato <span class="text-danger">*</span></label>
-                        <div class="col-sm-8">
-                          <select class="select2" id="idcontrato" name="idcontrato" style="width: 100%" data-placeholder="Selecione o contrato" title="Você precisa selecionar um contrato para o preposto" required>
-                            <option value=""></option>
-                              @foreach ($Contratos as $Contrato)
-                                      <option value="{{ $Contrato->id_contrato }}">{{ $Contrato->nu_contrato }}</option>
-                              @endforeach
-      
-                          </select>
-                        
-                        </div>
-                      </div><!-- form-group -->
-
-
-                      <div class="form-group">
-                        <label class="col-sm-3 control-label">Contexto contratual <span class="text-danger">*</span></label>
-                        <div class="col-sm-8">
-                          <select class="select2" id="id_contexto" name="id_contexto" style="width: 100%" data-placeholder="Selecione o contexto contratal" title="Você precisa selecionar um contexto contratual" required>
-                            <option value=""></option>
-                              @foreach ($Contextos as $Contexto)
-                                      <option value="{{ $Contexto->id_contexto }}">{{ $Contexto->no_contexto }}</option>
-                              @endforeach
-      
-                          </select>
-                        
-                        </div>
-                      </div><!-- form-group -->
-
-
-                              <div class="form-group">
-                                <label class="col-sm-3 control-label">Ocorrência relacionada<span class="text-danger">*</span></label>
-                                <div class="col-sm-8">
-                                  <input type="text" name="nocontexto" id="nocontexto"  value="" class="form-control" title="Informe o nome do contexto" required />
-                                </div>
-                              </div>
-
-
-
-
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Coordenação Notificadora <span class="text-danger">*</span></label>
                         <div class="col-sm-8">
-                          <select class="select2" id="id_coordenacao_notificadora" name="id_coordenacao_notificadora" style="width: 100%" data-placeholder="Selecione a coordenação notificadora" title="Você precisa selecionar a coordenação notificadora" required>
+                          <select class="select2" id="id_notificadora" name="id_notificadora" style="width: 100%" data-placeholder="Selecione a coordenação notificadora" title="Você precisa selecionar a coordenação notificadora" required>
                             <option value=""></option>
                               @foreach ($Coordenacoes as $Coordenacao)
                                       <option value="{{ $Coordenacao->id_coordenacao }}">{{ $Coordenacao->ds_coordenacao }}</option>
@@ -103,9 +62,9 @@
 
 
                       <div class="form-group">
-                        <label class="col-sm-3 control-label">Coordenação impactada <span class="text-danger">*</span></label>
+                        <label class="col-sm-3 control-label">Coordenação impactada </label>
                         <div class="col-sm-8">
-                          <select class="select2" id="id_coordenacao_impactada" name="id_coordenacao_impactada" style="width: 100%" data-placeholder="Selecione a coordenação impactada" title="Você precisa selecionar a coordenação impactada" required>
+                          <select class="select2" id="id_impactada" name="id_impactada" style="width: 100%" data-placeholder="Selecione a coordenação impactada">
                             <option value=""></option>
                               @foreach ($Coordenacoes as $Coordenacao)
                                       <option value="{{ $Coordenacao->id_coordenacao }}">{{ $Coordenacao->ds_coordenacao }}</option>
@@ -117,61 +76,100 @@
                       </div><!-- form-group -->
           
                       <hr>
+                        <div class="form-group">
+                        <label class="col-sm-3 control-label">Contrato <span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                          <select class="select2" id="id_contrato" name="id_contrato" style="width: 100%" data-placeholder="Selecione o contrato" title="Você precisa selecionar um contrato" required>
+                            <option value=""></option>
+                              @foreach ($Contratos as $Contrato)
+                                      <option value="{{ $Contrato->id_contrato }}">{{ $Contrato->nu_contrato }}</option>
+                              @endforeach
+      
+                          </select>
+                        
+                        </div>
+                      </div><!-- form-group -->
 
 
-      <div class="panel">
-        <div class="panel-heading">
-          <h4 class="panel-title">HTML 5 WYSIWYG Editor</h4>
-          <p>Open source rich text editor based on HTML5 and the progressive-enhancement approach. Uses a sophisticated security concept and aims to generate fully valid HTML5 markup by preventing unmaintainable tag soups and inline styles. <a href="http://jhollingworth.github.io/bootstrap-wysihtml5/" target="_blank">http://jhollingworth.github.io/bootstrap-wysihtml5/</a></p>
-        </div>
-        <div class="panel-body">
-          <textarea id="wysiwyg" placeholder="Enter text here..." class="form-control" rows="10"></textarea>
-        </div>
-      </div>
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label">Indicadores afetados <span class="text-danger">*</span></label>
+                          <div class="col-sm-8">
+                            <select class="select2" id="id_indicador" name="id_indicador" style="width: 100%" data-placeholder="Selecione a coordenação impactada">
+                                      <option value=""></option>
+                              @foreach ($Indicadores as $indicador)
+                                      <option value="{{ $indicador->id_indicador }}">{{ $indicador->no_indicador }}</option>
+                              @endforeach      
+                            </select>
+                          </div>
+                        </div>
+
+                        <hr>
 
 
 
 
 
 
+                              <div class="form-group">
+                                <label class="col-sm-3 control-label">Nº da ocorrência</label>
+                                <div class="col-sm-8">
+                                  <input type="text" name="ds_ocorrencia" id="ds_ocorrencia"  value="" class="form-control"/>
+                                </div>
+                              </div>
 
 
 
 
+             
 
 
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">Descrição da ocorrência </label>
+                        <div class="panel-body col-sm-8">
+                          <textarea name="ds_ticket" id="ds_ticket" placeholder="descrição do ticket..." class="form-control" rows="5"></textarea>
+                        </div>
+                      </div><!-- form-group -->
+                      
+                      <hr>
+                      
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">Descrição da notificação <span class="text-danger">*</span></label>
+                        <div class="panel-body col-sm-8">
+                          <textarea id="ds_notificacao" name="ds_notificacao" placeholder="descrição da notificação..." class="form-control" rows="8"></textarea>
+                        </div>
+                      </div><!-- form-group -->
+
+                    <hr>
 
 
 
 
                         <div class="form-group">
-                          <label class="col-sm-3 control-label">Matrícula do preposto <span class="text-danger">*</span></label>
+                          <label class="col-sm-3 control-label">Motivos da notificação <span class="text-danger">*</span></label>
                           <div class="col-sm-8">
-                            <input type="text" name="mapreposto" id="mapreposto" value="" class="form-control" title="Informe a matrícula do preposto!" placeholder="" required />
+                             @foreach ($Motivos as $motivo)
+                                      <input name="id_motivo[]" type="checkbox" value="{{ $motivo->id_motivo }}"> {{ $motivo->no_motivo }} <br>
+                              @endforeach
                           </div>
                         </div>
 
-                        <div class="form-group">
-                          <label class="col-sm-3 control-label">Nome do preposto <span class="text-danger">*</span> </label>
-                          <div class="col-sm-8">
-                            <input type="text" name="nopreposto" id="nopreposto" value="" class="form-control" title="Informe o nome do preposto!" placeholder="" required />
-                          </div>
-                        </div>
+
 
 
                         <div class="form-group">
-                          <label class="col-sm-3 control-label">Matrícula do preposto <span class="text-danger">*</span></label>
-                          <div class="col-sm-8">
-                            <input type="text" name="mapreposto" id="mapreposto" value="" class="form-control" title="Informe a matrícula do preposto!" placeholder="" required />
+                          <label class="col-sm-3 control-label">Duração da inconformidade (em horas): </label>
+                          <div class="col-sm-1">
+                            <input type="text" name="nu_horas" id="nu_horas" value="" class="form-control" title="Informe o número de horas" placeholder=""/>
                           </div>
                         </div>
 
-                        <div class="form-group">
-                          <label class="col-sm-3 control-label">Nome do preposto <span class="text-danger">*</span></label>
-                          <div class="col-sm-8">
-                            <input type="text" name="nopreposto" id="nopreposto" value="" class="form-control" title="Informe o nome do preposto!" placeholder="" required />
-                          </div>
-                        </div>
+
+
+
+
+                        
+
+
 
 
 
@@ -187,10 +185,10 @@
                         <div class="row">
                           <div class="col-sm-9 col-sm-offset-3">
                             
-                            <button type="submit" class="btn btn-wide btn-primary btn-quirk mr5">Atualizar</button>
+                            <button type="submit" class="btn btn-wide btn-primary btn-quirk mr5">Salvar</button>
 
 
-                            <button type="button" onClick="history.back();" class="btn btn-wide btn-default btn-quirk">Voltar</button>
+                            <button type="button" onClick="history.back();" class="btn btn-wide btn-default btn-quirk">Cancelar</button>
                           </div>
                         </div>
                       </form>
@@ -214,6 +212,8 @@
 
 
 @include('Default.endScripts')
+
+
 
 <script>
 $(document).ready(function(){

@@ -27,7 +27,7 @@
 
             <h5 class="sidebar-title">Navegação</h5>
             <ul class="nav nav-pills nav-stacked nav-quirk">
-              <li class="active"><a href="index.html"><i class="fa fa-home "></i> <span>Dashboard</span></a></li>
+              <li class="active"><a href="#"><i class="fa fa-home "></i> <span>Dashboard</span></a></li>
               <li><a href="{{ url("notificacao")}}"><i class="fa fa-home"></i> <span>Notificações</span></a></li>
 
               <li class="nav-parent">
@@ -42,6 +42,7 @@
                   <li><a href="{{ url("coordenacoes") }}">Coordenações</a></li>
                   <hr>
                   <li><a href="{{ url("contratos") }}">Contratos</a></li>
+                  <li><a href="{{ url("indicadores") }}">Indicadores</a></li>                  
                   <li><a href="{{ url("macrocelulas") }}">Macrocélulas</a></li>
                   <li><a href="{{ url("celulas") }}">Células</a></li>
                   
@@ -51,7 +52,8 @@
               </li>
               <li class="nav-parent"><a href=""><i class="fa fa-suitcase"></i> <span>Relatórios</span></a>
                 <ul class="children">
-                  <li><a href="buttons.html">Buttons</a></li>
+                  <!-- <li><a href="{{ url('relatorio/total_por_empresa')}}">Total por empresa</a></li> -->
+                  <li><a href="#">Por definir</a></li>
                 </ul>
               </li>
             </ul>
@@ -74,32 +76,27 @@
               </div>
 
               <div class="form-group">
-                <label>Nº do ticket</label>
+                <label>Palavra chave</label>
                 <input type="text" class="form-control">
               </div>
 
 
             <div class="form-group">
                 <label>Contrato</label>
-                <select id="select1" class="form-control" style="width: 100%" data-placeholder="Basic Select2 Box">
-                  <option value="">&nbsp;</option>
-                  <option value="United States">United States</option>
-                  <option value="United Kingdom">United Kingdom</option>
-                  <option value="Japan">Japan</option>
-                  <option value="China">China</option>
-                  <option value="Norway">Norway</option>
-                  <option value="Australia">Australia</option>
-                  <option value="South Korea">South Korea</option>
-                  <option value="New Zealand">New Zealand</option>
-                  <option value="Philippines">Philippines</option>
-                </select>
+            <select class="select2" id="id_contrato" name="id_contrato" style="width: 100%" data-placeholder="Selecione um contrato" title="Você precisa selecionar uma contrato" required>
+                        <option value=""></option>
+                          @foreach ($Contratos as $c)
+                            <option value="{{ $c->id_contrato }}">{{ $c->nu_contrato }}</option>
+                          @endforeach
+  
+                      </select>
               </div>
 
 
             <div class="form-group">
-              <label>Default Functionality</label>
+              <label>Data início</label>
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="datepicker">
+                <input type="text" class="form-control" placeholder="dd/mm/aaaa" id="datepicker">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
               </div>
             </div>  
@@ -108,9 +105,9 @@
 
 
             <div class="form-group">
-              <label>Default Functionality</label>
+              <label>Data fim</label>
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="datepicker2">
+                <input type="text" class="form-control" placeholder="dd/mm/aaaa" id="datepicker2">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
               </div>
             </div>  

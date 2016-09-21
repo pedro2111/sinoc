@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contrato as Contrato; 
-use App\Models\Indicador as Indicador; 
-use App\Models\Empresa as Empresa; 
+use App\Models\Indicador as Indicador;  
 
 
 use Illuminate\Http\Request;
@@ -23,21 +22,21 @@ class IndicadorController extends Controller
         $matricula  =   getenv('USERNAME');
 
         //Listando as empresas
-        $Empresas = Empresa::all();
+        $Contratos = Contrato::all();
 
         //Listando todos os contratos válidos do sistema     
-        $Contratos = DB::table('CONTRATOS')
-            ->join('EMPRESA', 'CONTRATOS.id_empresa', '=', 'EMPRESA.id_empresa')
-            ->where('CONTRATOS.deleted_at', null)
-            ->select('CONTRATOS.*', 'EMPRESA.*')
+        $Indicadores = DB::table('INDICADOR')
+            ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'INDICADOR.id_contrato')
+            ->where('INDICADOR.deleted_at', null)
+            ->select('CONTRATOS.*', 'INDICADOR.*')
             ->get();    
 
 
 
         //Carregando View e repassando as variáveis necessárias
-        return view('contrato', ['matricula' => $matricula,
-                                 'Empresas'  => $Empresas, 
-                                 'Contratos' => $Contratos
+        return view('indicador', ['matricula'   => $matricula, 
+                                 'Indicadores'  => $Indicadores,
+                                 'Contratos'    => $Contratos
                                  ]);
 
     }
@@ -52,21 +51,22 @@ class IndicadorController extends Controller
         //Pegando informações do usuário que está acessando o sistema 
         $matricula  =  getenv('USERNAME');
 
-         //Listando as empresas
-        $Empresas = Empresa::all();
+         //Listando os contratos
+        $Contratos = Contrato::all();
 
         //Buscando informações especificas do ID = $id
-        $Contratos = DB::table('CONTRATOS')
-            ->join('EMPRESA', 'CONTRATOS.id_empresa', '=', 'EMPRESA.id_empresa')
-            ->where('CONTRATOS.deleted_at', null)
-            ->where('CONTRATOS.id_contrato', $id)
-            ->select('CONTRATOS.*', 'EMPRESA.*')
+      $Indicadores = DB::table('INDICADOR')
+            ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'INDICADOR.id_contrato')
+            ->where('INDICADOR.deleted_at', null)
+            ->where('INDICADOR.id_indicador', $id)
+            ->select('CONTRATOS.*', 'INDICADOR.*')
             ->get();    
 
 
+
         //Carregando View e repassando as variaveis necessárias
-        return view('contratoEditar', ['matricula' => $matricula,
-                                 'Empresas'  => $Empresas, 
+        return view('indicadorEditar', ['matricula' => $matricula,
+                                 'Indicadores'  => $Indicadores, 
                                  'Contratos' => $Contratos
 
                                  ]);
@@ -77,24 +77,25 @@ class IndicadorController extends Controller
     {
 
         //Verificando se a solicitação veio da inclusão ou edição
-        if($request->input('idcontrato') == "") { 
-            $Contrato = new Contrato;
+        if($request->input('id_indicador') == "") { 
+            $Indicador = new Indicador;
         } else {
-            $Contrato = Contrato::find($request->input('idcontrato'));
-            $Contrato->id_contrato      = $request->input('idcontrato');
+            $Indicador = Indicador::find($request->input('id_indicador'));
+            $Indicador->id_indicador = $request->input('id_indicador');
         }
 
         //Capiturando os campos do formulário
-        $Contrato->id_empresa       = $request->input('idempresa');
-        $Contrato->nu_contrato      = $request->input('nucontrato');
-        $Contrato->dt_assinatura    = $request->input('dtassinatura');
-        $Contrato->dt_renovacao =   empty($request->input('dtrenovacao')) ? null : $request->input('dtrenovacao');
+        $Indicador->id_contrato         = $request->input('id_contrato');
+        $Indicador->sg_indicador        = $request->input('sg_indicador');
+        $Indicador->no_indicador        = $request->input('no_indicador');
+        $Indicador->ds_indicador        = $request->input('ds_indicador');
+        
 
         //Salvando formulário
-        $Contrato->save();
+        $Indicador->save();
 
         //Redirecionandopara a página principal
-        return redirect()->action('ContratoController@index')->with('status', 'Sua solicitação foi executada com sucesso!');
+        return redirect()->action('IndicadorController@index')->with('status', 'Sua solicitação foi executada com sucesso!');
 
 
     }
@@ -103,11 +104,11 @@ class IndicadorController extends Controller
     public function delete($id)
     {
         //Encontrando e deletando Contrato (softDelete)
-        $Contrato = Contrato::find($id);
-        $Contrato->delete();
+        $Indicador = Indicador::find($id);
+        $Indicador->delete();
 
         //Redirecionando para a página principal
-        return redirect()->action('ContratoController@index')->with('status', 'Contrato deletado com sucesso');
+        return redirect()->action('IndicadorController@index')->with('status', 'Indicador deletado com sucesso');
     }
 
 

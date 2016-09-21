@@ -1,18 +1,32 @@
 <?php
 
 
-Route::Get('/', 'ContextoController@index');
+Route::Get('/', 'NotificacaoController@index');
 
 
 
 //Controller de Notificações
 Route::Get('/notificacao', 'NotificacaoController@index');
 Route::Get('/notificacao/nova', 'NotificacaoController@nova');
-//Route::Post('/contratos/incluir/{id}', 'ContratoController@incluir');
-//Route::Get('/contratos/delete/{id}', 'ContratoController@delete');
-//Route::Get('/contratos/editar/{id}', 'ContratoController@editar');
+Route::Post('/notificacao/incluir/', 'NotificacaoController@incluir');
+Route::Get('/notificacao/justificar/{id}', 'NotificacaoController@justificar');
+Route::Get('/notificacao/avaliar/{id}', 'NotificacaoController@avaliar');
+Route::Post('/notificacao/incluirjustificativa/', 'NotificacaoController@incluirjustificativa');
+Route::Post('/notificacao/incluiravaliacao/', 'NotificacaoController@incluiravaliacao');
+Route::Get('/notificacao/ver/{id}', 'NotificacaoController@ver');
 
 
+//Controller de Relatórios 
+Route::Get('/relatorio/total_por_empresa', 'RelatorioController@totalporempresa');
+
+
+
+//Controller de indicadores 
+Route::Get('/indicadores', 'IndicadorController@index');
+Route::Post('/indicadores/incluir', 'IndicadorController@incluir');
+Route::Post('/indicadores/incluir/{id}', 'IndicadorController@incluir');
+Route::Get('/indicadores/delete/{id}', 'IndicadorController@delete');
+Route::Get('/indicadores/editar/{id}', 'IndicadorController@editar');
 
 
 //Controller de Contratos 

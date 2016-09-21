@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Empresa as Empresa; 
 use App\Models\Contexto as Contexto; 
+use App\Models\Contrato as Contrato;
 
 use Illuminate\Http\Request;
 use DB;
@@ -16,13 +17,14 @@ class ContextoController extends Controller
 {
     public function index()
     {
-
+        
         //Pegando informações do usuário que está acessando o sistema
         $matricula  =   getenv('USERNAME');
 
         //Listando as empresas
-        $Empresas = Empresa::all();
-
+        $Empresas = Empresa::all();    
+        $Contratos = Contrato::all();
+        
         //Listando todos os contratos válidos do sistema     
         $Contextos = DB::table('CONTEXTO')
             ->where('CONTEXTO.deleted_at', null)
@@ -33,7 +35,8 @@ class ContextoController extends Controller
 
         //Carregando View e repassando as variáveis necessárias
         return view('contexto', ['matricula' => $matricula,
-                                 'Contextos'  => $Contextos 
+                                 'Contextos'  => $Contextos, 
+                                 'Contratos' => $Contratos
                                  ]);
 
     }
@@ -47,6 +50,7 @@ class ContextoController extends Controller
         
         //Pegando informações do usuário que está acessando o sistema 
         $matricula  =  getenv('USERNAME');
+        $Contratos = Contrato::all();
 
          //Listando as empresas
         $Contextos = DB::table('CONTEXTO')
@@ -57,7 +61,8 @@ class ContextoController extends Controller
         
         //Carregando View e repassando as variaveis necessárias
         return view('contextoEditar', ['matricula' => $matricula,
-                                        'Contextos'  => $Contextos
+                                        'Contextos'  => $Contextos,
+                                        'Contratos' => $Contratos
                                     ]);
     }
 

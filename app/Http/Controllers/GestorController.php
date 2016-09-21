@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Coordenacao as Coordenacao; 
 use App\Models\Empresa as Empresa; 
-
 use App\Models\Gestor as Gestor; 
-
+use App\Models\Contrato as Contrato;
 
 
 
@@ -30,6 +29,7 @@ class GestorController extends Controller
 
         //Listando todas as coordenações 
         $Coordenacoes = Coordenacao::all();
+        $Contratos = Contrato::all();
 
         //Listando todos os contratos válidos do sistema     
         $Gestores = DB::table('GESTOR_COORDENACAO')
@@ -44,7 +44,8 @@ class GestorController extends Controller
         return view('gestor', [ 'matricula' => $matricula,
                                 'Empresas'  => $Empresas, 
                                 'Coordenacoes' => $Coordenacoes,
-                                'Gestores' => $Gestores
+                                'Gestores'  => $Gestores,
+                                'Contratos' => $Contratos
                                  ]);
 
     }
@@ -61,7 +62,7 @@ class GestorController extends Controller
 
          //Listando as empresas
         $Empresas = Empresa::all();
-
+        $Contratos = Contrato::all();
 
           //Listando todas as coordenações 
         $Coordenacoes = Coordenacao::all();
@@ -78,7 +79,8 @@ class GestorController extends Controller
         //Carregando View e repassando as variaveis necessárias
         return view('gestorEditar', [   'matricula' => $matricula,
                                         'Empresas'  => $Empresas,
-                                        'Coordenacoes' => $Coordenacoes, 
+                                        'Coordenacoes' => $Coordenacoes,
+                                        'Contratos'     => $Contratos, 
                                         'Gestores' => $Gestores                                 
                                     ]);
     }

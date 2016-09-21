@@ -23,8 +23,7 @@
 
          <!-- ABAS DA TAB -->  
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#recent" data-toggle="tab"
-            aria-expanded="false">Editar célula</a></li>
+          <li class="active"><a href="#recent" data-toggle="tab" aria-expanded="false">Editar indicador</a></li>
         </ul>
         <!--Final da ABAS DA TAB --> 
 
@@ -33,44 +32,50 @@
 
         <div class="tab-pane active" id="recent">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-10">
               <div class="panel">
                 <div class="panel-heading nopaddingbottom">
                       <h4 class="panel-title">Preencha corretamente o formulário abaixo</h4>
                 </div>
-                   @foreach ($Celulas as $Celula)
+                   @foreach ($Indicadores as $indicador)
                 <div class="panel-body nopaddingtop">
-                        <form id='basicForm' name='basicForm' action='{{ url("celulas/incluir/$Celula->id_celula")}}' method="post" class='form-horizontal'>
+                        <form id='basicForm' name='basicForm' action='{{ url("indicadores/incluir/$indicador->id_indicador")}}' method="post" class='form-horizontal'>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="idcelula" value="{{ $Celula->id_celula }}">
+                        <input type="hidden" name="id_indicador" value="{{ $indicador->id_indicador }}">
                         <div class="error"></div>
 
                         <div class="form-group">
-                          <label class="col-sm-3 control-label">Nome da célula<span class="text-danger">*</span></label>
+                          <label class="col-sm-3 control-label">Sigla do indicador<span class="text-danger">*</span></label>
                           <div class="col-sm-8">
-                            <input type="text" name="nocelula" id="nocelula" value="{{ $Celula->no_celula }}" class="form-control" title="Informe o nome da célula que você deseja cadastrar" placeholder="" required />
+                            <input type="text" name="sg_indicador" id="sg_indicador" value="{{ $indicador->sg_indicador }}" class="form-control" title="Informe o nome da célula que você deseja cadastrar" placeholder="" required />
                           </div>
                         </div>
 
                         <div class="form-group">
-                          <label class="col-sm-3 control-label">Descrição <span class="text-danger">*</span></label>
+                          <label class="col-sm-3 control-label">Nome do indicador <span class="text-danger">*</span></label>
                           <div class="col-sm-8">
-                            <input type="text" name="dscelula" id="dscelula" value="{{ $Celula->ds_celula }}" class="form-control" title="Informe a descrição desta célula" placeholder="" />
+                            <input type="text" name="no_indicador" id="no_indicador" value="{{ $indicador->no_indicador }}" class="form-control" title="Informe a descrição desta célula" placeholder="" />
                           </div>
                         </div>
-
+                
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label">Descrição <span class="text-danger">*</span></label>
+                          <div class="col-sm-8">
+                            <input type="text" name="ds_indicador" id="ds_indicador" value="{{ $indicador->ds_indicador }}" class="form-control" title="Informe a descrição desta célula" placeholder="" />
+                          </div>
+                        </div>
                      
                     <div class="form-group">
                     <label class="col-sm-3 control-label">Macrocélula <span class="text-danger">*</span></label>
                     <div class="col-sm-8">
-                      <select class="select2" id="idmacrocelula" name="idmacrocelula" style="width: 100%" data-placeholder="Selecione uma macrocélula" title="Você precisa selecionar uma macrocélula" required>
+                      <select class="select2" id="id_contrato" name="id_contrato" style="width: 100%" data-placeholder="Selecione uma macrocélula" title="Você precisa selecionar uma macrocélula" required>
                         <option value=""></option>
-                          @foreach ($Macrocelulas as $Macrocelula)
+                              @foreach ($Contratos as $Contrato)
 
-                              @if ( $Celula->id_macrocelula === $Macrocelula->id_macrocelula)
-                                  <option value="{{ $Macrocelula->id_macrocelula }}" selected>{{ $Macrocelula->no_macrocelula }}</option>
+                              @if ( $Contrato->id_contrato === $indicador->id_contrato)
+                                  <option value="{{ $Contrato->id_contrato }}" selected>{{ $Contrato->nu_contrato }}</option>
                               @else
-                                 <option value="{{ $Macrocelula->id_macrocelula }}">{{ $Macrocelula->no_macrocelula }}</option>
+                                 <option value="{{ $Contrato->id_contrato }}">{{ $Contrato->nu_contrato }}</option>
                               @endif
                             
                           

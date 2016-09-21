@@ -15,8 +15,8 @@
 
         <!-- Breadcrump --> 
         <ol class="breadcrumb breadcrumb-quirk">
-          <li><a href="index.html"><i class="fa fa-home mr5"></i> Dashboard</a></li>
-          <li><a href="buttons.html">Notificações</a></li>
+          <li><a href="#"><i class="fa fa-home mr5"></i> Dashboard</a></li>
+          <li><a href="#">Notificações</a></li>
         </ol>
         <!-- Final Breadcrump --> 
 
@@ -54,7 +54,7 @@
                           <th>DATA</th>
                           <th>CONTRATO</th>
                           <th>NOTIFICANTE</th>
-                          <th>EQUIPE NOTIFICADA</th>
+                          <th>EQUIPE NOTIFICADORA</th>
                           <th>STATUS</th>
                           <th>PRAZO</th>
                           <th>AÇÕES</th>
@@ -66,7 +66,7 @@
                           <th>DATA</th>
                           <th>CONTRATO</th>                          
                           <th>NOTIFICANTE</th>
-                          <th>EQUIPE NOTIFICADA</th>
+                          <th>EQUIPE NOTIFICADORA</th>
                           <th>STATUS</th>
                           <th>PRAZO</th>
                           <th>AÇÕES</th>
@@ -74,19 +74,58 @@
                       </tfoot>
                       <tbody>
 
-                      @foreach ($Prepostos as $Preposto)
+                      @foreach ($Notificacoes as $n)
                         <tr>
-                          <td>{{ $Preposto->ma_preposto }}</td>
-                          <td>{{ $Preposto->no_preposto }}</td>
-                          <td>{{ $Preposto->nu_contrato }}</td>
-                          <td>{{ $Preposto->no_empresa }}</td>
-                                                    
+                          <td><a href="notificacao/ver/{{ $n->id_notificacao }}">{{ $n->id_notificacao }}</a></td>
+                          <td>{{ Carbon\Carbon::parse($n->created_at)->format('d/m/Y') }}</td>
+                          <td>{{ $n->nu_contrato }}</td>
+                          <td>{{ $n->ma_cadastro }}</td>
 
-  
+                         
+
+                               @foreach ($Coordenacoes as $Coordenacao)
+                                      @if ($n->id_notificadora === $Coordenacao->id_coordenacao)
+                                        <td>{{ $Coordenacao->no_coordenacao }}</td>
+                                      @endif
+                              @endforeach
+
+
+                           <td>
+                           @if($n->bit_aceito == 4) 
+                            Não acatado
+                           @else 
+                              @if($n->bit_aceito == 3)
+                                Acatado
+                              @else 
+                                Aguardando
+                              @endif  
+                           @endif
+                           
+                           </td>
+
+
+                          <td>{{ $n->dt_fim_justificativa }}</td>
+                            
                           <td>
-                            <a href="prepostos/editar/{{ $Preposto->id_preposto }}">Editar</a> 
-                            | <a href="#">Ver noficações</a>
-                            | <a data-href="prepostos/delete/{{ $Preposto->id_preposto }}" data-toggle="modal" data-target="#confirm-delete">Excluir</a>
+                            @if($n->dt_justificativa == NULL)
+                              <a href="notificacao/justificar/{{ $n->id_notificacao }}">Justificar</a> |
+                            @endif 
+                            
+                            @if($n->dt_naoacatado == NULL)
+                              <a href="notificacao/avaliar/{{ $n->id_notificacao }}">Avaliar</a> |
+                            @endif 
+                            
+                            <a href="notificacao/ver/{{ $n->id_notificacao }}">Informações</a>
+                            
+                            
+
+                           
+                            <!--
+                            # COLOCAR ESSAS FUNCIONALIDADES NA PROXIMA VERSÃO
+
+                            | <a href="notificacao/acatamentoespecial/{{ $n->id_notificacao }}">Acatamento especial</a>
+                            | <a href="notificacao/historico/{{ $n->id_notificacao }}">Histórico</a>
+                            --> 
 
                             
                           </td>

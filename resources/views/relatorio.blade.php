@@ -15,8 +15,8 @@
 
         <!-- Breadcrump --> 
         <ol class="breadcrumb breadcrumb-quirk">
-          <li><a href="#"><i class="fa fa-home mr5"></i> Dashboard</a></li>
-          <li><a href="#">Indicadores</a></li>
+          <li><a href="index.html"><i class="fa fa-home mr5"></i> Dashboard</a></li>
+          <li><a href="buttons.html">Células</a></li>
         </ol>
         <!-- Final Breadcrump --> 
 
@@ -24,9 +24,9 @@
          <!-- ABAS DA TAB -->  
         <ul class="nav nav-tabs">
           <li class="active"><a href="#popular" data-toggle="tab"
-            aria-expanded="false">Indicadores cadastradas</a></li>
+            aria-expanded="false">Células cadastradas</a></li>
           <li class=""><a href="#recent" data-toggle="tab"
-            aria-expanded="false">Adicionar novo indicador</a></li>
+            aria-expanded="false">Adicionar nova célula</a></li>
         </ul>
         <!--Final da ABAS DA TAB --> 
 
@@ -40,7 +40,7 @@
          
 
               <div class="panel-heading">
-                <p>Verifique os indicadores registrado no sistema.</p>
+                <p>Verifique as células registradas no sistema.</p>
                 <div class="panel-body">
                 @if (session('status'))
                       <div id="alerta" class="alert alert-success">
@@ -53,33 +53,30 @@
                       <thead>
                         <tr>
                           <th>ID</th>
-                          <th>CONTRATO</th>
-                          <th>SIGLA</th>
-                          <th>INDICADOR</th>                          
+                          <th>MACROCÉLULA</th>
+                          <th>CELULA</th>
                           <th>AÇÕES</th>
                         </tr>
                       </thead>
                       <tfoot>
                         <tr>
                           <th>ID</th>
-                          <th>CONTRATO</th>
-                          <th>SIGLA</th>
-                          <th>INDICADOR</th>                          
+                          <th>MACROCÉLULA</th>
+                          <th>CELULA</th>
                           <th>AÇÕES</th>
                         </tr>
                       </tfoot>
                       <tbody>
 
-                      @foreach ($Indicadores as $indicador)
+                      @foreach ($Celulas as $Celula)
                         <tr>
-                          <td>{{ $indicador->id_indicador }}</td>
-                          <td>{{ $indicador->nu_contrato }}</td>
-                          <td>{{ $indicador->sg_indicador }}</td>
-                          <td>{{ $indicador->no_indicador }}</td>
+                          <td>{{ $Celula->id_celula }}</td>
+                          <td>{{ $Celula->no_macrocelula }}</td>
+                          <td>{{ $Celula->no_celula }}</td>
   
                           <td>
-                            <a href="indicadores/editar/{{ $indicador->id_indicador }}">Editar</a> 
-                            | <a data-href="indicadores/delete/{{ $indicador->id_indicador }}" data-toggle="modal" data-target="#confirm-delete">Excluir</a>
+                            <a href="celulas/editar/{{ $Celula->id_celula }}">Editar</a> 
+                            | <a data-href="celulas/delete/{{ $Celula->id_celula }}" data-toggle="modal" data-target="#confirm-delete">Excluir</a>
 
                             
                           </td>
@@ -98,48 +95,39 @@
 
           <div class="tab-pane" id="recent">
           <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-6">
               <div class="panel">
                 <div class="panel-heading nopaddingbottom">
                       <h4 class="panel-title">Preencha corretamente o formulário abaixo</h4>
                 </div>
-                <br>
                 <div class="panel-body nopaddingtop">
-                        <form id="basicForm" name="basicForm" method="post" action="{{ url("indicadores/incluir") }}" class="form-horizontal">
-                        <input type="hidden" name="id_indicador">
+                        <form id="basicForm" name="basicForm" method="post" action="{{ url("celulas/incluir") }}" class="form-horizontal">
+                        <input type="hidden" name="idcelula">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="error" display="block"></div>
 
                         <div class="form-group">
-                          <label class="col-sm-3 control-label"> Sigla do indicador<span class="text-danger">*</span></label>
+                          <label class="col-sm-3 control-label"> Nome da Célula<span class="text-danger">*</span></label>
                           <div class="col-sm-8">
-                            <input type="text" name="sg_indicador" id="sg_indicador" class="form-control" title="Informe a sigla do indicador que você deseja cadastrar" placeholder="" required />
+                            <input type="text" name="nocelula" id="nocelula" class="form-control" title="Informe o nome da célula que você deseja cadastrar" placeholder="" required />
                           </div>
                         </div>
-             
-                        <div class="form-group">
-                          <label class="col-sm-3 control-label"> Nome do indicador<span class="text-danger">*</span></label>
-                          <div class="col-sm-8">
-                            <input type="text" name="no_indicador" id="no_indicador" class="form-control" title="Informe o nome do indicador que você deseja cadastrar" placeholder="" required />
-                          </div>
-                        </div>
-
 
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Descrição <span class="text-danger">*</span></label>
                           <div class="col-sm-8">
-                            <input type="text" name="ds_indicador" id="ds_indicador" class="form-control" title="Informe a descrição deste indicador" placeholder="" />
+                            <input type="text" name="dscelula" id="dscelula" class="form-control" title="Informe a descrição desta célula" placeholder="" />
                           </div>
                         </div>
 
 
                     <div class="form-group">
-                    <label class="col-sm-3 control-label">Contrato <span class="text-danger">*</span></label>
+                    <label class="col-sm-3 control-label">Macrocélula <span class="text-danger">*</span></label>
                     <div class="col-sm-8">
-                      <select class="select2" id="id_contrato" name="id_contrato" style="width: 100%" data-placeholder="Selecione um contrato" title="Você precisa selecionar uma contrato" required>
+                      <select class="select2" id="idmacrocelula" name="idmacrocelula" style="width: 100%" data-placeholder="Selecione uma macrocélula" title="Você precisa selecionar uma macrocélula" required>
                         <option value=""></option>
-                          @foreach ($Contratos as $Contrato)
-                            <option value="{{ $Contrato->id_contrato }}">{{ $Contrato->nu_contrato }}</option>
+                          @foreach ($Macrocelulas as $macrocelula)
+                            <option value="{{ $macrocelula->id_macrocelula }}">{{ $macrocelula->no_macrocelula }}</option>
                           @endforeach
   
                       </select>
@@ -183,10 +171,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4>Tem certeza que deseja excluir esse indicador? </h4>
+                <h4>Tem certeza que deseja excluir essa célula? </h4>
             </div>
             <div class="modal-body">
-                Caso você exclua esse indicador, não será possível notifica-lo futuramente.
+                Caso você exclua essa célula, não será possível notifica-la futuramente.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Não, desejo cancelar</button>

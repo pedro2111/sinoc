@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Empresa as Empresa; 
 use App\Models\Coordenacao as Coordenacao; 
-
+use App\Models\Contrato as Contrato;
 use Illuminate\Http\Request; 
 use DB;
 
@@ -22,6 +22,7 @@ class CoordenacaoController extends Controller
 
         //Listando as empresas
         $Empresas = Empresa::all();
+        $Contratos = Contrato::all();
 
         //Listando todos os Coordenacoes válidos do sistema     
         $Coordenacoes = DB::table('COORDENACOES')
@@ -33,8 +34,9 @@ class CoordenacaoController extends Controller
 
         //Carregando View e repassando as variáveis necessárias
         return view('coordenacao', ['matricula' => $matricula,
-                                 'Empresas'  => $Empresas, 
-                                 'Coordenacoes' => $Coordenacoes
+                                    'Empresas'  => $Empresas, 
+                                    'Coordenacoes' => $Coordenacoes,
+                                    'Contratos' => $Contratos
                                  ]);
 
     }
@@ -51,7 +53,8 @@ class CoordenacaoController extends Controller
 
          //Listando as empresas
         $Empresas = Empresa::all();
-
+        $Contratos = Contrato::all();
+        
         //Buscando informações especificas do ID = $id
         $Coordenacoes = DB::table('COORDENACOES')
             ->where('COORDENACOES.deleted_at', null)
@@ -61,9 +64,10 @@ class CoordenacaoController extends Controller
 
 
         //Carregando View e repassando as variaveis necessárias
-        return view('coordenacaoEditar', ['matricula' => $matricula,
-                                 'Empresas'  => $Empresas, 
-                                 'Coordenacoes' => $Coordenacoes
+        return view('coordenacaoEditar', [  'matricula' => $matricula,
+                                            'Empresas'  => $Empresas, 
+                                            'Coordenacoes' => $Coordenacoes,
+                                            'Contratos' => $Contratos
 
                                  ]);
     }

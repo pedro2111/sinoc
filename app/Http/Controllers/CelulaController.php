@@ -25,7 +25,8 @@ class CelulaController extends Controller
 
         //Listando as empresas
         $Empresas = Empresa::all();
-
+        $Contratos = Contrato::all();
+        
         //Listando os contratos
         $Macrocelulas = Macrocelula::all();
 
@@ -42,6 +43,7 @@ class CelulaController extends Controller
         return view('celula', ['matricula' => $matricula,
                                 'Empresas'  => $Empresas, 
                                 'Celulas'  => $Celulas, 
+                                'Contratos' => $Contratos,
                                 'Macrocelulas' => $Macrocelulas
                                  ]);
         }
@@ -55,7 +57,7 @@ class CelulaController extends Controller
 
          //Listando as empresas
         $Empresas = Empresa::all();
-
+        $Contratos = Contrato::all();
         //Listando os macrocelulas
         $Macrocelulas = Macrocelula::all();
         
@@ -73,6 +75,7 @@ class CelulaController extends Controller
         return view('celulaEditar', ['matricula' => $matricula,
                                     'Empresas'  => $Empresas, 
                                     'Macrocelulas' => $Macrocelulas,
+                                    'Contratos' => $Contratos,
                                     'Celulas' => $Celulas
                                  ]);
     }

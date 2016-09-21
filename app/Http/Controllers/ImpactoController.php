@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Empresa as Empresa; 
 use App\Models\Impacto as Impacto; 
+use App\Models\Contrato as Contrato;
 
 use Illuminate\Http\Request;
 use DB;
@@ -22,6 +23,7 @@ class ImpactoController extends Controller
 
         //Listando as empresas
         $Empresas = Empresa::all();
+        $Contratos = Contrato::all();
 
         //Listando todos os contratos válidos do sistema     
         $Impactos = DB::table('IMPACTO')
@@ -32,8 +34,9 @@ class ImpactoController extends Controller
 
 
         //Carregando View e repassando as variáveis necessárias
-        return view('impacto', ['matricula' => $matricula,
-                                 'Impactos'  => $Impactos 
+        return view('impacto', ['matricula'     => $matricula,
+                                 'Impactos'     => $Impactos, 
+                                 'Contratos'    => $Contratos
                                  ]);
 
     }
@@ -47,7 +50,7 @@ class ImpactoController extends Controller
         
         //Pegando informações do usuário que está acessando o sistema 
         $matricula  =  getenv('USERNAME');
-
+        $Contratos = Contrato::all();
          //Listando as empresas
         $Impactos = DB::table('IMPACTO')
                     ->where('IMPACTO.id_impacto', $id)
@@ -56,8 +59,9 @@ class ImpactoController extends Controller
 
         
         //Carregando View e repassando as variaveis necessárias
-        return view('impactoEditar', ['matricula' => $matricula,
-                                        'Impactos'  => $Impactos
+        return view('impactoEditar', [  'matricula' => $matricula,
+                                        'Impactos'  => $Impactos,
+                                        'Contratos' => $Contratos
                                     ]);
     }
 
