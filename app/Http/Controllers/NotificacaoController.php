@@ -147,6 +147,16 @@ class NotificacaoController extends Controller
         //Buscando informações especificas do ID = $id
         $Notificacao = Notificacao::find($id);
 
+
+        //Listando motivo da notificação
+        $NotificacaoMotivo = DB::table('NOTIFICACAO_MOTIVO')
+            ->where('NOTIFICACAO_MOTIVO.id_notificacao', $id)
+            ->select('NOTIFICACAO_MOTIVO.*')
+            ->get();    
+
+
+
+
         //Carregando View e repassando as variaveis necessárias
         return view('notificacaoJustificar', [  'matricula' => $matricula,
                                                 'Contratos'         => $Contratos,
@@ -158,7 +168,8 @@ class NotificacaoController extends Controller
                                                 'Motivos'           => $Motivos,
                                                 'Indicadores'       => $Indicadores,
                                                 'Empresas'          => $Empresas, 
-                                                'Notificacao'       => $Notificacao
+                                                'Notificacao'       => $Notificacao, 
+                                                'NotificacaoMotivo' => $NotificacaoMotivo
                                             ]);
     }
 
@@ -258,38 +269,12 @@ class NotificacaoController extends Controller
         $n->id_impactada = $request->input('id_impactada');
         $n->ds_ticket = $request->input('ds_ticket');
         $n->ma_cadastro = getenv('USERNAME');
-
+        $n->id_indicador = $request->input('id_indicador');
         //Salvando formulário
         $n->save();
 
         //Pegando o Id
         $newId = $n->id_notificacao;  
-
-
-        //Macrocelula
-        $id_macrocelula = [];
-        $id_macrocelula = $request->input('id_macrocelula');
-        foreach ($id_macrocelula as $im) {
-            $datasetMacro[] = [
-                'id_notificacao'    => $newId,
-                'id_macrocelula'    => $im,
-            ];
-        }
-        DB::table('NOTIFICACAO_MACROCELULA')->insert($datasetMacro);
-
-
-        //Indicador
-        $id_indicador = [];
-        $id_indicador = $request->input('id_indicador');
-        foreach ($id_indicador as $ind) {
-            $datasetIndi[] = [
-                'id_notificacao'    => $newId,
-                'id_indicador'      => $ind,
-            ];
-        }
-        DB::table('NOTIFICACAO_INDICADOR')->insert($datasetIndi);
-
-
 
         //Motivo
         $id_motivo = [];

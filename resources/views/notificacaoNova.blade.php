@@ -2,6 +2,7 @@
  
 <body>
 @include('Default.header')
+<link rel="stylesheet" href="{{ asset("theme/lib/bootstrap3-wysihtml5-bower/bootstrap3-wysihtml5.css") }}">
 
 
   <section>
@@ -15,8 +16,8 @@
 
         <!-- Breadcrump --> 
         <ol class="breadcrumb breadcrumb-quirk">
-          <li><a href="index.html"><i class="fa fa-home mr5"></i> Dashboard</a></li>
-          <li><a href="buttons.html">Notificação</a></li>
+          <li><a href="#"><i class="fa fa-home mr5"></i> Dashboard</a></li>
+          <li><a href="#">Notificação</a></li>
         </ol>
         <!-- Final Breadcrump --> 
 
@@ -33,7 +34,7 @@
 
         <div class="tab-pane active" id="recent">
           <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-12">
               <div class="panel">
                 <div class="panel-heading nopaddingbottom">
                       <h4 class="panel-title">Preencha corretamente o formulário abaixo</h4>
@@ -92,7 +93,7 @@
 
 
                         <div class="form-group">
-                          <label class="col-sm-3 control-label">Indicadores afetados <span class="text-danger">*</span></label>
+                          <label class="col-sm-3 control-label">Indicador afetado <span class="text-danger">*</span></label>
                           <div class="col-sm-8">
                             <select class="select2" id="id_indicador" name="id_indicador" style="width: 100%" data-placeholder="Selecione a coordenação impactada">
                                       <option value=""></option>
@@ -125,17 +126,27 @@
 
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Descrição da ocorrência </label>
-                        <div class="panel-body col-sm-8">
-                          <textarea name="ds_ticket" id="ds_ticket" placeholder="descrição do ticket..." class="form-control" rows="5"></textarea>
+                        <div class="panel-body col-sm-9" style="margin-left:-10px">
+                          <textarea style="width:90.7%;" name="ds_ticket" id="ds_ticket" placeholder="Preencha esse campo com a descrição da ocorrência" class="wtext"></textarea>
                         </div>
                       </div><!-- form-group -->
                       
                       <hr>
                       
+
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label">Motivos da notificação <span class="text-danger">*</span></label>
+                          <div class="col-sm-8">
+                             @foreach ($Motivos as $motivo)
+                                      <input name="id_motivo[]" type="radio" value="{{ $motivo->id_motivo }}"> {{ $motivo->no_motivo }} <br>
+                              @endforeach
+                          </div>
+                        </div>
+
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Descrição da notificação <span class="text-danger">*</span></label>
-                        <div class="panel-body col-sm-8">
-                          <textarea id="ds_notificacao" name="ds_notificacao" placeholder="descrição da notificação..." class="form-control" rows="8"></textarea>
+                        <div class="panel-body col-sm-9" style="margin-left:-10px">
+                          <textarea style="width:90.7%;" id="ds_notificacao" name="ds_notificacao" class="wtext" placeholder="Preencha este campo com a descrição da notificação" rows="18"></textarea>
                         </div>
                       </div><!-- form-group -->
 
@@ -144,14 +155,6 @@
 
 
 
-                        <div class="form-group">
-                          <label class="col-sm-3 control-label">Motivos da notificação <span class="text-danger">*</span></label>
-                          <div class="col-sm-8">
-                             @foreach ($Motivos as $motivo)
-                                      <input name="id_motivo[]" type="checkbox" value="{{ $motivo->id_motivo }}"> {{ $motivo->no_motivo }} <br>
-                              @endforeach
-                          </div>
-                        </div>
 
 
 
@@ -185,7 +188,7 @@
                         <div class="row">
                           <div class="col-sm-9 col-sm-offset-3">
                             
-                            <button type="submit" class="btn btn-wide btn-primary btn-quirk mr5">Salvar</button>
+                            <button type="submit" class="btn btn-wide btn-primary btn-quirk mr5">Gerar notificação</button>
 
 
                             <button type="button" onClick="history.back();" class="btn btn-wide btn-default btn-quirk">Cancelar</button>
@@ -211,17 +214,37 @@
 
 
 
+
+
 @include('Default.endScripts')
 
+<script src="{{ asset("theme/lib/bootstrap3-wysihtml5-bower/bootstrap3-wysihtml5.all.js") }}"></script>
+<script src="{{ asset("theme/lib/wysihtml5x/wysihtml5x.js") }}"></script>
+<script src="{{ asset("theme/lib/wysihtml5x/wysihtml5x-toolbar.js") }}"></script>
 
 
 <script>
 $(document).ready(function(){
+  'use strict';
+
+
+  // HTML5 WYSIWYG Editor
+  $('.wtext').wysihtml5({
+   toolbar: {
+    "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+    "emphasis": true, //Italics, bold, etc. Default true
+    "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+    "html": false, //Button which allows you to edit the generated HTML. Default false
+    "link": true, //Button to insert a link. Default true
+    "image": false, //Button to insert an image. Default true,
+    "color": false, //Button to change color of font  
+    "blockquote": true, //Blockquote  
+    
+  }
+  });
+
 
   $('.select2').select2();
-
-    // Input Masks
-    //$("#mapreposto").mask("99999/9999");
 
   // Error Message In One Container
   $('#basicForm').validate({
