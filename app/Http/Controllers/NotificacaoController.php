@@ -112,6 +112,13 @@ class NotificacaoController extends Controller
         //Buscando informações especificas do ID = $id
         $Notificacao = Notificacao::find($id);
 
+      //Listando motivo da notificação
+        $NotificacaoMotivo = DB::table('NOTIFICACAO_MOTIVO')
+            ->where('NOTIFICACAO_MOTIVO.id_notificacao', $id)
+            ->select('NOTIFICACAO_MOTIVO.*')
+            ->get();    
+
+
         //Carregando View e repassando as variaveis necessárias
         return view('notificacaoAvaliar', [     'matricula' => $matricula,
                                                 'Contratos'         => $Contratos,
@@ -123,7 +130,8 @@ class NotificacaoController extends Controller
                                                 'Motivos'           => $Motivos,
                                                 'Indicadores'       => $Indicadores,
                                                 'Empresas'          => $Empresas, 
-                                                'Notificacao'       => $Notificacao
+                                                'Notificacao'       => $Notificacao,
+                                                'NotificacaoMotivo' => $NotificacaoMotivo
                                             ]);
     }
 
@@ -194,6 +202,13 @@ class NotificacaoController extends Controller
         //Buscando informações especificas do ID = $id
         $Notificacao = Notificacao::find($id);
 
+        //Listando motivo da notificação
+        $NotificacaoMotivo = DB::table('NOTIFICACAO_MOTIVO')
+            ->where('NOTIFICACAO_MOTIVO.id_notificacao', $id)
+            ->select('NOTIFICACAO_MOTIVO.*')
+            ->get();    
+
+
         //Carregando View e repassando as variaveis necessárias
         return view('notificacaoVer', [  'matricula' => $matricula,
                                                 'Contratos'         => $Contratos,
@@ -205,7 +220,8 @@ class NotificacaoController extends Controller
                                                 'Motivos'           => $Motivos,
                                                 'Indicadores'       => $Indicadores,
                                                 'Empresas'          => $Empresas, 
-                                                'Notificacao'       => $Notificacao
+                                                'Notificacao'       => $Notificacao,
+                                                'NotificacaoMotivo' => $NotificacaoMotivo
                                             ]);
     }
 
@@ -248,6 +264,68 @@ class NotificacaoController extends Controller
         //Redirecionandopara a página principal
         return redirect()->action('NotificacaoController@index')->with('status', 'Sua avaliação foi cadastrada com sucesso!');
 
+
+    }
+
+    public function corrigir($id) { 
+        
+        $matricula  =  getenv('USERNAME');
+        
+        $ncj = Notificacao::find($id);
+
+        $ncj->dt_justificativa = NULL;
+        $ncj->dt_naoacatado = NULL;
+
+        $ncj->save();
+
+        //Redirecionandopara a página principal
+        return redirect()->action('NotificacaoController@index')->with('status', 'A notificação pode ser corrigida agora!');
+
+    }
+
+
+  public function buscar(Request $request) { 
+        
+        $matricula  =   getenv('USERNAME');
+
+        $q = $request->input('q');
+
+
+        //Listando as empresas
+        $Empresas = Empresa::all();
+
+        //Listando os contratos    
+        $Contratos = Contrato::all();
+        $Coordenacoes = Coordenacao::all();
+
+        //Listando todos os contratos válidos do sistema     
+        $Notificacoes = DB::table('NOTIFICACAO')
+            ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
+            
+            ->where('NOTIFICACAO.ds_ocorrencia', 'like', '%'.$q.'%')
+            ->where('NOTIFICACAO.ds_ticket', 'like', '%'.$q.'%')    
+            ->where('NOTIFICACAO.ds_notificacao', 'like', '%'.$q.'%')
+            ->where('NOTIFICACAO.ds_justificativa', 'like', '%'.$q.'%')
+            ->where('NOTIFICACAO.ds_naoacatado', 'like', '%'.$q.'%')
+            ->where('NOTIFICACAO.ma_cadastro', 'like', '%'.$q.'%')
+
+            ->where('NOTIFICACAO.deleted_at', null)
+            ->where('CONTRATOS.deleted_at', null)
+            
+            ->select('CONTRATOS.*', 'NOTIFICACAO.*')
+            ->get();    
+
+
+            //print_r($Notificacoes);
+
+
+        //Carregando View e repassando as variáveis necessárias
+        return view('notificacao', ['matricula' => $matricula,
+                                    'Empresas'  => $Empresas, 
+                                    'Contratos' => $Contratos,
+                                    'Coordenacoes' => $Coordenacoes,
+                                    'Notificacoes' => $Notificacoes
+                                 ]);
 
     }
 

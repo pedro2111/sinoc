@@ -107,6 +107,8 @@
                           <td>{{ $n->dt_fim_justificativa }}</td>
                             
                           <td>
+                            
+                            
                             @if($n->dt_justificativa == NULL)
                               <a href="notificacao/justificar/{{ $n->id_notificacao }}">Justificar</a> |
                             @endif 
@@ -114,8 +116,13 @@
                             @if($n->dt_naoacatado == NULL)
                               <a href="notificacao/avaliar/{{ $n->id_notificacao }}">Avaliar</a> |
                             @endif 
+
+                            @if($n->dt_naoacatado != NULL)
+                              <a href="notificacao/corrigir/{{ $n->id_notificacao }}">Corrigir</a> |
+                            @endif 
+
+                            <a href="notificacao/ver/{{ $n->id_notificacao }}">Informações</a>                            
                             
-                            <a href="notificacao/ver/{{ $n->id_notificacao }}">Informações</a>
                             
                             
 

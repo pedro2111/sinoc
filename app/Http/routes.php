@@ -14,7 +14,8 @@ Route::Get('/notificacao/avaliar/{id}', 'NotificacaoController@avaliar');
 Route::Post('/notificacao/incluirjustificativa/', 'NotificacaoController@incluirjustificativa');
 Route::Post('/notificacao/incluiravaliacao/', 'NotificacaoController@incluiravaliacao');
 Route::Get('/notificacao/ver/{id}', 'NotificacaoController@ver');
-
+Route::Get('/notificacao/corrigir/{id}', 'NotificacaoController@corrigir');
+Route::Post('/notificacao/buscar', 'NotificacaoController@buscar');
 
 //Controller de Relatórios 
 Route::Get('/relatorio/total_por_empresa', 'RelatorioController@totalporempresa');
