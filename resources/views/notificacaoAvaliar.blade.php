@@ -38,7 +38,7 @@
             <div class="col-md-12">
               <div class="panel">
                 <div class="panel-heading nopaddingbottom">
-                      <h4 class="panel-title">Preencha corretamente o formulário abaixo com sua avaliação caso necessário</h4>
+                
                 </div>
                 <br>
                 <div class="panel-body nopaddingtop">
@@ -48,44 +48,8 @@
                         
                         <div class="error"></div>
 
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label"><b>Informe sua avaliação</b><span class="text-danger">*</span> </label>
-                        <div class="panel-body col-sm-9" style="margin-left:-10px">
-                          <textarea style="width:90.7%;" name="ds_naoacatado" id="ds_naoacatado" placeholder="Informe sua avaliação..." class="wtext" rows="9"></textarea>
-                        </div>
-                      </div><!-- form-group -->
-                      
 
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Parecer <span class="text-danger">*</span></label>
-                        <div class="col-sm-8">
-                          <select class="select2" id="bit_aceito" name="bit_aceito" style="width: 100%" data-placeholder="Informe sua decisão" title="Informe sua posição a respeito da justificativa">
-                                        <option value=""></option>
-                                        <option value="3" selected>Justificativa acatada</option>
-                                        <option value="4">Justificativa não acatada</option>
-                          </select>
-                        
-                        </div>
-                      </div><!-- form-group -->
-
-
-                      <hr>
-
-
-                        <div class="row">
-                          <div class="col-sm-9 col-sm-offset-3">
-                            
-                            <button type="submit" class="btn btn-wide btn-primary btn-quirk mr5">Salvar</button>
-
-
-                            <button type="button" onClick="history.back();" class="btn btn-wide btn-default btn-quirk">Cancelar</button>
-                          </div>
-                        </div>
-
-                        <br>
-
-                        <hr>
-
+                 
 
                 <div class="panel-heading nopaddingbottom">
                       <h4 class="panel-title">Verifique a justificativa informada</h4>
@@ -265,6 +229,80 @@
 
 
                     </div><!-- form-group -->
+
+
+
+
+
+
+
+
+
+
+					<hr>
+
+
+	                <div class="panel-heading nopaddingbottom">
+	                      <h4 class="panel-title">Preencha corretamente o formulário abaixo com sua avaliação caso necessário</h4>
+	                      <br>
+	                </div>
+
+			        
+					<br>
+					
+   					<div class="form-group">
+                        <label class="col-sm-3 control-label">Parecer <span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                          <select class="select2" id="bit_aceito" name="bit_aceito" style="width: 100%" data-placeholder="Informe sua decisão" title="Informe sua posição a respeito da justificativa">
+                                        <option value="" selected></option>
+                                        <option value="3">Justificativa acatada</option>
+                                        <option value="4">Justificativa não acatada</option>
+                          </select>
+                        
+                        
+                        </div>
+                      </div><!-- form-group -->
+
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><b>Informe sua avaliação</b><span class="text-danger">*</span> </label>
+                        <div class="panel-body col-sm-9" style="margin-left:-10px">
+                          <textarea style="width:90.7%;" name="ds_naoacatado" id="ds_naoacatado" placeholder="Informe sua avaliação..." class="wtext" rows="9"></textarea>
+                        </div>
+                      </div><!-- form-group -->
+                      
+
+
+
+                      <hr>
+
+
+                        <div class="row">
+                          <div class="col-sm-9 col-sm-offset-3">
+                            
+                            <button type="submit" class="btn btn-wide btn-primary btn-quirk mr5">Salvar</button>
+
+
+                            <button type="button" onClick="history.back();" class="btn btn-wide btn-default btn-quirk">Cancelar</button>
+                          </div>
+                        </div>
+
+                        <br>
+
+                        <hr>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                       </form>
 
