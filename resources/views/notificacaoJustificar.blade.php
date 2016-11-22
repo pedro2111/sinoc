@@ -37,9 +37,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="panel">
-                <div class="panel-heading nopaddingbottom">
-                      <h4 class="panel-title">Preencha corretamente o formulário abaixo</h4>
-                </div>
+               
                 <br>
                 <div class="panel-body nopaddingtop">
                         <form id='basicForm' name='basicForm' action='{{ url("notificacao/incluirjustificativa/")}}' method="post" class='form-horizontal'>
@@ -49,47 +47,19 @@
                         <div class="error"></div>
 
 
- 
-                         
-
-                      <div class="form-group">
-                        <label class="col-sm-3 control-label"><b>Informe sua justificativa</b><span class="text-danger">*</span> </label>
-                        <div class="panel-body col-sm-9" style="margin-left:-10px">
-                           <textarea style="width:90.7%;" name="ds_justificativa" id="ds_justificativa" class="wtext" placeholder="descrição da justificativa..." class="form-control" rows="9"></textarea>
-                        </div>
-                      </div><!-- form-group -->
-                      
-                      <hr>
-
-                        <div class="row">
-                          <div class="col-sm-9 col-sm-offset-3">
-                            
-                            <button type="submit" class="btn btn-wide btn-primary btn-quirk mr5">Salvar justificativa</button>
+                        <span class="panel-title">Verifique as informações preenchidas da notificação</span>
+						<br>
+						<br>
 
 
-                            <button type="button" onClick="history.back();" class="btn btn-wide btn-default btn-quirk">Cancelar</button>
-                          </div>
-                        </div>
-
-                        <br>
-                        <hr>
-
-                        
-                        <h4 class="panel-title">Verifique as informações da notificação</h4>
-                        <br>
-
-
-
-                      <div class="form-group">
+                      	<div class="form-group">
                           <label class="col-sm-3 control-label">Data de cadastro</label>
-                          <div class="col-sm-8">
-                          
-
-
-
-                            <input type="text" name="created_at" id="created_at"  value="DATA INICIAL" class="form-control" disabled/>
+                        <div class="col-sm-8">
+                         <input type="text" name="created_at" id="created_at"  value="{{ $Notificacao->created_at->format('d/m/Y H:i') }}" class="form-control" disabled/>
                           </div>
                         </div>
+
+
                       <div class="form-group">
                           <label class="col-sm-3 control-label">Responsável pela notificação</label>
                           <div class="col-sm-8">
@@ -224,8 +194,7 @@
                         </div>
                       </div><!-- form-group -->
 
-                    <hr>
-
+                  
 
 
 
@@ -239,6 +208,59 @@
                             <input type="text" name="nu_horas" id="nu_horas" value="{{ $Notificacao->nu_horas }}" class="form-control" disabled />
                           </div>
                         </div>
+                        
+                        
+                        
+                        
+                        
+                        
+                          <hr>
+                        
+                        
+                        
+                        
+                         <div class="panel-heading nopaddingbottom">
+                      <h4 class="panel-title">Preencha a justificativa no campo abaixo</h4>
+                </div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                             <div class="form-group">
+                        <label class="col-sm-3 control-label"><b>Informe sua justificativa</b><span class="text-danger">*</span> </label>
+                        <div class="panel-body col-sm-9" style="margin-left:-10px">
+                           <textarea style="width:90.7%;" name="ds_justificativa" id="ds_justificativa" class="wtext" placeholder="descrição da justificativa..." class="form-control" rows="9"></textarea>
+                        </div>
+                      </div><!-- form-group -->
+                      
+                      <hr>
+
+                        <div class="row">
+                          <div class="col-sm-9 col-sm-offset-3">
+                            
+                            <button type="submit" class="btn btn-wide btn-primary btn-quirk mr5">Salvar justificativa</button>
+
+
+                            <button type="button" onClick="history.back();" class="btn btn-wide btn-default btn-quirk">Cancelar</button>
+                          </div>
+                        </div>
+
+                        <br>
+                        <hr>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     </div>
 
 

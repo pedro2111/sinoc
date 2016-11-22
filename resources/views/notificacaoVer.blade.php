@@ -47,81 +47,7 @@
                         
                         <div class="error"></div>
 
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label"><b>Avaliação</b></label>
-                        <div class="panel-body col-sm-9" style="margin-left:-10px">
-                          <textarea style="width:90.7%;" name="ds_naoacatado" id="ds_naoacatado"  class="wtext"  rows="9" disabled>{{ $Notificacao->ds_naoacatado }}</textarea>
-                        </div>
-                      </div><!-- form-group -->
-                      
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Parecer </label>
-                        <div class="col-sm-8">
-                          <select class="select2" id="bit_aceito" name="bit_aceito" style="width: 100%" disabled>
-                                        <option value=""></option>
-                                        @if ($Notificacao->bit_aceito == 3) 
-                                        <option value="3" selected>Justificativa acatada</option>
-                                        @elseif ($Notificacao->bit_aceito == 4)
-                                        <option value="4" selected>Justificativa não acatada</option>
-                                        @else 
-                                        <option value="#" selected>Informação ainda não disponível</option>
-                                        @endif
-                          </select>
-                        
-                        </div>
-                      </div><!-- form-group -->
-
-                        <div class="form-group">
-                                <label class="col-sm-3 control-label">Data da avaliação</label>
-                                <div class="col-sm-8">
-                                  @if ($Notificacao->dt_naoacatado == '')
-                                    <input type="text" name="dt_naoacatado" id="dt_naoacatado"  value="" class="form-control" disabled/>
-                                  @else 
-                                    <input type="text" name="dt_naoacatado" id="dt_naoacatado"  value="{{ Carbon\Carbon::parse($Notificacao->dt_naoacatado)->format('d/m/Y h:i') }}" class="form-control" disabled/>
-                                  @endif
-                                </div>
-                              </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">Responsável pela avaliação</label>
-                                <div class="col-sm-8">
-                                  <input type="text" name="ma_justificativa" id="ma_justificativa"  value="{{ $Notificacao->ma_avaliador }}" class="form-control" title="Informe o nome do contexto" disabled/>
-                                </div>
-                              </div>
-
-                        <hr>
-
-
-                <div class="panel-heading nopaddingbottom">
-                      <h4 class="panel-title">Verifique a justificativa informada</h4>
-                      <br>
-                </div>
-
-                      <div class="form-group">
-                        <label class="col-sm-3 control-label"><b>Justificativa</b></label>
-                        <div class="panel-body col-sm-9" style="margin-left:-10px">
-                          <textarea style="width:90.7%;" name="ds_justificativa" id="ds_justificativa"  class="wtext"  placeholder="descrição da justificativa..." class="form-control" rows="9" disabled>{{ $Notificacao->ds_justificativa }}</textarea>
-                        </div>
-                      </div><!-- form-group -->
-
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">Data da justificativa</label>
-                                <div class="col-sm-8">
-                                  <input type="text" name="dt_justificativa" id="dt_justificativa"  value="{{ Carbon\Carbon::parse($Notificacao->dt_justificativa)->format('d/m/Y h:i') }}" class="form-control" disabled/>
-                                </div>
-                              </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">Responsável pela justificativa</label>
-                                <div class="col-sm-8">
-                                  <input type="text" name="ma_justificativa" id="ma_justificativa"  value="{{ $Notificacao->ma_justificativa }}" class="form-control" title="Informe o nome do contexto" disabled/>
-                                </div>
-                              </div>
-
-
-
-                  
-                      <hr>
-
+                
 
 
                       <div class="form-group">
@@ -262,10 +188,101 @@
                             <input type="text" name="nu_horas" id="nu_horas" value="{{ $Notificacao->nu_horas }}" class="form-control" disabled />
                           </div>
                         </div>
+
+
+				<hr>
+
+
+                <div class="panel-heading nopaddingbottom">
+                      <h4 class="panel-title">Verifique a justificativa informada</h4>
+                      <br>
+                </div>
+
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label"><b>Justificativa</b></label>
+                        <div class="panel-body col-sm-9" style="margin-left:-10px">
+                          <textarea style="width:90.7%;" name="ds_justificativa" id="ds_justificativa"  class="wtext"  placeholder="descrição da justificativa..." class="form-control" rows="9" disabled>{{ $Notificacao->ds_justificativa }}</textarea>
+                        </div>
+                      </div><!-- form-group -->
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Data da justificativa</label>
+                                <div class="col-sm-8">
+                                  <input type="text" name="dt_justificativa" id="dt_justificativa"  value="{{ Carbon\Carbon::parse($Notificacao->dt_justificativa)->format('d/m/Y h:i') }}" class="form-control" disabled/>
+                                </div>
+                              </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Responsável pela justificativa</label>
+                                <div class="col-sm-8">
+                                  <input type="text" name="ma_justificativa" id="ma_justificativa"  value="{{ $Notificacao->ma_justificativa }}" class="form-control" title="Informe o nome do contexto" disabled/>
+                                </div>
+                              </div>
+
+
+
+                  
+                      <hr>
+
+
+                <div class="panel-heading nopaddingbottom">
+                      <h4 class="panel-title">Verifique a avaliação informada</h4>
+                      <br>
+                </div>
+
+				    <div class="form-group">
+                        <label class="col-sm-3 control-label"><b>Avaliação</b></label>
+                        <div class="panel-body col-sm-9" style="margin-left:-10px">
+                          <textarea style="width:90.7%;" name="ds_naoacatado" id="ds_naoacatado"  class="wtext"  rows="9" disabled>{{ $Notificacao->ds_naoacatado }}</textarea>
+                        </div>
+                      </div><!-- form-group -->
+                      
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Parecer </label>
+                        <div class="col-sm-8">
+                          <select class="select2" id="bit_aceito" name="bit_aceito" style="width: 100%" disabled>
+                                        <option value=""></option>
+                                        @if ($Notificacao->bit_aceito == 3) 
+                                        <option value="3" selected>Justificativa acatada</option>
+                                        @elseif ($Notificacao->bit_aceito == 4)
+                                        <option value="4" selected>Justificativa não acatada</option>
+                                        @else 
+                                        <option value="#" selected>Informação ainda não disponível</option>
+                                        @endif
+                          </select>
+                        
+                        </div>
+                      </div><!-- form-group -->
+
+                        <div class="form-group">
+                                <label class="col-sm-3 control-label">Data da avaliação</label>
+                                <div class="col-sm-8">
+                                  @if ($Notificacao->dt_naoacatado == '')
+                                    <input type="text" name="dt_naoacatado" id="dt_naoacatado"  value="" class="form-control" disabled/>
+                                  @else 
+                                    <input type="text" name="dt_naoacatado" id="dt_naoacatado"  value="{{ Carbon\Carbon::parse($Notificacao->dt_naoacatado)->format('d/m/Y h:i') }}" class="form-control" disabled/>
+                                  @endif
+                                </div>
+                              </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Responsável pela avaliação</label>
+                                <div class="col-sm-8">
+                                  <input type="text" name="ma_justificativa" id="ma_justificativa"  value="{{ $Notificacao->ma_avaliador }}" class="form-control" title="Informe o nome do contexto" disabled/>
+                                </div>
+                              </div>
+
                     </div>
 
 
+
+
+
+
+
                     </div><!-- form-group -->
+
+
+
 
                       </form>
 
