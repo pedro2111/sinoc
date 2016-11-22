@@ -76,7 +76,7 @@
 
                       @foreach ($Notificacoes as $n)
                         <tr>
-                          <td><a href="notificacao/ver/{{ $n->id_notificacao }}">{{ $n->id_notificacao }}</a></td>
+                          <td><a href="notificacao/ver/{{ Crypt::encrypt($n->id_notificacao) }}">{{ $n->nu_notificacao }}</a></td>
                           <td>{{ Carbon\Carbon::parse($n->created_at)->format('d/m/Y') }}</td>
                           <td>{{ $n->nu_contrato }}</td>
                           <td>{{ $n->ma_cadastro }}</td>
@@ -110,18 +110,18 @@
                             
                             
                             @if($n->dt_justificativa == NULL)
-                              <a href="notificacao/justificar/{{ $n->id_notificacao }}">Justificar</a> |
+                              <a href="notificacao/justificar/{{ Crypt::encrypt($n->id_notificacao) }}">Justificar</a> |
                             @endif 
                             
                             @if($n->dt_naoacatado == NULL)
-                              <a href="notificacao/avaliar/{{ $n->id_notificacao }}">Avaliar</a> |
+                              <a href="notificacao/avaliar/{{ Crypt::encrypt($n->id_notificacao) }}">Avaliar</a> |
                             @endif 
 
                             @if($n->dt_naoacatado != NULL)
-                              <a href="notificacao/corrigir/{{ $n->id_notificacao }}">Corrigir</a> |
+                              <a href="notificacao/corrigir/{{ Crypt::encrypt($n->id_notificacao) }}">Corrigir</a> |
                             @endif 
 
-                            <a href="notificacao/ver/{{ $n->id_notificacao }}">Informações</a>                            
+                            <a href="notificacao/ver/{{ Crypt::encrypt($n->id_notificacao) }}">Informações</a>                            
                             
                             
                             

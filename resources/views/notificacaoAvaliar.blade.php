@@ -315,8 +315,7 @@
 
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label"><b>Informe sua avaliação</b><span
-										class="text-danger">*</span> </label>
+									<label class="col-sm-3 control-label"><b>Informe sua avaliação</b></label>
 									<div class="panel-body col-sm-9" style="margin-left: -10px">
 										<textarea style="width: 90.7%;" name="ds_naoacatado"
 											id="ds_naoacatado" placeholder="Informe sua avaliação..."

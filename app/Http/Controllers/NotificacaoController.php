@@ -19,7 +19,7 @@ use App\Models\Notificacao as Notificacao;
 
 use Carbon\Carbon as Carbon;
 
-
+use Crypt as Crypt;
 
 use Illuminate\Http\Request;
 use DB;
@@ -110,11 +110,11 @@ class NotificacaoController extends Controller
         $Indicadores = Indicador::all();
 
         //Buscando informações especificas do ID = $id
-        $Notificacao = Notificacao::find($id);
+        $Notificacao = Notificacao::find(Crypt::decrypt($id));
 
       //Listando motivo da notificação
         $NotificacaoMotivo = DB::table('NOTIFICACAO_MOTIVO')
-            ->where('NOTIFICACAO_MOTIVO.id_notificacao', $id)
+            ->where('NOTIFICACAO_MOTIVO.id_notificacao', Crypt::decrypt($id))
             ->select('NOTIFICACAO_MOTIVO.*')
             ->get();    
 
@@ -153,12 +153,12 @@ class NotificacaoController extends Controller
         $Indicadores = Indicador::all();
 
         //Buscando informações especificas do ID = $id
-        $Notificacao = Notificacao::find($id);
+        $Notificacao = Notificacao::find(Crypt::decrypt($id));
 
 
         //Listando motivo da notificação
         $NotificacaoMotivo = DB::table('NOTIFICACAO_MOTIVO')
-            ->where('NOTIFICACAO_MOTIVO.id_notificacao', $id)
+            ->where('NOTIFICACAO_MOTIVO.id_notificacao', Crypt::decrypt($id))
             ->select('NOTIFICACAO_MOTIVO.*')
             ->get();    
 
@@ -187,6 +187,8 @@ class NotificacaoController extends Controller
  public function ver($id)
     {
         
+    	
+    	
         //Pegando informações do usuário que está acessando o sistema 
         $matricula  =  getenv('USERNAME');
         $Empresas = Empresa::all();
@@ -200,11 +202,11 @@ class NotificacaoController extends Controller
         $Indicadores = Indicador::all();
 
         //Buscando informações especificas do ID = $id
-        $Notificacao = Notificacao::find($id);
+        $Notificacao = Notificacao::find(Crypt::decrypt($id));
 
         //Listando motivo da notificação
         $NotificacaoMotivo = DB::table('NOTIFICACAO_MOTIVO')
-            ->where('NOTIFICACAO_MOTIVO.id_notificacao', $id)
+            ->where('NOTIFICACAO_MOTIVO.id_notificacao', Crypt::decrypt($id))
             ->select('NOTIFICACAO_MOTIVO.*')
             ->get();    
 
@@ -271,14 +273,14 @@ class NotificacaoController extends Controller
         
         $matricula  =  getenv('USERNAME');
         
-        $ncj = Notificacao::find($id);
+        $ncj = Notificacao::find(Crypt::decrypt($id));
 
         $ncj->dt_justificativa = NULL;
         $ncj->dt_naoacatado = NULL;
 
         $ncj->save();
 
-        //Redirecionandopara a página principal
+        #Redirecionandopara a página principal
         return redirect()->action('NotificacaoController@index')->with('status', 'A notificação pode ser corrigida agora!');
 
     }
@@ -334,7 +336,7 @@ class NotificacaoController extends Controller
     public function incluir(Request $request) 
     {
 
-        //Capiturando os campos do formulário
+        #Criando o objeto Notificacao
         $n = new Notificacao;
 
         $n->id_contrato = $request->input('id_contrato');
@@ -348,13 +350,21 @@ class NotificacaoController extends Controller
         $n->ds_ticket = $request->input('ds_ticket');
         $n->ma_cadastro = getenv('USERNAME');
         $n->id_indicador = $request->input('id_indicador');
-        //Salvando formulário
+        
+        #Salvando formulário
         $n->save();
 
-        //Pegando o Id
+        #Pegando o ID do novo registro criado
         $newId = $n->id_notificacao;  
 
-        //Motivo
+        #Criando o número da notificação baseado no ID recém criado.
+        $nd = "N" . Carbon::parse(Carbon::now())->format('Ym') . $newId;
+        $ncj = Notificacao::find($newId);
+        $ncj->nu_notificacao = $nd;
+        $ncj->save();
+        //------------------------------------------------------------------------------
+        
+        #Fazendo a inclusão na tabela :Motivo
         $id_motivo = [];
         $id_motivo = $request->input('id_motivo');
         foreach ($id_motivo as $mot) {
@@ -365,19 +375,21 @@ class NotificacaoController extends Controller
         }
         DB::table('NOTIFICACAO_MOTIVO')->insert($datasetMot);
 
-        //Redirecionandopara a página principal
+        #Redirecionandopara a página principal
         return redirect()->action('NotificacaoController@index')->with('status', 'Nova notificação foi incluida com sucesso!');
     }
 
 
     public function delete($id)
     {
-        //Encontrando e deletando Contrato (softDelete)
-        $Preposto = Preposto::find($id);
-        $Preposto->delete();
+        // #Notificacao sendo deletada
+        // #Esse metodo só irá ser disponibilizado para pessoas do RH / Logística  
+        
+    	$n = Notificacao::find($id);
+        $n->delete();
 
-        //Redirecionando para a página principal
-        return redirect()->action('PrepostoController@index')->with('status', 'Preposto deletado com sucesso');
+        // #Redirecionando para a página principal
+        return redirect()->action('NotificacaoController@index')->with('status', 'Notificação deletada com sucesso');
     }
 
 

@@ -37,7 +37,7 @@
             <div class="col-md-12">
               <div class="panel">
                 <div class="panel-heading nopaddingbottom">
-                      <h4 class="panel-title">Notificação - Nº : {{ $Notificacao->id_notificacao }}  </h4>
+                      <h4 class="panel-title">Notificação - {{ $Notificacao->nu_notificacao }}  </h4>
                 </div>
                 <br>
                 <div class="panel-body nopaddingtop">
@@ -208,7 +208,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Data da justificativa</label>
                                 <div class="col-sm-8">
-                                  <input type="text" name="dt_justificativa" id="dt_justificativa"  value="{{ Carbon\Carbon::parse($Notificacao->dt_justificativa)->format('d/m/Y h:i') }}" class="form-control" disabled/>
+                                  <input type="text" name="dt_justificativa" id="dt_justificativa"  value="{{ Carbon\Carbon::parse($Notificacao->dt_justificativa)->format('d/m/Y H:i') }}" class="form-control" disabled/>
                                 </div>
                               </div>
                             <div class="form-group">
@@ -260,7 +260,7 @@
                                   @if ($Notificacao->dt_naoacatado == '')
                                     <input type="text" name="dt_naoacatado" id="dt_naoacatado"  value="" class="form-control" disabled/>
                                   @else 
-                                    <input type="text" name="dt_naoacatado" id="dt_naoacatado"  value="{{ Carbon\Carbon::parse($Notificacao->dt_naoacatado)->format('d/m/Y h:i') }}" class="form-control" disabled/>
+                                    <input type="text" name="dt_naoacatado" id="dt_naoacatado"  value="{{ Carbon\Carbon::parse($Notificacao->dt_naoacatado)->format('d/m/Y H:i') }}" class="form-control" disabled/>
                                   @endif
                                 </div>
                               </div>
