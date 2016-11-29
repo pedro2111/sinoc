@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Contrato as Contrato; 
 use App\Models\Empresa as Empresa; 
 use App\Models\Macrocelula as Macrocelula; 
-
+use App\Models\Coordenacao as Coordenacao;
 
 use Illuminate\Http\Request;
 use DB;
@@ -27,7 +27,7 @@ class MacrocelulaController extends Controller
 
         //Listando os contratos
         $Contratos = Contrato::all();
-
+        $Coordenacoes = Coordenacao::all();
 
         //Listando todos os contratos válidos do sistema     
         $Macrocelulas = DB::table('MACROCELULA')
@@ -41,7 +41,8 @@ class MacrocelulaController extends Controller
         return view('macrocelula', ['matricula' => $matricula,
                                     'Empresas'  => $Empresas, 
                                     'Macrocelulas'  => $Macrocelulas, 
-                                    'Contratos' => $Contratos
+                                    'Contratos' => $Contratos,
+        							'Coordenacoes' => $Coordenacoes,
                                  ]);
         }
 
@@ -54,7 +55,7 @@ class MacrocelulaController extends Controller
 
          //Listando as empresas
         $Empresas = Empresa::all();
-   
+        $Coordenacoes = Coordenacao::all();
 
         //Listando os contratos
         $Contratos = Contrato::all();
@@ -73,7 +74,8 @@ class MacrocelulaController extends Controller
         return view('macrocelulaEditar', ['matricula' => $matricula,
                                  'Empresas'  => $Empresas, 
                                  'Contratos' => $Contratos,
-                                 'Macrocelulas' => $Macrocelulas
+                                 'Macrocelulas' => $Macrocelulas,
+        						 'Coordenacoes' => $Coordenacoes,
                                  ]);
     }
 

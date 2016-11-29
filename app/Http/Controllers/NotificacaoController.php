@@ -304,15 +304,17 @@ class NotificacaoController extends Controller
         $Notificacoes = DB::table('NOTIFICACAO')
             ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
             
-            ->where('NOTIFICACAO.ds_ocorrencia', 'like', '%'.$q.'%')
-            ->where('NOTIFICACAO.ds_ticket', 'like', '%'.$q.'%')    
-            ->where('NOTIFICACAO.ds_notificacao', 'like', '%'.$q.'%')
-            ->where('NOTIFICACAO.ds_justificativa', 'like', '%'.$q.'%')
-            ->where('NOTIFICACAO.ds_naoacatado', 'like', '%'.$q.'%')
-            ->where('NOTIFICACAO.ma_cadastro', 'like', '%'.$q.'%')
+            ->Where('NOTIFICACAO.deleted_at', null)
+            ->Where('CONTRATOS.deleted_at', null)
+            
+            ->orWhere('NOTIFICACAO.ds_ocorrencia', 'like', '%'.$q.'%')
+            ->orWhere('NOTIFICACAO.ds_ticket', 'like', '%'.$q.'%')    
+            ->orWhere('NOTIFICACAO.ds_notificacao', 'like', '%'.$q.'%')
+            ->orWhere('NOTIFICACAO.ds_justificativa', 'like', '%'.$q.'%')
+            ->orWhere('NOTIFICACAO.ds_naoacatado', 'like', '%'.$q.'%')
+            ->orWhere('NOTIFICACAO.ma_cadastro', 'like', '%'.$q.'%')
 
-            ->where('NOTIFICACAO.deleted_at', null)
-            ->where('CONTRATOS.deleted_at', null)
+    
             
             ->select('CONTRATOS.*', 'NOTIFICACAO.*')
             ->get();    

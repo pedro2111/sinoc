@@ -5,7 +5,12 @@
       <!-- Painel de abertura de notificação --> 
         <div class="media leftpanel-profile">
           <div class="media-body">
-            <a href="{{ url("notificacao/nova")}}"><button class="btn btn-info btn-quirk" style="width:100%">Abrir notificação</button></a>
+          
+          
+       		@if (Carbon\Carbon::now()->format('d') == 27 or Carbon\Carbon::now()->format('d') == 28 or Carbon\Carbon::now()->format('d') == 29 or Carbon\Carbon::now()->format('d') == 30 or Carbon\Carbon::now()->format('d') == 31)
+       		@else 
+       			<a href="{{ url("notificacao/nova")}}"><button class="btn btn-info btn-quirk" style="width:100%">Abrir notificação</button></a>
+            @endif
           </div>
         </div>
       <!-- Painel de abertura de notificação --> 
@@ -35,8 +40,6 @@
                 <ul class="children">
                   
                   <li><a href="{{ url("prepostos") }}">Prepostos</a></li>
-                  <li><a href="{{ url("contextos") }}">Contextos contratuais</a></li>
-                  <li><a href="{{ url("impactos") }}">Categorias de impacto</a></li>
                   <li><a href="{{ url("empresas") }}">Empresas</a></li>
                   <li><a href="{{ url("gestores") }}">Gestores</a></li>
                   <li><a href="{{ url("coordenacoes") }}">Coordenações</a></li>
@@ -71,18 +74,30 @@
               <li class="list-group-item">
             
               <div class="form-group">
-                <label>Nº da notificação</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" placeholder="Nº da notificação ou parte">
               </div>
 
               <div class="form-group">
-                <label>Palavra chave</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" placeholder="Palavra chave">
               </div>
 
 
+			  <div class="form-group">
+                        <div>
+                          <select class="select2" id="id_notificadora" name="id_notificadora" style="width: 100%" data-placeholder="Selecione a coordenação notificadora" title="Você precisa selecionar a coordenação notificadora" required>
+                            <option value=""></option>
+                              @foreach ($Coordenacoes as $Coordenacao)
+                                      <option value="{{ $Coordenacao->id_coordenacao }}">{{ $Coordenacao->ds_coordenacao }}</option>
+                              @endforeach
+      
+                          </select>
+                        
+                        </div>
+                      </div><!-- form-group -->
+
+
             <div class="form-group">
-                <label>Contrato</label>
+                
             <select class="select2" id="id_contrato" name="id_contrato" style="width: 100%" data-placeholder="Selecione um contrato" title="Você precisa selecionar uma contrato" required>
                         <option value=""></option>
                           @foreach ($Contratos as $c)

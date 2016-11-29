@@ -100,7 +100,7 @@
 
           <div class="tab-pane" id="recent">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class="panel">
                 <div class="panel-heading nopaddingbottom">
                       <h4 class="panel-title">Preencha corretamente o formulário abaixo</h4>
@@ -113,28 +113,28 @@
 
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Número do contrato <span class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="col-sm-9">
                             <input type="text" name="nucontrato" id="nucontrato" class="form-control" title="Informe o número do contrato!" placeholder="00000/0000" required />
                           </div>
                         </div>
 
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Data de assinatura <span class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="col-sm-9">
                             <input type="text" name="dtassinatura" id="dtassinatura" class="form-control" title="Informe a data de assinatura do contrato" placeholder="00/00/0000" required />
                           </div>
                         </div>
 
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Data de renovação</label>
-                          <div class="col-sm-8">
+                          <div class="col-sm-9">
                             <input type="text" name="dtrenovacao" id="dtrenovacao" class="form-control" placeholder="00/00/0000" />
                           </div>
                         </div>
 
                     <div class="form-group">
                     <label class="col-sm-3 control-label">Empresa contratada <span class="text-danger">*</span></label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-9">
                       <select class="select2" id="idempresa" name="idempresa" style="width: 100%" data-placeholder="Selecione uma empresa" title="Você precisa selecionar uma empresa para o contrato" required>
                         <option value=""></option>
                           @foreach ($Empresas as $empresa)

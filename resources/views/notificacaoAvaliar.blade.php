@@ -314,7 +314,7 @@
 								<!-- form-group -->
 
 
-								<div class="form-group">
+								<div class="form-group" id="campo_texto_avaliacao">
 									<label class="col-sm-3 control-label"><b>Informe sua avaliação</b></label>
 									<div class="panel-body col-sm-9" style="margin-left: -10px">
 										<textarea style="width: 90.7%;" name="ds_naoacatado"
@@ -413,9 +413,7 @@
 
 	<script>
 $(document).ready(function(){
-  'use strict';
-
-
+ 
   // HTML5 WYSIWYG Editor
   $('.wtext').wysihtml5({
    toolbar: {
@@ -434,14 +432,34 @@ $(document).ready(function(){
 
   $('.select2').select2();
 
-    // Input Masks
-    //$("#mapreposto").mask("99999/9999");
-
-  // Error Message In One Container
+    
+  //Demonstrando os erros do preenchimento do formulário  
   $('#basicForm').validate({
    errorLabelContainer: jQuery('#basicForm div.error')
   });
 
+
+
+  
+  //Setando o estado inicial do texto de avaliação para escondido
+  $("#campo_texto_avaliacao").hide();
+
+  //Configurando o campo de avaliação caso ele seja necessário. 
+  $("#bit_aceito").change(function(){
+	
+	if($("#bit_aceito").val() == 4) 
+	{
+		$("#campo_texto_avaliacao").show();
+	}
+	else
+	{
+		$("#campo_texto_avaliacao").hide();
+	}
+  });
+  
+  
+
+  
 
 
 });   

@@ -101,7 +101,7 @@
 
           <div class="tab-pane" id="recent">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class="panel">
                 <div class="panel-heading nopaddingbottom">
                       <h4 class="panel-title">Preencha corretamente o formulário abaixo</h4>
@@ -113,15 +113,15 @@
                         <div class="error" display="block"></div>
 
                         <div class="form-group">
-                          <label class="col-sm-3 control-label">Mátricula do preposto <span class="text-danger">*</span></label>
-                          <div class="col-sm-8">
-                            <input type="text" name="mapreposto" id="mapreposto" class="form-control" title="Informe o número da matricula do preposto!" placeholder="" required />
+                          <label class="col-sm-3 control-label">Matrícula do preposto <span class="text-danger">*</span></label>
+                          <div class="col-sm-9">
+                            <input type="text" name="mapreposto" id="mapreposto" class="form-control" title="Informe o número da matrícula do preposto!" placeholder="" required />
                           </div>
                         </div>
 
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Nome do preposto <span class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="col-sm-9">
                             <input type="text" name="nopreposto" id="nopreposto" class="form-control" title="Informe o nome do preposto" placeholder="" required />
                           </div>
                         </div>
@@ -129,7 +129,7 @@
               
                     <div class="form-group">
                     <label class="col-sm-3 control-label">Contrato <span class="text-danger">*</span></label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-9">
                       <select class="select2" id="idcontrato" name="idcontrato" style="width: 100%" data-placeholder="Selecione um contrato" title="Você precisa selecionar um contrato para o preposto" required>
                         <option value=""></option>
                           @foreach ($Contratos as $Contrato)

@@ -1,0 +1,1317 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.1.21
+-- Dumped by pg_dump version 9.1.21
+-- Started on 2016-11-22 18:03:15
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 8 (class 2615 OID 24577)
+-- Name: NOTIFICA; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA "NOTIFICA";
+
+
+ALTER SCHEMA "NOTIFICA" OWNER TO postgres;
+
+SET search_path = "NOTIFICA", pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 181 (class 1259 OID 24732)
+-- Dependencies: 8
+-- Name: CELULA; Type: TABLE; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "CELULA" (
+    id_celula integer NOT NULL,
+    id_macrocelula integer NOT NULL,
+    no_celula character varying(200) NOT NULL,
+    ds_celula character varying(200),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    deleted_at timestamp without time zone
+);
+
+
+ALTER TABLE "NOTIFICA"."CELULA" OWNER TO postgres;
+
+--
+-- TOC entry 180 (class 1259 OID 24730)
+-- Dependencies: 181 8
+-- Name: CELULA_id_celula_seq; Type: SEQUENCE; Schema: NOTIFICA; Owner: postgres
+--
+
+CREATE SEQUENCE "CELULA_id_celula_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "NOTIFICA"."CELULA_id_celula_seq" OWNER TO postgres;
+
+--
+-- TOC entry 1999 (class 0 OID 0)
+-- Dependencies: 180
+-- Name: CELULA_id_celula_seq; Type: SEQUENCE OWNED BY; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER SEQUENCE "CELULA_id_celula_seq" OWNED BY "CELULA".id_celula;
+
+
+--
+-- TOC entry 167 (class 1259 OID 24607)
+-- Dependencies: 8
+-- Name: CONTEXTO; Type: TABLE; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "CONTEXTO" (
+    id_contexto integer NOT NULL,
+    no_contexto character varying(200),
+    deleted_at time without time zone,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE "NOTIFICA"."CONTEXTO" OWNER TO postgres;
+
+--
+-- TOC entry 166 (class 1259 OID 24605)
+-- Dependencies: 8 167
+-- Name: CONTEXTO_id_contexto_seq; Type: SEQUENCE; Schema: NOTIFICA; Owner: postgres
+--
+
+CREATE SEQUENCE "CONTEXTO_id_contexto_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "NOTIFICA"."CONTEXTO_id_contexto_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2001 (class 0 OID 0)
+-- Dependencies: 166
+-- Name: CONTEXTO_id_contexto_seq; Type: SEQUENCE OWNED BY; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER SEQUENCE "CONTEXTO_id_contexto_seq" OWNED BY "CONTEXTO".id_contexto;
+
+
+--
+-- TOC entry 165 (class 1259 OID 24595)
+-- Dependencies: 8
+-- Name: CONTRATOS; Type: TABLE; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "CONTRATOS" (
+    id_contrato integer NOT NULL,
+    nu_contrato character varying(12) NOT NULL,
+    dt_assinatura date,
+    dt_renovacao date,
+    id_empresa integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    deleted_at timestamp without time zone
+);
+
+
+ALTER TABLE "NOTIFICA"."CONTRATOS" OWNER TO postgres;
+
+--
+-- TOC entry 164 (class 1259 OID 24593)
+-- Dependencies: 165 8
+-- Name: CONTRATOS_id_contrato_seq; Type: SEQUENCE; Schema: NOTIFICA; Owner: postgres
+--
+
+CREATE SEQUENCE "CONTRATOS_id_contrato_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "NOTIFICA"."CONTRATOS_id_contrato_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2003 (class 0 OID 0)
+-- Dependencies: 164
+-- Name: CONTRATOS_id_contrato_seq; Type: SEQUENCE OWNED BY; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER SEQUENCE "CONTRATOS_id_contrato_seq" OWNED BY "CONTRATOS".id_contrato;
+
+
+--
+-- TOC entry 175 (class 1259 OID 24684)
+-- Dependencies: 8
+-- Name: COORDENACOES; Type: TABLE; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "COORDENACOES" (
+    id_coordenacao integer NOT NULL,
+    nu_coordenacao character varying(5),
+    no_coordenacao character varying(100),
+    ds_coordenacao character varying(500),
+    ds_email character varying(200),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    deleted_at timestamp without time zone
+);
+
+
+ALTER TABLE "NOTIFICA"."COORDENACOES" OWNER TO postgres;
+
+--
+-- TOC entry 174 (class 1259 OID 24682)
+-- Dependencies: 8 175
+-- Name: COORDENACOES_id_coordenacao_seq; Type: SEQUENCE; Schema: NOTIFICA; Owner: postgres
+--
+
+CREATE SEQUENCE "COORDENACOES_id_coordenacao_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "NOTIFICA"."COORDENACOES_id_coordenacao_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2005 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: COORDENACOES_id_coordenacao_seq; Type: SEQUENCE OWNED BY; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER SEQUENCE "COORDENACOES_id_coordenacao_seq" OWNED BY "COORDENACOES".id_coordenacao;
+
+
+--
+-- TOC entry 169 (class 1259 OID 24634)
+-- Dependencies: 8
+-- Name: EMPRESA; Type: TABLE; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "EMPRESA" (
+    id_empresa integer NOT NULL,
+    no_empresa character varying(200) NOT NULL,
+    ds_cnpj character varying(100),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    deleted_at timestamp without time zone
+);
+
+
+ALTER TABLE "NOTIFICA"."EMPRESA" OWNER TO postgres;
+
+--
+-- TOC entry 168 (class 1259 OID 24632)
+-- Dependencies: 169 8
+-- Name: EMPRESA_id_empresa_seq; Type: SEQUENCE; Schema: NOTIFICA; Owner: postgres
+--
+
+CREATE SEQUENCE "EMPRESA_id_empresa_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "NOTIFICA"."EMPRESA_id_empresa_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2007 (class 0 OID 0)
+-- Dependencies: 168
+-- Name: EMPRESA_id_empresa_seq; Type: SEQUENCE OWNED BY; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER SEQUENCE "EMPRESA_id_empresa_seq" OWNED BY "EMPRESA".id_empresa;
+
+
+--
+-- TOC entry 177 (class 1259 OID 24703)
+-- Dependencies: 8
+-- Name: GESTOR_COORDENACAO; Type: TABLE; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "GESTOR_COORDENACAO" (
+    id_gestor integer NOT NULL,
+    id_coordenacao integer,
+    no_gestor character varying(150),
+    ma_gestor character varying(10),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    deleted_at timestamp without time zone
+);
+
+
+ALTER TABLE "NOTIFICA"."GESTOR_COORDENACAO" OWNER TO postgres;
+
+--
+-- TOC entry 176 (class 1259 OID 24701)
+-- Dependencies: 177 8
+-- Name: GESTOR_COORDENACAO_id_gestor_seq; Type: SEQUENCE; Schema: NOTIFICA; Owner: postgres
+--
+
+CREATE SEQUENCE "GESTOR_COORDENACAO_id_gestor_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "NOTIFICA"."GESTOR_COORDENACAO_id_gestor_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2009 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: GESTOR_COORDENACAO_id_gestor_seq; Type: SEQUENCE OWNED BY; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER SEQUENCE "GESTOR_COORDENACAO_id_gestor_seq" OWNED BY "GESTOR_COORDENACAO".id_gestor;
+
+
+--
+-- TOC entry 171 (class 1259 OID 24647)
+-- Dependencies: 8
+-- Name: IMPACTO; Type: TABLE; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "IMPACTO" (
+    id_impacto integer NOT NULL,
+    no_impacto character varying(100),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    deleted_at timestamp without time zone
+);
+
+
+ALTER TABLE "NOTIFICA"."IMPACTO" OWNER TO postgres;
+
+--
+-- TOC entry 170 (class 1259 OID 24645)
+-- Dependencies: 171 8
+-- Name: IMPACTO_id_impacto_seq; Type: SEQUENCE; Schema: NOTIFICA; Owner: postgres
+--
+
+CREATE SEQUENCE "IMPACTO_id_impacto_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "NOTIFICA"."IMPACTO_id_impacto_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2011 (class 0 OID 0)
+-- Dependencies: 170
+-- Name: IMPACTO_id_impacto_seq; Type: SEQUENCE OWNED BY; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER SEQUENCE "IMPACTO_id_impacto_seq" OWNED BY "IMPACTO".id_impacto;
+
+
+--
+-- TOC entry 182 (class 1259 OID 24758)
+-- Dependencies: 8
+-- Name: INDICADOR_id_indicador_seq; Type: SEQUENCE; Schema: NOTIFICA; Owner: postgres
+--
+
+CREATE SEQUENCE "INDICADOR_id_indicador_seq"
+    START WITH 3
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "NOTIFICA"."INDICADOR_id_indicador_seq" OWNER TO postgres;
+
+--
+-- TOC entry 183 (class 1259 OID 24760)
+-- Dependencies: 1833 8
+-- Name: INDICADOR; Type: TABLE; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "INDICADOR" (
+    id_indicador integer DEFAULT nextval('"INDICADOR_id_indicador_seq"'::regclass) NOT NULL,
+    sg_indicador character varying(15),
+    no_indicador character varying(200),
+    ds_indicador text,
+    id_contrato integer,
+    created_at time with time zone,
+    updated_at time with time zone,
+    deleted_at time with time zone
+);
+
+
+ALTER TABLE "NOTIFICA"."INDICADOR" OWNER TO postgres;
+
+--
+-- TOC entry 179 (class 1259 OID 24716)
+-- Dependencies: 8
+-- Name: MACROCELULA; Type: TABLE; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "MACROCELULA" (
+    id_macrocelula integer NOT NULL,
+    id_contrato integer NOT NULL,
+    no_macrocelula character varying(200) NOT NULL,
+    ds_macrocelula character varying(200),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    deleted_at timestamp without time zone
+);
+
+
+ALTER TABLE "NOTIFICA"."MACROCELULA" OWNER TO postgres;
+
+--
+-- TOC entry 178 (class 1259 OID 24714)
+-- Dependencies: 8 179
+-- Name: MACROCELULA_id_macrocelula_seq; Type: SEQUENCE; Schema: NOTIFICA; Owner: postgres
+--
+
+CREATE SEQUENCE "MACROCELULA_id_macrocelula_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "NOTIFICA"."MACROCELULA_id_macrocelula_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2014 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: MACROCELULA_id_macrocelula_seq; Type: SEQUENCE OWNED BY; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER SEQUENCE "MACROCELULA_id_macrocelula_seq" OWNED BY "MACROCELULA".id_macrocelula;
+
+
+--
+-- TOC entry 184 (class 1259 OID 24774)
+-- Dependencies: 8
+-- Name: MOTIVO_id_motivo_seq; Type: SEQUENCE; Schema: NOTIFICA; Owner: postgres
+--
+
+CREATE SEQUENCE "MOTIVO_id_motivo_seq"
+    START WITH 3
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "NOTIFICA"."MOTIVO_id_motivo_seq" OWNER TO postgres;
+
+--
+-- TOC entry 185 (class 1259 OID 24776)
+-- Dependencies: 1834 8
+-- Name: MOTIVO; Type: TABLE; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "MOTIVO" (
+    id_motivo integer DEFAULT nextval('"MOTIVO_id_motivo_seq"'::regclass) NOT NULL,
+    no_motivo character varying(200),
+    created_at time with time zone,
+    updated_at time with time zone,
+    deleted_at time with time zone
+);
+
+
+ALTER TABLE "NOTIFICA"."MOTIVO" OWNER TO postgres;
+
+--
+-- TOC entry 186 (class 1259 OID 24782)
+-- Dependencies: 8
+-- Name: NOTIFICACAO_id_notificacao_seq; Type: SEQUENCE; Schema: NOTIFICA; Owner: postgres
+--
+
+CREATE SEQUENCE "NOTIFICACAO_id_notificacao_seq"
+    START WITH 3
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "NOTIFICA"."NOTIFICACAO_id_notificacao_seq" OWNER TO postgres;
+
+--
+-- TOC entry 187 (class 1259 OID 24784)
+-- Dependencies: 1835 8
+-- Name: NOTIFICACAO; Type: TABLE; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "NOTIFICACAO" (
+    id_notificacao integer DEFAULT nextval('"NOTIFICACAO_id_notificacao_seq"'::regclass) NOT NULL,
+    id_contrato integer,
+    id_contexto integer,
+    ds_ocorrencia character varying(255),
+    id_notificadora integer,
+    id_impactada integer,
+    ds_ticket text,
+    ds_notificacao text,
+    nu_horas integer,
+    bit_aceito integer,
+    ds_justificativa text,
+    id_preposto integer,
+    ma_cadastro character varying(8),
+    ds_naoacatado text,
+    dt_justificativa time with time zone,
+    dt_naoacatado time with time zone,
+    ma_avaliador character varying(8),
+    dt_fim_justificativa time with time zone,
+    ds_acatamentoespecial text,
+    ma_justificativa character varying(8),
+    id_indicador integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    deleted_at timestamp without time zone
+);
+
+
+ALTER TABLE "NOTIFICA"."NOTIFICACAO" OWNER TO postgres;
+
+--
+-- TOC entry 188 (class 1259 OID 24793)
+-- Dependencies: 8
+-- Name: NOTIFICACAO_MOTIVO; Type: TABLE; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "NOTIFICACAO_MOTIVO" (
+    id_notificacao integer NOT NULL,
+    id_motivo integer NOT NULL
+);
+
+
+ALTER TABLE "NOTIFICA"."NOTIFICACAO_MOTIVO" OWNER TO postgres;
+
+--
+-- TOC entry 173 (class 1259 OID 24667)
+-- Dependencies: 8
+-- Name: PREPOSTO; Type: TABLE; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "PREPOSTO" (
+    id_preposto integer NOT NULL,
+    id_contrato integer,
+    ma_preposto character varying(8),
+    no_preposto character varying(120),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    deleted_at timestamp without time zone
+);
+
+
+ALTER TABLE "NOTIFICA"."PREPOSTO" OWNER TO postgres;
+
+--
+-- TOC entry 172 (class 1259 OID 24665)
+-- Dependencies: 8 173
+-- Name: PREPOSTO_id_preposto_seq; Type: SEQUENCE; Schema: NOTIFICA; Owner: postgres
+--
+
+CREATE SEQUENCE "PREPOSTO_id_preposto_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "NOTIFICA"."PREPOSTO_id_preposto_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2019 (class 0 OID 0)
+-- Dependencies: 172
+-- Name: PREPOSTO_id_preposto_seq; Type: SEQUENCE OWNED BY; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER SEQUENCE "PREPOSTO_id_preposto_seq" OWNED BY "PREPOSTO".id_preposto;
+
+
+--
+-- TOC entry 1832 (class 2604 OID 24735)
+-- Dependencies: 181 180 181
+-- Name: id_celula; Type: DEFAULT; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER TABLE ONLY "CELULA" ALTER COLUMN id_celula SET DEFAULT nextval('"CELULA_id_celula_seq"'::regclass);
+
+
+--
+-- TOC entry 1825 (class 2604 OID 24610)
+-- Dependencies: 167 166 167
+-- Name: id_contexto; Type: DEFAULT; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER TABLE ONLY "CONTEXTO" ALTER COLUMN id_contexto SET DEFAULT nextval('"CONTEXTO_id_contexto_seq"'::regclass);
+
+
+--
+-- TOC entry 1824 (class 2604 OID 24598)
+-- Dependencies: 165 164 165
+-- Name: id_contrato; Type: DEFAULT; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER TABLE ONLY "CONTRATOS" ALTER COLUMN id_contrato SET DEFAULT nextval('"CONTRATOS_id_contrato_seq"'::regclass);
+
+
+--
+-- TOC entry 1829 (class 2604 OID 24687)
+-- Dependencies: 175 174 175
+-- Name: id_coordenacao; Type: DEFAULT; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER TABLE ONLY "COORDENACOES" ALTER COLUMN id_coordenacao SET DEFAULT nextval('"COORDENACOES_id_coordenacao_seq"'::regclass);
+
+
+--
+-- TOC entry 1826 (class 2604 OID 24637)
+-- Dependencies: 168 169 169
+-- Name: id_empresa; Type: DEFAULT; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER TABLE ONLY "EMPRESA" ALTER COLUMN id_empresa SET DEFAULT nextval('"EMPRESA_id_empresa_seq"'::regclass);
+
+
+--
+-- TOC entry 1830 (class 2604 OID 24706)
+-- Dependencies: 177 176 177
+-- Name: id_gestor; Type: DEFAULT; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER TABLE ONLY "GESTOR_COORDENACAO" ALTER COLUMN id_gestor SET DEFAULT nextval('"GESTOR_COORDENACAO_id_gestor_seq"'::regclass);
+
+
+--
+-- TOC entry 1827 (class 2604 OID 24650)
+-- Dependencies: 171 170 171
+-- Name: id_impacto; Type: DEFAULT; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER TABLE ONLY "IMPACTO" ALTER COLUMN id_impacto SET DEFAULT nextval('"IMPACTO_id_impacto_seq"'::regclass);
+
+
+--
+-- TOC entry 1831 (class 2604 OID 24719)
+-- Dependencies: 179 178 179
+-- Name: id_macrocelula; Type: DEFAULT; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER TABLE ONLY "MACROCELULA" ALTER COLUMN id_macrocelula SET DEFAULT nextval('"MACROCELULA_id_macrocelula_seq"'::regclass);
+
+
+--
+-- TOC entry 1828 (class 2604 OID 24670)
+-- Dependencies: 173 172 173
+-- Name: id_preposto; Type: DEFAULT; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER TABLE ONLY "PREPOSTO" ALTER COLUMN id_preposto SET DEFAULT nextval('"PREPOSTO_id_preposto_seq"'::regclass);
+
+
+--
+-- TOC entry 1985 (class 0 OID 24732)
+-- Dependencies: 181 1993
+-- Data for Name: CELULA; Type: TABLE DATA; Schema: NOTIFICA; Owner: postgres
+--
+
+COPY "CELULA" (id_celula, id_macrocelula, no_celula, ds_celula, created_at, updated_at, deleted_at) FROM stdin;
+1	2	Célula 002	Celula 002	2016-05-10 14:20:19	2016-05-10 14:22:04	2016-05-10 14:22:04
+3	3	Célula 03	Célula 03	2016-05-10 14:22:19	2016-05-10 14:22:19	\N
+2	2	Nome da celula	Descrição da celula	2016-05-10 14:21:11	2016-05-10 14:30:33	\N
+\.
+
+
+--
+-- TOC entry 2020 (class 0 OID 0)
+-- Dependencies: 180
+-- Name: CELULA_id_celula_seq; Type: SEQUENCE SET; Schema: NOTIFICA; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"CELULA_id_celula_seq"', 3, true);
+
+
+--
+-- TOC entry 1971 (class 0 OID 24607)
+-- Dependencies: 167 1993
+-- Data for Name: CONTEXTO; Type: TABLE DATA; Schema: NOTIFICA; Owner: postgres
+--
+
+COPY "CONTEXTO" (id_contexto, no_contexto, deleted_at, created_at, updated_at) FROM stdin;
+3	Gestão de Problemas	\N	\N	\N
+2	Gestão de Mudanças	\N	\N	\N
+1	Gestão de Incidentes	\N	\N	2016-04-28 19:04:21
+5	Gestão de Serviços Rotineiros	20:23:38	\N	2016-05-05 20:23:38
+4	Gestão de Serviços	\N	\N	2016-05-05 20:28:01
+7	asdasf	20:28:23	2016-05-05 20:28:12	2016-05-05 20:28:23
+6	texte001	20:28:26	2016-05-05 20:28:08	2016-05-05 20:28:26
+\.
+
+
+--
+-- TOC entry 2021 (class 0 OID 0)
+-- Dependencies: 166
+-- Name: CONTEXTO_id_contexto_seq; Type: SEQUENCE SET; Schema: NOTIFICA; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"CONTEXTO_id_contexto_seq"', 7, true);
+
+
+--
+-- TOC entry 1969 (class 0 OID 24595)
+-- Dependencies: 165 1993
+-- Data for Name: CONTRATOS; Type: TABLE DATA; Schema: NOTIFICA; Owner: postgres
+--
+
+COPY "CONTRATOS" (id_contrato, nu_contrato, dt_assinatura, dt_renovacao, id_empresa, created_at, updated_at, deleted_at) FROM stdin;
+10	88888/8888	2015-12-12	2015-12-12	1	2016-04-29 16:46:41	2016-04-29 17:32:59	2016-04-29 17:32:59
+9	88888/8888	2016-12-12	2016-12-12	1	2016-04-29 16:45:10	2016-04-29 17:35:08	2016-04-29 17:35:08
+2	12121/2016	2016-01-01	2016-01-01	1	2016-04-29 16:37:52	2016-04-29 17:36:08	2016-04-29 17:36:08
+8	66666/6666	2016-12-12	2016-12-12	1	2016-04-29 16:44:47	2016-04-29 17:36:13	2016-04-29 17:36:13
+7	55555/5555	2015-12-12	2015-12-12	1	2016-04-29 16:44:29	2016-04-29 17:36:22	2016-04-29 17:36:22
+5	33333/3333	2015-01-01	2015-01-01	1	2016-04-29 16:42:00	2016-04-29 17:36:31	2016-04-29 17:36:31
+6	12121/2015	2015-11-11	2015-11-11	1	2016-04-29 16:43:13	2016-04-29 17:39:41	2016-04-29 17:39:41
+3	11111/1111	1111-11-11	1111-11-11	1	2016-04-29 16:39:24	2016-04-29 17:45:25	2016-04-29 17:45:25
+4	22222/2222	2222-01-22	2222-01-22	1	2016-04-29 16:41:35	2016-04-29 17:47:47	2016-04-29 17:47:47
+11	01245/2016	2016-01-01	\N	1	2016-05-03 15:13:47	2016-05-03 15:13:47	\N
+1	12247/2015	2015-09-22	\N	1	\N	2016-05-03 15:13:54	2016-05-03 15:13:54
+12	10215/2016	2016-01-01	2017-10-20	1	2016-05-03 15:14:12	2016-05-03 15:14:23	\N
+13	22222/2016	2016-05-01	\N	6	2016-05-05 21:53:56	2016-05-05 21:53:56	\N
+\.
+
+
+--
+-- TOC entry 2022 (class 0 OID 0)
+-- Dependencies: 164
+-- Name: CONTRATOS_id_contrato_seq; Type: SEQUENCE SET; Schema: NOTIFICA; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"CONTRATOS_id_contrato_seq"', 13, true);
+
+
+--
+-- TOC entry 1979 (class 0 OID 24684)
+-- Dependencies: 175 1993
+-- Data for Name: COORDENACOES; Type: TABLE DATA; Schema: NOTIFICA; Owner: postgres
+--
+
+COPY "COORDENACOES" (id_coordenacao, nu_coordenacao, no_coordenacao, ds_coordenacao, ds_email, created_at, updated_at, deleted_at) FROM stdin;
+1	01	CEPTIBR01	Coordenação de Pessoas e Instalações		2016-05-06 14:53:08	2016-05-06 14:53:08	\N
+2	05	CEPTIBR05	Coordenação de Segurança e Continuidade		2016-05-09 12:30:39	2016-05-09 12:30:39	\N
+3	06	CEPTIBR06	Coordenação de Qualidade de Serviços de TI		2016-05-09 12:31:09	2016-05-09 12:31:09	\N
+4	08	CEPTIBR08	Coordenação de Incidentes e Monitoração		2016-05-09 12:32:15	2016-05-09 12:32:15	\N
+5	09	CEPTIBR09	CEPTIBR09 - Gerência de Centralizadora	\N	\N	\N	\N
+6	20	CEPTIBR20	CEPTIBR20 - Coordenação de Suporte Plataforma Intermediária	\N	\N	\N	\N
+7	21	CEPTIBR21	CEPTIBR21 - Coordenação de Suporte Plataforma Baixa	\N	\N	\N	\N
+8	23	CEPTIBR23	CEPTIBR23 - Coordenação de Suporte Plataforma Alta	\N	\N	\N	\N
+9	31	CEPTIBR31	CEPTIBR31 - Coordenação de Bases de Dados	\N	\N	\N	\N
+10	32	CEPTIBR32	CEPTIBR32 - Planejamento e Controle da Produção - Batch	\N	\N	\N	\N
+11	33	CEPTIBR33	CEPTIBR33 - Coordenação de Armazenamento	\N	\N	\N	\N
+12	34	CEPTIBR34	CEPTIBR34 - Planejamento e Controle da Produção - Online	\N	\N	\N	\N
+13	35	CEPTIBR35	CEPTIBR35 - Planejamento e Controle de Produção de Cartões	\N	\N	\N	\N
+14	36	CEPTIBR36	CEPTIBR36 - Coordenação de Capacidade - Desempenho e Arquitetura de Serviço	\N	\N	\N	\N
+15	40	CEPTIBR40	CEPTIBR40 - Coordenação de Integração e Projetos	\N	\N	\N	\N
+16	49	CEPTIBR49	CEPTIBR49 - Coordenação de Mudanças e Configuração	\N	\N	\N	\N
+17	91	CEPTIBR91	CEPTIBR91 - Coordenação de Operação Noturna	\N	\N	\N	\N
+\.
+
+
+--
+-- TOC entry 2023 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: COORDENACOES_id_coordenacao_seq; Type: SEQUENCE SET; Schema: NOTIFICA; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"COORDENACOES_id_coordenacao_seq"', 17, true);
+
+
+--
+-- TOC entry 1973 (class 0 OID 24634)
+-- Dependencies: 169 1993
+-- Data for Name: EMPRESA; Type: TABLE DATA; Schema: NOTIFICA; Owner: postgres
+--
+
+COPY "EMPRESA" (id_empresa, no_empresa, ds_cnpj, created_at, updated_at, deleted_at) FROM stdin;
+1	HITSS DO BRASIL SERVIÇOS TECNOLÓGICOS	11.168.199/0001-88	\N	\N	\N
+3	Empresa do Allan	11.111.111/1111-11	2016-05-03 15:39:31	2016-05-03 15:42:06	2016-05-03 15:42:06
+4	Empresa número 2	22.222.222/2222-22	2016-05-03 15:42:16	2016-05-03 15:42:23	2016-05-03 15:42:23
+2	Empresa do Allan	11.111.111/1111-11	2016-05-03 15:39:14	2016-05-03 15:42:56	2016-05-03 15:42:56
+5	Empresa do Allannnn	22.222.222/2222-22	2016-05-03 15:43:05	2016-05-05 19:09:38	\N
+6	Empresa do Paulo	22.222.222/2222-22	2016-05-05 21:53:30	2016-05-05 21:53:30	\N
+\.
+
+
+--
+-- TOC entry 2024 (class 0 OID 0)
+-- Dependencies: 168
+-- Name: EMPRESA_id_empresa_seq; Type: SEQUENCE SET; Schema: NOTIFICA; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"EMPRESA_id_empresa_seq"', 6, true);
+
+
+--
+-- TOC entry 1981 (class 0 OID 24703)
+-- Dependencies: 177 1993
+-- Data for Name: GESTOR_COORDENACAO; Type: TABLE DATA; Schema: NOTIFICA; Owner: postgres
+--
+
+COPY "GESTOR_COORDENACAO" (id_gestor, id_coordenacao, no_gestor, ma_gestor, created_at, updated_at, deleted_at) FROM stdin;
+1	1	Allan Torres da Silva	c141934	2016-05-09 12:28:59	2016-05-09 13:10:53	\N
+2	3	AAA BBBBBB CCCCC	c141111	2016-05-09 13:11:15	2016-05-09 13:13:44	2016-05-09 13:13:44
+\.
+
+
+--
+-- TOC entry 2025 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: GESTOR_COORDENACAO_id_gestor_seq; Type: SEQUENCE SET; Schema: NOTIFICA; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"GESTOR_COORDENACAO_id_gestor_seq"', 2, true);
+
+
+--
+-- TOC entry 1975 (class 0 OID 24647)
+-- Dependencies: 171 1993
+-- Data for Name: IMPACTO; Type: TABLE DATA; Schema: NOTIFICA; Owner: postgres
+--
+
+COPY "IMPACTO" (id_impacto, no_impacto, created_at, updated_at, deleted_at) FROM stdin;
+1	Baixo	2016-05-05 20:44:24	2016-05-05 20:44:24	\N
+2	Médio	2016-05-05 20:45:29	2016-05-05 20:57:12	\N
+3	asdfsdfsasdsf sdf fsdf 	2016-05-05 21:00:13	2016-05-05 21:00:23	2016-05-05 21:00:23
+\.
+
+
+--
+-- TOC entry 2026 (class 0 OID 0)
+-- Dependencies: 170
+-- Name: IMPACTO_id_impacto_seq; Type: SEQUENCE SET; Schema: NOTIFICA; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"IMPACTO_id_impacto_seq"', 3, true);
+
+
+--
+-- TOC entry 1987 (class 0 OID 24760)
+-- Dependencies: 183 1993
+-- Data for Name: INDICADOR; Type: TABLE DATA; Schema: NOTIFICA; Owner: postgres
+--
+
+COPY "INDICADOR" (id_indicador, sg_indicador, no_indicador, ds_indicador, id_contrato, created_at, updated_at, deleted_at) FROM stdin;
+3	IND001	Indicador 001	Esse indicador é baseado em ...	11	17:04:04-03	17:04:04-03	\N
+\.
+
+
+--
+-- TOC entry 2027 (class 0 OID 0)
+-- Dependencies: 182
+-- Name: INDICADOR_id_indicador_seq; Type: SEQUENCE SET; Schema: NOTIFICA; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"INDICADOR_id_indicador_seq"', 3, true);
+
+
+--
+-- TOC entry 1983 (class 0 OID 24716)
+-- Dependencies: 179 1993
+-- Data for Name: MACROCELULA; Type: TABLE DATA; Schema: NOTIFICA; Owner: postgres
+--
+
+COPY "MACROCELULA" (id_macrocelula, id_contrato, no_macrocelula, ds_macrocelula, created_at, updated_at, deleted_at) FROM stdin;
+1	12	macrocélula 001	Macrocélula destinada ao lkkllksd	2016-05-09 15:03:12	2016-05-09 15:03:31	2016-05-09 15:03:31
+2	12	Macrocélula 002	Macrocelula 002 noturna	2016-05-09 15:04:09	2016-05-09 15:14:11	\N
+3	13	Macrocélula 03	macrocélula 03 noturna	2016-05-09 15:14:33	2016-05-09 15:14:33	\N
+\.
+
+
+--
+-- TOC entry 2028 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: MACROCELULA_id_macrocelula_seq; Type: SEQUENCE SET; Schema: NOTIFICA; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"MACROCELULA_id_macrocelula_seq"', 3, true);
+
+
+--
+-- TOC entry 1989 (class 0 OID 24776)
+-- Dependencies: 185 1993
+-- Data for Name: MOTIVO; Type: TABLE DATA; Schema: NOTIFICA; Owner: postgres
+--
+
+COPY "MOTIVO" (id_motivo, no_motivo, created_at, updated_at, deleted_at) FROM stdin;
+3	ATRASO NA PRESTAÇÃO DO SERVIÇO 	\N	\N	\N
+4	INEXECUÇÃO 	\N	\N	\N
+5	EXECUÇÃO INCONFORME	\N	\N	\N
+6	INDISPONIBILIDADE	\N	\N	\N
+7	ADMINISTRAR DADOS	\N	\N	\N
+\.
+
+
+--
+-- TOC entry 2029 (class 0 OID 0)
+-- Dependencies: 184
+-- Name: MOTIVO_id_motivo_seq; Type: SEQUENCE SET; Schema: NOTIFICA; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"MOTIVO_id_motivo_seq"', 7, true);
+
+
+--
+-- TOC entry 1991 (class 0 OID 24784)
+-- Dependencies: 187 1993
+-- Data for Name: NOTIFICACAO; Type: TABLE DATA; Schema: NOTIFICA; Owner: postgres
+--
+
+COPY "NOTIFICACAO" (id_notificacao, id_contrato, id_contexto, ds_ocorrencia, id_notificadora, id_impactada, ds_ticket, ds_notificacao, nu_horas, bit_aceito, ds_justificativa, id_preposto, ma_cadastro, ds_naoacatado, dt_justificativa, dt_naoacatado, ma_avaliador, dt_fim_justificativa, ds_acatamentoespecial, ma_justificativa, id_indicador, created_at, updated_at, deleted_at) FROM stdin;
+13	12	\N	234sd fsdf 	5	4	zdf sdf sdf sdf sdf s	sdf sdf sdf&nbsp;	12	\N	\N	\N	c141934	\N	\N	\N	\N	\N	\N	\N	3	2016-11-22 16:32:58	2016-11-22 16:32:58	\N
+12	12	\N	1213	6	5	3asf sdf sdf sdf sdf&nbsp;	d fsdf sdf sdf sd f	123	3	<b>justificado</b>	\N	c141934		\N	\N	c141934	\N	\N	c141934	3	2016-11-22 16:18:18	2016-11-22 18:37:42	\N
+14	12	\N	89	6	5	dfg f gdf g&nbsp;	&nbsp;dsfg gsfg sf g	34	\N	\N	\N	c141934	\N	\N	\N	\N	\N	\N	\N	3	2016-11-22 18:38:24	2016-11-22 18:38:24	\N
+\.
+
+
+--
+-- TOC entry 1992 (class 0 OID 24793)
+-- Dependencies: 188 1993
+-- Data for Name: NOTIFICACAO_MOTIVO; Type: TABLE DATA; Schema: NOTIFICA; Owner: postgres
+--
+
+COPY "NOTIFICACAO_MOTIVO" (id_notificacao, id_motivo) FROM stdin;
+7	5
+8	3
+9	3
+10	3
+11	3
+12	3
+13	4
+14	3
+\.
+
+
+--
+-- TOC entry 2030 (class 0 OID 0)
+-- Dependencies: 186
+-- Name: NOTIFICACAO_id_notificacao_seq; Type: SEQUENCE SET; Schema: NOTIFICA; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"NOTIFICACAO_id_notificacao_seq"', 14, true);
+
+
+--
+-- TOC entry 1977 (class 0 OID 24667)
+-- Dependencies: 173 1993
+-- Data for Name: PREPOSTO; Type: TABLE DATA; Schema: NOTIFICA; Owner: postgres
+--
+
+COPY "PREPOSTO" (id_preposto, id_contrato, ma_preposto, no_preposto, created_at, updated_at, deleted_at) FROM stdin;
+2	12	c141934	Allan Torres da Silva	2016-05-05 21:43:22	2016-05-05 21:43:31	2016-05-05 21:43:31
+3	12	c141934	Allan Torres da Silva	2016-05-05 21:44:12	2016-05-05 21:50:18	\N
+4	13	p1111111	Paulo Eu	2016-05-05 21:54:31	2016-05-05 21:58:14	2016-05-05 21:58:14
+5	12	f1001200	Nome da pessoa	2016-05-11 11:06:03	2016-05-11 11:06:03	\N
+\.
+
+
+--
+-- TOC entry 2031 (class 0 OID 0)
+-- Dependencies: 172
+-- Name: PREPOSTO_id_preposto_seq; Type: SEQUENCE SET; Schema: NOTIFICA; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"PREPOSTO_id_preposto_seq"', 5, true);
+
+
+--
+-- TOC entry 1861 (class 2606 OID 24797)
+-- Dependencies: 188 188 188 1994
+-- Name: NOTIFICACAO_MOTIVO_pkey; Type: CONSTRAINT; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "NOTIFICACAO_MOTIVO"
+    ADD CONSTRAINT "NOTIFICACAO_MOTIVO_pkey" PRIMARY KEY (id_notificacao, id_motivo);
+
+
+--
+-- TOC entry 1855 (class 2606 OID 24768)
+-- Dependencies: 183 183 1994
+-- Name: PK_INDICADOR; Type: CONSTRAINT; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "INDICADOR"
+    ADD CONSTRAINT "PK_INDICADOR" PRIMARY KEY (id_indicador);
+
+
+--
+-- TOC entry 1857 (class 2606 OID 24781)
+-- Dependencies: 185 185 1994
+-- Name: PK_MOTIVO; Type: CONSTRAINT; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "MOTIVO"
+    ADD CONSTRAINT "PK_MOTIVO" PRIMARY KEY (id_motivo);
+
+
+--
+-- TOC entry 1859 (class 2606 OID 24792)
+-- Dependencies: 187 187 1994
+-- Name: PK_NOTIFICACAO; Type: CONSTRAINT; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "NOTIFICACAO"
+    ADD CONSTRAINT "PK_NOTIFICACAO" PRIMARY KEY (id_notificacao);
+
+
+--
+-- TOC entry 1853 (class 2606 OID 24737)
+-- Dependencies: 181 181 1994
+-- Name: pk_celula; Type: CONSTRAINT; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "CELULA"
+    ADD CONSTRAINT pk_celula PRIMARY KEY (id_celula);
+
+
+--
+-- TOC entry 1839 (class 2606 OID 24612)
+-- Dependencies: 167 167 1994
+-- Name: pk_contexto; Type: CONSTRAINT; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "CONTEXTO"
+    ADD CONSTRAINT pk_contexto PRIMARY KEY (id_contexto);
+
+
+--
+-- TOC entry 1837 (class 2606 OID 24603)
+-- Dependencies: 165 165 1994
+-- Name: pk_contratos; Type: CONSTRAINT; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "CONTRATOS"
+    ADD CONSTRAINT pk_contratos PRIMARY KEY (id_contrato);
+
+
+--
+-- TOC entry 1847 (class 2606 OID 24692)
+-- Dependencies: 175 175 1994
+-- Name: pk_coordenacoes; Type: CONSTRAINT; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "COORDENACOES"
+    ADD CONSTRAINT pk_coordenacoes PRIMARY KEY (id_coordenacao);
+
+
+--
+-- TOC entry 1841 (class 2606 OID 24639)
+-- Dependencies: 169 169 1994
+-- Name: pk_empresa; Type: CONSTRAINT; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "EMPRESA"
+    ADD CONSTRAINT pk_empresa PRIMARY KEY (id_empresa);
+
+
+--
+-- TOC entry 1849 (class 2606 OID 24708)
+-- Dependencies: 177 177 1994
+-- Name: pk_gestor_coordenacao; Type: CONSTRAINT; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "GESTOR_COORDENACAO"
+    ADD CONSTRAINT pk_gestor_coordenacao PRIMARY KEY (id_gestor);
+
+
+--
+-- TOC entry 1843 (class 2606 OID 24652)
+-- Dependencies: 171 171 1994
+-- Name: pk_impacto; Type: CONSTRAINT; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "IMPACTO"
+    ADD CONSTRAINT pk_impacto PRIMARY KEY (id_impacto);
+
+
+--
+-- TOC entry 1851 (class 2606 OID 24721)
+-- Dependencies: 179 179 1994
+-- Name: pk_macrocelula; Type: CONSTRAINT; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "MACROCELULA"
+    ADD CONSTRAINT pk_macrocelula PRIMARY KEY (id_macrocelula);
+
+
+--
+-- TOC entry 1845 (class 2606 OID 24672)
+-- Dependencies: 173 173 1994
+-- Name: pk_preposto; Type: CONSTRAINT; Schema: NOTIFICA; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "PREPOSTO"
+    ADD CONSTRAINT pk_preposto PRIMARY KEY (id_preposto);
+
+
+--
+-- TOC entry 1866 (class 2606 OID 24769)
+-- Dependencies: 183 165 1836 1994
+-- Name: FK_CONTRATO; Type: FK CONSTRAINT; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER TABLE ONLY "INDICADOR"
+    ADD CONSTRAINT "FK_CONTRATO" FOREIGN KEY (id_contrato) REFERENCES "CONTRATOS"(id_contrato);
+
+
+--
+-- TOC entry 1865 (class 2606 OID 24738)
+-- Dependencies: 181 179 1850 1994
+-- Name: fk_celula_celula_ma_macrocel; Type: FK CONSTRAINT; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER TABLE ONLY "CELULA"
+    ADD CONSTRAINT fk_celula_celula_ma_macrocel FOREIGN KEY (id_macrocelula) REFERENCES "MACROCELULA"(id_macrocelula) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 1863 (class 2606 OID 24709)
+-- Dependencies: 177 175 1846 1994
+-- Name: fk_gestor_c_fk_gestor_coordena; Type: FK CONSTRAINT; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER TABLE ONLY "GESTOR_COORDENACAO"
+    ADD CONSTRAINT fk_gestor_c_fk_gestor_coordena FOREIGN KEY (id_coordenacao) REFERENCES "COORDENACOES"(id_coordenacao) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 1864 (class 2606 OID 24722)
+-- Dependencies: 179 1836 165 1994
+-- Name: fk_macrocel_contratos_contrato; Type: FK CONSTRAINT; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER TABLE ONLY "MACROCELULA"
+    ADD CONSTRAINT fk_macrocel_contratos_contrato FOREIGN KEY (id_contrato) REFERENCES "CONTRATOS"(id_contrato) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 1862 (class 2606 OID 24673)
+-- Dependencies: 1836 173 165 1994
+-- Name: fk_preposto_contrato; Type: FK CONSTRAINT; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER TABLE ONLY "PREPOSTO"
+    ADD CONSTRAINT fk_preposto_contrato FOREIGN KEY (id_contrato) REFERENCES "CONTRATOS"(id_contrato) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 1997 (class 0 OID 0)
+-- Dependencies: 8
+-- Name: NOTIFICA; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA "NOTIFICA" FROM PUBLIC;
+REVOKE ALL ON SCHEMA "NOTIFICA" FROM postgres;
+GRANT ALL ON SCHEMA "NOTIFICA" TO postgres;
+GRANT ALL ON SCHEMA "NOTIFICA" TO PUBLIC;
+
+
+--
+-- TOC entry 1998 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: CELULA; Type: ACL; Schema: NOTIFICA; Owner: postgres
+--
+
+REVOKE ALL ON TABLE "CELULA" FROM PUBLIC;
+REVOKE ALL ON TABLE "CELULA" FROM postgres;
+GRANT ALL ON TABLE "CELULA" TO postgres;
+GRANT ALL ON TABLE "CELULA" TO PUBLIC;
+
+
+--
+-- TOC entry 2000 (class 0 OID 0)
+-- Dependencies: 167
+-- Name: CONTEXTO; Type: ACL; Schema: NOTIFICA; Owner: postgres
+--
+
+REVOKE ALL ON TABLE "CONTEXTO" FROM PUBLIC;
+REVOKE ALL ON TABLE "CONTEXTO" FROM postgres;
+GRANT ALL ON TABLE "CONTEXTO" TO postgres;
+GRANT ALL ON TABLE "CONTEXTO" TO PUBLIC;
+
+
+--
+-- TOC entry 2002 (class 0 OID 0)
+-- Dependencies: 165
+-- Name: CONTRATOS; Type: ACL; Schema: NOTIFICA; Owner: postgres
+--
+
+REVOKE ALL ON TABLE "CONTRATOS" FROM PUBLIC;
+REVOKE ALL ON TABLE "CONTRATOS" FROM postgres;
+GRANT ALL ON TABLE "CONTRATOS" TO postgres;
+GRANT ALL ON TABLE "CONTRATOS" TO PUBLIC;
+
+
+--
+-- TOC entry 2004 (class 0 OID 0)
+-- Dependencies: 175
+-- Name: COORDENACOES; Type: ACL; Schema: NOTIFICA; Owner: postgres
+--
+
+REVOKE ALL ON TABLE "COORDENACOES" FROM PUBLIC;
+REVOKE ALL ON TABLE "COORDENACOES" FROM postgres;
+GRANT ALL ON TABLE "COORDENACOES" TO postgres;
+GRANT ALL ON TABLE "COORDENACOES" TO PUBLIC;
+
+
+--
+-- TOC entry 2006 (class 0 OID 0)
+-- Dependencies: 169
+-- Name: EMPRESA; Type: ACL; Schema: NOTIFICA; Owner: postgres
+--
+
+REVOKE ALL ON TABLE "EMPRESA" FROM PUBLIC;
+REVOKE ALL ON TABLE "EMPRESA" FROM postgres;
+GRANT ALL ON TABLE "EMPRESA" TO postgres;
+GRANT ALL ON TABLE "EMPRESA" TO PUBLIC;
+
+
+--
+-- TOC entry 2008 (class 0 OID 0)
+-- Dependencies: 177
+-- Name: GESTOR_COORDENACAO; Type: ACL; Schema: NOTIFICA; Owner: postgres
+--
+
+REVOKE ALL ON TABLE "GESTOR_COORDENACAO" FROM PUBLIC;
+REVOKE ALL ON TABLE "GESTOR_COORDENACAO" FROM postgres;
+GRANT ALL ON TABLE "GESTOR_COORDENACAO" TO postgres;
+GRANT ALL ON TABLE "GESTOR_COORDENACAO" TO PUBLIC;
+
+
+--
+-- TOC entry 2010 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: IMPACTO; Type: ACL; Schema: NOTIFICA; Owner: postgres
+--
+
+REVOKE ALL ON TABLE "IMPACTO" FROM PUBLIC;
+REVOKE ALL ON TABLE "IMPACTO" FROM postgres;
+GRANT ALL ON TABLE "IMPACTO" TO postgres;
+GRANT ALL ON TABLE "IMPACTO" TO PUBLIC;
+
+
+--
+-- TOC entry 2012 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: INDICADOR; Type: ACL; Schema: NOTIFICA; Owner: postgres
+--
+
+REVOKE ALL ON TABLE "INDICADOR" FROM PUBLIC;
+REVOKE ALL ON TABLE "INDICADOR" FROM postgres;
+GRANT ALL ON TABLE "INDICADOR" TO postgres;
+GRANT ALL ON TABLE "INDICADOR" TO PUBLIC;
+
+
+--
+-- TOC entry 2013 (class 0 OID 0)
+-- Dependencies: 179
+-- Name: MACROCELULA; Type: ACL; Schema: NOTIFICA; Owner: postgres
+--
+
+REVOKE ALL ON TABLE "MACROCELULA" FROM PUBLIC;
+REVOKE ALL ON TABLE "MACROCELULA" FROM postgres;
+GRANT ALL ON TABLE "MACROCELULA" TO postgres;
+GRANT ALL ON TABLE "MACROCELULA" TO PUBLIC;
+
+
+--
+-- TOC entry 2015 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: MOTIVO; Type: ACL; Schema: NOTIFICA; Owner: postgres
+--
+
+REVOKE ALL ON TABLE "MOTIVO" FROM PUBLIC;
+REVOKE ALL ON TABLE "MOTIVO" FROM postgres;
+GRANT ALL ON TABLE "MOTIVO" TO postgres;
+GRANT ALL ON TABLE "MOTIVO" TO PUBLIC;
+
+
+--
+-- TOC entry 2016 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: NOTIFICACAO; Type: ACL; Schema: NOTIFICA; Owner: postgres
+--
+
+REVOKE ALL ON TABLE "NOTIFICACAO" FROM PUBLIC;
+REVOKE ALL ON TABLE "NOTIFICACAO" FROM postgres;
+GRANT ALL ON TABLE "NOTIFICACAO" TO postgres;
+GRANT ALL ON TABLE "NOTIFICACAO" TO PUBLIC;
+
+
+--
+-- TOC entry 2017 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: NOTIFICACAO_MOTIVO; Type: ACL; Schema: NOTIFICA; Owner: postgres
+--
+
+REVOKE ALL ON TABLE "NOTIFICACAO_MOTIVO" FROM PUBLIC;
+REVOKE ALL ON TABLE "NOTIFICACAO_MOTIVO" FROM postgres;
+GRANT ALL ON TABLE "NOTIFICACAO_MOTIVO" TO postgres;
+GRANT ALL ON TABLE "NOTIFICACAO_MOTIVO" TO PUBLIC;
+
+
+--
+-- TOC entry 2018 (class 0 OID 0)
+-- Dependencies: 173
+-- Name: PREPOSTO; Type: ACL; Schema: NOTIFICA; Owner: postgres
+--
+
+REVOKE ALL ON TABLE "PREPOSTO" FROM PUBLIC;
+REVOKE ALL ON TABLE "PREPOSTO" FROM postgres;
+GRANT ALL ON TABLE "PREPOSTO" TO postgres;
+GRANT ALL ON TABLE "PREPOSTO" TO PUBLIC;
+
+
+--
+-- TOC entry 1491 (class 826 OID 24589)
+-- Dependencies: 8 1994
+-- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: NOTIFICA; Owner: postgres
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA "NOTIFICA" REVOKE ALL ON TABLES  FROM PUBLIC;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA "NOTIFICA" REVOKE ALL ON TABLES  FROM postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA "NOTIFICA" GRANT ALL ON TABLES  TO PUBLIC;
+
+
+-- Completed on 2016-11-22 18:03:16
+
+--
+-- PostgreSQL database dump complete
+--
+

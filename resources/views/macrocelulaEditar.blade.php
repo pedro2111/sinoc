@@ -33,7 +33,7 @@
 
         <div class="tab-pane active" id="recent">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class="panel">
                 <div class="panel-heading nopaddingbottom">
                       <h4 class="panel-title">Preencha corretamente o formulário abaixo</h4>
@@ -47,14 +47,14 @@
 
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Nome <span class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="col-sm-9">
                             <input type="text" name="nomacrocelula" id="nomacrocelula" value="{{ $macrocelula->no_macrocelula }}" class="form-control" title="Informe o nome da macrocélula que você deseja cadastrar" placeholder="" required />
                           </div>
                         </div>
 
                         <div class="form-group">
-                          <label class="col-sm-3 control-label">Descrição <span class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <label class="col-sm-3 control-label">Descrição</label>
+                          <div class="col-sm-9">
                             <input type="text" name="dsmacrocelula" id="dsmacrocelula" value="{{ $macrocelula->ds_macrocelula }}" class="form-control" title="Informe a descrição desta macrocélula" placeholder="" required />
                           </div>
                         </div>
@@ -62,7 +62,7 @@
                      
                     <div class="form-group">
                     <label class="col-sm-3 control-label">Nº do contrato <span class="text-danger">*</span></label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-9">
                       <select class="select2" id="idcontrato" name="idcontrato" style="width: 100%" data-placeholder="Selecione um contrato" title="Você precisa selecionar um contrato" required>
                         <option value=""></option>
                           @foreach ($Contratos as $contrato)

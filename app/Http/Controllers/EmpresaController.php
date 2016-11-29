@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Empresa as Empresa; 
 use App\Models\Contrato as Contrato;
+use App\Models\Coordenacao as Coordenacao;
+
 
 use Illuminate\Http\Request;
 use DB;
@@ -23,7 +25,9 @@ class EmpresaController extends Controller
         //Listando as empresas
         $Empresas = Empresa::all();
         $Contratos = Contrato::all();
-
+        $Coordenacoes = Coordenacao::all();
+        
+        
         //Listando todos os contratos válidos do sistema     
         $Contratos = DB::table('CONTRATOS')
             ->join('EMPRESA', 'CONTRATOS.id_empresa', '=', 'EMPRESA.id_empresa')
@@ -36,7 +40,8 @@ class EmpresaController extends Controller
         //Carregando View e repassando as variáveis necessárias
         return view('empresa', [ 'matricula' => $matricula,
                                  'Empresas'  => $Empresas,
-                                 'Contratos' => $Contratos
+                                 'Contratos' => $Contratos,
+        						 'Coordenacoes' => $Coordenacoes,
                                  ]);
 
     }
@@ -51,6 +56,7 @@ class EmpresaController extends Controller
         //Pegando informações do usuário que está acessando o sistema 
         $matricula  =  getenv('USERNAME');
         $Contratos = Contrato::all();
+        $Coordenacoes = Coordenacao::all();
          //Listando as empresas
         $Empresas = DB::table('EMPRESA')
                     ->where('EMPRESA.id_empresa', $id)
@@ -61,7 +67,8 @@ class EmpresaController extends Controller
         //Carregando View e repassando as variaveis necessárias
         return view('empresaEditar', [  'matricula' => $matricula,
                                         'Empresas'  => $Empresas,
-                                        'Contratos' => $Contratos
+                                        'Contratos' => $Contratos,
+        								'Coordenacoes' => $Coordenacoes,
                                     ]);
     }
 

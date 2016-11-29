@@ -32,7 +32,7 @@
 
         <div class="tab-pane active" id="recent">
           <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-12">
               <div class="panel">
                 <div class="panel-heading nopaddingbottom">
                       <h4 class="panel-title">Preencha corretamente o formulário abaixo</h4>
@@ -46,28 +46,28 @@
 
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Sigla do indicador<span class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="col-sm-9">
                             <input type="text" name="sg_indicador" id="sg_indicador" value="{{ $indicador->sg_indicador }}" class="form-control" title="Informe o nome da célula que você deseja cadastrar" placeholder="" required />
                           </div>
                         </div>
 
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Nome do indicador <span class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="col-sm-9">
                             <input type="text" name="no_indicador" id="no_indicador" value="{{ $indicador->no_indicador }}" class="form-control" title="Informe a descrição desta célula" placeholder="" />
                           </div>
                         </div>
                 
                         <div class="form-group">
-                          <label class="col-sm-3 control-label">Descrição <span class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <label class="col-sm-3 control-label">Descrição</label>
+                          <div class="col-sm-9">
                             <input type="text" name="ds_indicador" id="ds_indicador" value="{{ $indicador->ds_indicador }}" class="form-control" title="Informe a descrição desta célula" placeholder="" />
                           </div>
                         </div>
                      
                     <div class="form-group">
                     <label class="col-sm-3 control-label">Macrocélula <span class="text-danger">*</span></label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-9">
                       <select class="select2" id="id_contrato" name="id_contrato" style="width: 100%" data-placeholder="Selecione uma macrocélula" title="Você precisa selecionar uma macrocélula" required>
                         <option value=""></option>
                               @foreach ($Contratos as $Contrato)

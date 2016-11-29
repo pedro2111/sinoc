@@ -34,7 +34,7 @@
 
         <div class="tab-pane active" id="recent">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class="panel">
                 <div class="panel-heading nopaddingbottom">
                       <h4 class="panel-title">Preencha corretamente o formulário abaixo</h4>
@@ -50,14 +50,14 @@
 
                               <div class="form-group">
                                 <label class="col-sm-3 control-label">CNPJ da empresa<span class="text-danger">*</span></label>
-                                <div class="col-sm-8">
+                                <div class="col-sm-9">
                                   <input type="text" name="dscnpj" id="dscnpj" value="{{ $Empresa->ds_cnpj }}" class="form-control" title="Informe corretamente o CNPJ da empresa!" placeholder="00.000.000/0000-00" required />
                                 </div>
                               </div>
 
                               <div class="form-group">
                                 <label class="col-sm-3 control-label">Nome da empresa<span class="text-danger">*</span></label>
-                                <div class="col-sm-8">
+                                <div class="col-sm-9">
                                   <input type="text" name="noempresa" id="noempresa"  value="{{ $Empresa->no_empresa }}" class="form-control" title="Informe o nome da empresa" required />
                                 </div>
                               </div>
@@ -108,6 +108,10 @@ $(document).ready(function(){
 
     // Input Masks
   $("#dscnpj").mask("99.999.999/9999-99");
+
+
+  $('.select2').select2();
+  
   
   // Error Message In One Container
   $('#basicForm').validate({

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Contrato as Contrato; 
 use App\Models\Indicador as Indicador;  
-
+use App\Models\Coordenacao as Coordenacao;
 
 use Illuminate\Http\Request;
 use DB;
@@ -23,7 +23,7 @@ class IndicadorController extends Controller
 
         //Listando as empresas
         $Contratos = Contrato::all();
-
+        $Coordenacoes = Coordenacao::all();
         //Listando todos os contratos válidos do sistema     
         $Indicadores = DB::table('INDICADOR')
             ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'INDICADOR.id_contrato')
@@ -36,7 +36,8 @@ class IndicadorController extends Controller
         //Carregando View e repassando as variáveis necessárias
         return view('indicador', ['matricula'   => $matricula, 
                                  'Indicadores'  => $Indicadores,
-                                 'Contratos'    => $Contratos
+                                 'Contratos'    => $Contratos,
+        						 'Coordenacoes' => $Coordenacoes,
                                  ]);
 
     }
@@ -53,8 +54,10 @@ class IndicadorController extends Controller
 
          //Listando os contratos
         $Contratos = Contrato::all();
-
+        $Coordenacoes = Coordenacao::all();
+        
         //Buscando informações especificas do ID = $id
+        
       $Indicadores = DB::table('INDICADOR')
             ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'INDICADOR.id_contrato')
             ->where('INDICADOR.deleted_at', null)
@@ -66,8 +69,9 @@ class IndicadorController extends Controller
 
         //Carregando View e repassando as variaveis necessárias
         return view('indicadorEditar', ['matricula' => $matricula,
-                                 'Indicadores'  => $Indicadores, 
-                                 'Contratos' => $Contratos
+                                 		'Indicadores'  => $Indicadores, 
+                                 		'Contratos' => $Contratos,
+        								'Coordenacoes' => $Coordenacoes,
 
                                  ]);
     }

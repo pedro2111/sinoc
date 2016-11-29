@@ -98,7 +98,7 @@
 
           <div class="tab-pane" id="recent">
           <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-12">
               <div class="panel">
                 <div class="panel-heading nopaddingbottom">
                       <h4 class="panel-title">Preencha corretamente o formulário abaixo</h4>
@@ -112,14 +112,14 @@
 
                         <div class="form-group">
                           <label class="col-sm-3 control-label"> Sigla do indicador<span class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="col-sm-9">
                             <input type="text" name="sg_indicador" id="sg_indicador" class="form-control" title="Informe a sigla do indicador que você deseja cadastrar" placeholder="" required />
                           </div>
                         </div>
              
                         <div class="form-group">
                           <label class="col-sm-3 control-label"> Nome do indicador<span class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="col-sm-9">
                             <input type="text" name="no_indicador" id="no_indicador" class="form-control" title="Informe o nome do indicador que você deseja cadastrar" placeholder="" required />
                           </div>
                         </div>
@@ -127,7 +127,7 @@
 
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Descrição <span class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="col-sm-9">
                             <input type="text" name="ds_indicador" id="ds_indicador" class="form-control" title="Informe a descrição deste indicador" placeholder="" />
                           </div>
                         </div>
@@ -135,7 +135,7 @@
 
                     <div class="form-group">
                     <label class="col-sm-3 control-label">Contrato <span class="text-danger">*</span></label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-9">
                       <select class="select2" id="id_contrato" name="id_contrato" style="width: 100%" data-placeholder="Selecione um contrato" title="Você precisa selecionar uma contrato" required>
                         <option value=""></option>
                           @foreach ($Contratos as $Contrato)

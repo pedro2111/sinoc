@@ -100,7 +100,7 @@
 
           <div class="tab-pane" id="recent">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class="panel">
                 <div class="panel-heading nopaddingbottom">
                       <h4 class="panel-title">Preencha corretamente o formulário abaixo</h4>
@@ -112,30 +112,30 @@
                         <div class="error" display="block"></div>
 
                         <div class="form-group">
-                          <label class="col-sm-4 control-label">Número da coordenação <span class="text-danger">*</span></label>
-                          <div class="col-sm-7">
+                          <label class="col-sm-3 control-label">Número da coordenação <span class="text-danger">*</span></label>
+                          <div class="col-sm-9">
                             <input type="text" name="nucoordenacao" id="nucoordenacao" class="form-control" title="Informe o número da coordenação!" placeholder="00" required />
                           </div>
                         </div>
 
                         <div class="form-group">
-                          <label class="col-sm-4 control-label">Nome da coordenação (resumido)<span class="text-danger">*</span></label>
-                          <div class="col-sm-7">
+                          <label class="col-sm-3 control-label">Nome da coordenação (resumido)<span class="text-danger">*</span></label>
+                          <div class="col-sm-9">
                             <input type="text" name="nocoordenacao" id="nocoordenacao" class="form-control" title="Informe o nome da coordenação corretamete!" placeholder="CEPTIBRXXX" required />
                           </div>
                         </div>
 
                         <div class="form-group">
-                          <label class="col-sm-4 control-label">Descrição da coordenação</label>
-                          <div class="col-sm-7">
+                          <label class="col-sm-3 control-label">Descrição da coordenação<span class="text-danger">*</span></label>
+                          <div class="col-sm-9">
                             <input type="text" name="dscoordenacao" id="dscoordenacao" class="form-control" title="Informe o nome detalhado da coordenação!" placeholder="Coordenação de ..." required/>
                           </div>
                         </div>
 
 
                         <div class="form-group">
-                          <label class="col-sm-4 control-label">E-mail</label>
-                          <div class="col-sm-7">
+                          <label class="col-sm-3 control-label">E-mail</label>
+                          <div class="col-sm-9">
                             <input type="text" name="dsemail" id="dsemail" class="form-control" placeholder="" />
                           </div>
                         </div>
@@ -197,8 +197,7 @@ $(document).ready(function(){
    errorLabelContainer: jQuery('#basicForm div.error')
   });
 
-
-  //$('#dataTable1').DataTable();
+  $('.select2').select2();
 
   $('#dataTable1').dataTable({                              
  "oLanguage": {

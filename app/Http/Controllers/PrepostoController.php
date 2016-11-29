@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Empresa as Empresa; 
 use App\Models\Contrato as Contrato; 
 use App\Models\Preposto as Preposto; 
-
+use App\Models\Coordenacao as Coordenacao;
 
 use Illuminate\Http\Request;
 use DB;
@@ -22,7 +22,8 @@ class PrepostoController extends Controller
 
         //Listando as empresas
         $Empresas = Empresa::all();
-
+        $Coordenacoes = Coordenacao::all();
+        
         //Listando os contratos    
         $Contratos = Contrato::all();
 
@@ -41,7 +42,8 @@ class PrepostoController extends Controller
         return view('preposto', ['matricula' => $matricula,
                                  'Empresas'  => $Empresas, 
                                  'Contratos' => $Contratos,
-                                 'Prepostos' => $Prepostos
+                                 'Prepostos' => $Prepostos,
+        						 'Coordenacoes' => $Coordenacoes,
                                  ]);
 
     }
@@ -61,7 +63,7 @@ class PrepostoController extends Controller
 
         //Listando os contratos    
         $Contratos = Contrato::all();
-
+        $Coordenacoes = Coordenacao::all();
         //Buscando informações especificas do ID = $id
         $Prepostos = DB::table('PREPOSTO')
             ->where('PREPOSTO.id_preposto', $id)
@@ -73,7 +75,8 @@ class PrepostoController extends Controller
         return view('prepostoEditar', [ 'matricula' => $matricula,
                                         'Empresas'  => $Empresas, 
                                         'Contratos' => $Contratos, 
-                                        'Prepostos' => $Prepostos
+                                        'Prepostos' => $Prepostos,
+        								'Coordenacoes' => $Coordenacoes,
                                  ]);
     }
 

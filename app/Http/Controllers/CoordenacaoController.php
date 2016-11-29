@@ -23,7 +23,7 @@ class CoordenacaoController extends Controller
         //Listando as empresas
         $Empresas = Empresa::all();
         $Contratos = Contrato::all();
-
+		
         //Listando todos os Coordenacoes válidos do sistema     
         $Coordenacoes = DB::table('COORDENACOES')
             ->where('COORDENACOES.deleted_at', null)
@@ -53,7 +53,7 @@ class CoordenacaoController extends Controller
 
          //Listando as empresas
         $Empresas = Empresa::all();
-        $Contratos = Contrato::all();
+        $Contratos = Contrato::all() ;
         
         //Buscando informações especificas do ID = $id
         $Coordenacoes = DB::table('COORDENACOES')
