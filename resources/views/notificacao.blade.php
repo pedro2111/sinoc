@@ -103,8 +103,11 @@
                            
                            </td>
 
-
-                          <td>{{ $n->dt_fim_justificativa }}</td>
+						  @if($n->dt_fim_justificativa)
+                          	<td>{{ Carbon\Carbon::parse($n->dt_fim_justificativa)->format('d/m/Y') }}</td>
+                          @else 
+                          	<td></td>
+                          @endif
                             
                           <td>
                             
@@ -196,7 +199,7 @@ $(document).ready(function(){
   //$('#dataTable1').DataTable();
 
   $('#dataTable1').dataTable({ 
-	 "order": [[ 1, "desc" ]],
+	 "order": [[ 0, "desc" ]],
 	 "pageLength": 25,                            
  	"oLanguage": {
 	    "sProcessing": "Aguarde enquanto os dados são carregados ...",

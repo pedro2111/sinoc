@@ -227,10 +227,23 @@
 											</div>
 										
 										
-										
-										
-									
-								<hr>
+												<hr>
+
+
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label">Arquivo anexo:</label>
+                          <div class="col-sm-4" style='padding-top:12px;'>
+                          @if($Notificacao->nome_anexo)
+                            <a href='{{ url('../storage/uploads') }}/{{ $Notificacao->nome_anexo}}' target='_new'>{{ $Notificacao->nome_anexo}}</a>
+                          @else 
+                          	Não existe arquivo anexado
+                          @endif 
+                          </div>
+                        </div>
+
+
+				<hr>
+
 
 
 

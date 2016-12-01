@@ -353,6 +353,22 @@ class NotificacaoController extends Controller
         $n->ma_cadastro = getenv('USERNAME');
         $n->id_indicador = $request->input('id_indicador');
         
+        $n->dt_fim_justificativa = Carbon::now()->endOfMonth()->format('d/m/Y H:i');
+        
+        if($request->file('nome_anexo')) {
+        
+	        $doc = $request->file('nome_anexo');
+	        $prefix = Carbon::parse(Carbon::now())->format('Ymdhi');
+	        $destinationPath = storage_path() . '/uploads';
+	       
+	        if(!$doc->move($destinationPath, $prefix.'_'.$doc->getClientOriginalName())) {
+	        	return $this->errors(['message' => 'Erro ao salvar o arquivo anexo.', 'code' => 400]);
+	        } else {
+	        	$n->nome_anexo = $prefix.'_'.$doc->getClientOriginalName(); 
+	        }
+	        
+        }
+        
         #Salvando formulário
         $n->save();
 

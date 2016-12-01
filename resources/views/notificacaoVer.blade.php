@@ -193,6 +193,26 @@
 				<hr>
 
 
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label">Arquivo anexo:</label>
+                          <div class="col-sm-4" style='padding-top:12px;'>
+                          @if($Notificacao->nome_anexo)
+                            <a href='{{ url('../storage/uploads') }}/{{ $Notificacao->nome_anexo}}' target='_new'>{{ $Notificacao->nome_anexo}}</a>
+                          @else 
+                          	Não existe arquivo anexado
+                          @endif 
+                          </div>
+                        </div>
+
+
+				<hr>
+
+
+
+
+
+
+
                 <div class="panel-heading nopaddingbottom">
                       <h4 class="panel-title">Verifique a justificativa informada</h4>
                       <br>
@@ -208,7 +228,11 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Data da justificativa</label>
                                 <div class="col-sm-8">
-                                  <input type="text" name="dt_justificativa" id="dt_justificativa"  value="{{ Carbon\Carbon::parse($Notificacao->dt_justificativa)->format('d/m/Y H:i') }}" class="form-control" disabled/>
+                                	@if($Notificacao->dt_justificativa)
+                                  		<input type="text" name="dt_justificativa" id="dt_justificativa"  value="{{ Carbon\Carbon::parse($Notificacao->dt_justificativa)->format('d/m/Y H:i') }}" class="form-control" disabled/>
+                                  	@else 
+                                  		<input type="text" name="dt_justificativa" id="dt_justificativa"  value="" class="form-control" disabled/>
+                                  	@endif
                                 </div>
                               </div>
                             <div class="form-group">

@@ -211,12 +211,22 @@
                         
                         
                         
-                        
-                        
-                        
-                          <hr>
-                        
-                        
+                        		<hr>
+
+
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label">Arquivo anexo:</label>
+                          <div class="col-sm-4" style='padding-top:12px;'>
+                          @if($Notificacao->nome_anexo)
+                            <a href='{{ url('../storage/uploads') }}/{{ $Notificacao->nome_anexo}}' target='_new'>{{ $Notificacao->nome_anexo}}</a>
+                          @else 
+                          	Não existe arquivo anexado
+                          @endif 
+                          </div>
+                        </div>
+
+
+				<hr>
                         
                         
                          <div class="panel-heading nopaddingbottom">
@@ -232,7 +242,11 @@
                              <div class="form-group">
                         <label class="col-sm-3 control-label"><b>Informe sua justificativa</b><span class="text-danger">*</span> </label>
                         <div class="panel-body col-sm-9" style="margin-left:-10px">
-                           <textarea style="width:90.7%;" name="ds_justificativa" id="ds_justificativa" class="wtext" placeholder="descrição da justificativa..." class="form-control" rows="9"></textarea>
+                           <textarea style="width:90.7%;" name="ds_justificativa" id="ds_justificativa" class="wtext" placeholder="descrição da justificativa..." class="form-control" rows="9">
+                           
+                            
+                           
+                           </textarea>
                         </div>
                       </div><!-- form-group -->
                       

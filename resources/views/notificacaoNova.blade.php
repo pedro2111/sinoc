@@ -41,7 +41,7 @@
                 </div>
                 <br>
                 <div class="panel-body nopaddingtop">
-                        <form id='basicForm' name='basicForm' action='{{ url("notificacao/incluir/")}}' method="post" class='form-horizontal'>
+                        <form id='basicForm' name='basicForm'  enctype="multipart/form-data" action='{{ url("notificacao/incluir/")}}' method="post" class='form-horizontal'>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         
                         <div class="error"></div>
@@ -169,6 +169,18 @@
 
 
 
+        			<hr>
+
+
+
+
+						<div class="form-group">
+                          <label class="col-sm-3 control-label">Arquivo anexo: </label>
+                          <div class="col-sm-8">
+                            <input type="file" name="nome_anexo" id="nome_anexo" value="" class="form-control" placeholder=""/>
+                          </div>
+						</div>
+
 
                         
 
@@ -252,6 +264,11 @@ $(document).ready(function(){
   });
 
 
+
+
+  
+
+  
 
 });   
 </script>
