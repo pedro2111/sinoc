@@ -243,7 +243,19 @@
                               </div>
 
 
+		
 
+
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label">Arquivo anexo:</label>
+                          <div class="col-sm-4" style='padding-top:12px;'>
+                          @if($Notificacao->justificativa_anexo)
+                            <a href='{{ url('../storage/uploads') }}/{{ $Notificacao->justificativa_anexo}}' target='_new'>{{ $Notificacao->justificativa_anexo}}</a>
+                          @else 
+                          	Não existe arquivo anexado
+                          @endif 
+                          </div>
+                        </div>
                   
                       <hr>
 
@@ -267,11 +279,11 @@
                           <select class="select2" id="bit_aceito" name="bit_aceito" style="width: 100%" disabled>
                                         <option value=""></option>
                                         @if ($Notificacao->bit_aceito == 3) 
-                                        <option value="3" selected>Justificativa acatada</option>
+                            	            <option value="3" selected>Justificativa acatada</option>
                                         @elseif ($Notificacao->bit_aceito == 4)
-                                        <option value="4" selected>Justificativa não acatada</option>
+                             	           	<option value="4" selected>Justificativa não acatada</option>
                                         @else 
-                                        <option value="#" selected>Informação ainda não disponível</option>
+                               		        <option value="#" selected>Informação ainda não disponível</option>
                                         @endif
                           </select>
                         

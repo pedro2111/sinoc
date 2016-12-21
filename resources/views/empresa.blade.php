@@ -76,7 +76,6 @@
   
                           <td>
                             <a href="empresas/editar/{{ $empresa->id_empresa }}">Editar</a> 
-                            | <a href="#">Ver noficações</a>
                             | <a data-href="empresas/delete/{{ $empresa->id_empresa }}" data-toggle="modal" data-target="#confirm-delete">Excluir</a>
                           </td>
                         </tr>

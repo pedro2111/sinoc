@@ -16,5 +16,3 @@
 <script src="{{ asset("theme/lib/jquery-validate/jquery.validate.js") }}"></script>
 
 <script src="{{ asset("theme/js/quirk.js") }}"></script>
-
-

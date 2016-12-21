@@ -8,23 +8,6 @@
 
         <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
 
-
-        <!--  INICIO - Busca do cabeçalho  -->
-        <div class="searchpanel">
-          <form method="POST" action="{{url('notificacao/buscar')}}">
-          <input type="hidden" name="_token" value="{{ csrf_token() }}">
-          <div class="input-group">
-             
-            <input type="text" id="q" name="q" class="form-control" placeholder="Procurando por ...">
-            <span class="input-group-btn">
-              <button class="btn btn-default" type="button" onclick="submit(this)"><i class="fa fa-search"></i></button>
-            </span>
-            </form>
-          </div><!-- input-group -->
-        </div>
-        <!-- FIM - Busca do cabeçalho  -->
-        
-        
         
         <!-- INICIO - HEADER COM NOME   -->
         <div class="header-right">

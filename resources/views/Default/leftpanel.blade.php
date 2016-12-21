@@ -34,6 +34,7 @@
             <ul class="nav nav-pills nav-stacked nav-quirk">
               <li class="active"><a href="#"><i class="fa fa-home "></i> <span>Dashboard</span></a></li>
               <li><a href="{{ url("notificacao")}}"><i class="fa fa-home"></i> <span>Notificações</span></a></li>
+              <li><a href="{{ url("notificacao")}}"><i class="fa fa-home"></i> <span>Descumprimento contratual</span></a></li>
 
               <li class="nav-parent">
                 <a href=""><i class="fa fa-check-square"></i> <span>Administração</span></a>
@@ -46,8 +47,16 @@
                   <hr>
                   <li><a href="{{ url("contratos") }}">Contratos</a></li>
                   <li><a href="{{ url("indicadores") }}">Indicadores</a></li>                  
+                  
+                  
+                  <!--
+                  #Itens removidos do projeto 
+                  #Macrocelulas e celulas não são necessárias nesse momento. 
+                   
                   <li><a href="{{ url("macrocelulas") }}">Macrocélulas</a></li>
                   <li><a href="{{ url("celulas") }}">Células</a></li>
+                  
+                   -->
                   
                   
 
@@ -55,7 +64,7 @@
               </li>
               <li class="nav-parent"><a href=""><i class="fa fa-suitcase"></i> <span>Relatórios</span></a>
                 <ul class="children">
-                  <!-- <li><a href="{{ url('relatorio/total_por_empresa')}}">Total por empresa</a></li> -->
+                   <li><a href="{{ url('relatorio/notificacao_por_contrato')}}">Notificações por contrato</a></li>
                   <li><a href="#">Por definir</a></li>
                 </ul>
               </li>

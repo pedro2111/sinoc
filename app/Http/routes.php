@@ -18,7 +18,7 @@ Route::Get('/notificacao/corrigir/{id}', 'NotificacaoController@corrigir');
 Route::Post('/notificacao/buscar', 'NotificacaoController@buscar');
 
 //Controller de Relatórios 
-Route::Get('/relatorio/total_por_empresa', 'RelatorioController@totalporempresa');
+Route::Get('/relatorio/notificacao_por_contrato', 'RelatorioController@notificacaoporcontrato');
 
 
 
@@ -93,4 +93,9 @@ Route::Post('/celulas/incluir/{id}', 'CelulaController@incluir');
 Route::Get('/celulas/delete/{id}', 'CelulaController@delete');
 Route::Get('/celulas/editar/{id}', 'CelulaController@editar');
 
-
+//Controller de agentes de rh
+Route::Get('/rh', 'RhController@index');
+Route::Post('/rh/incluir', 'RhController@incluir');
+Route::Post('/rh/incluir/{id}', 'RhController@incluir');
+Route::Get('/rh/delete/{id}', 'RhController@delete');
+Route::Get('/rh/editar/{id}', 'RhController@editar');

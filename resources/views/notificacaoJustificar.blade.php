@@ -40,7 +40,7 @@
                
                 <br>
                 <div class="panel-body nopaddingtop">
-                        <form id='basicForm' name='basicForm' action='{{ url("notificacao/incluirjustificativa/")}}' method="post" class='form-horizontal'>
+                        <form id='basicForm' name='basicForm' enctype="multipart/form-data" action='{{ url("notificacao/incluirjustificativa/")}}' method="post" class='form-horizontal'>
                         <input type="hidden" name="id_notificacao" value="{{ $Notificacao->id_notificacao }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         
@@ -244,11 +244,20 @@
                         <div class="panel-body col-sm-9" style="margin-left:-10px">
                            <textarea style="width:90.7%;" name="ds_justificativa" id="ds_justificativa" class="wtext" placeholder="descrição da justificativa..." class="form-control" rows="9">
                            
+                            {{ @$Notificacao->ds_justificativa }}
                             
-                           
                            </textarea>
                         </div>
                       </div><!-- form-group -->
+                      
+                      
+                      <div class="form-group">
+                          <label class="col-sm-3 control-label">Arquivo anexo: </label>
+                          <div class="col-sm-8">
+                            <input type="file" name="justificativa_anexo" id="justificativa_anexo" value="" class="form-control" placeholder=""/>
+                          </div>
+						</div>
+
                       
                       <hr>
 

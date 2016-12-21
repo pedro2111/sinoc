@@ -214,7 +214,7 @@
 											</div>
 											<!-- form-group -->
 
-											<hr>
+											
 
 											<div class="form-group">
 												<label class="col-sm-3 control-label">Duração da
@@ -227,7 +227,7 @@
 											</div>
 										
 										
-												<hr>
+												
 
 
                         <div class="form-group">
@@ -295,6 +295,19 @@
 												
 												
 										
+				                        <div class="form-group">
+				                          <label class="col-sm-3 control-label">Arquivo anexo:</label>
+				                          <div class="col-sm-4" style='padding-top:12px;'>
+				                          @if($Notificacao->justificativa_anexo)
+				                            <a href='{{ url('../storage/uploads') }}/{{ $Notificacao->justificativa_anexo}}' target='_new'>{{ $Notificacao->justificativa_anexo}}</a>
+				                          @else 
+				                          	Não existe arquivo anexado
+				                          @endif 
+				                          </div>
+				                        </div>
+				                  
+				                  
+				                  
 										<hr>
 										
 

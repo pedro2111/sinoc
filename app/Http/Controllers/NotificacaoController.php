@@ -239,7 +239,21 @@ class NotificacaoController extends Controller
         $nij->ds_justificativa = $request->input('ds_justificativa');
         $nij->ma_justificativa = $matricula;
         $nij->dt_justificativa = Carbon::now();
-
+        
+        
+        if($request->file('justificativa_anexo')) {
+        
+        	$doc = $request->file('justificativa_anexo');
+        	$prefix = Carbon::parse(Carbon::now())->format('Ymdhi');
+        	$destinationPath = storage_path() . '/uploads';
+        
+        	if(!$doc->move($destinationPath, $prefix.'_'.$doc->getClientOriginalName())) {
+        		return $this->errors(['message' => 'Erro ao salvar o arquivo anexo.', 'code' => 400]);
+        	} else {
+        		$nij->justificativa_anexo = $prefix.'_'.$doc->getClientOriginalName();
+        	}	 
+        }
+        
         $nij->save();
 
         //Redirecionandopara a página principal
