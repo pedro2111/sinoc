@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Coordenacao as Coordenacao; 
-use App\Models\Empresa as Empresa; 
-use App\Models\Gestor as Gestor; 
+use App\Models\Rh as Rh; 
 use App\Models\Contrato as Contrato;
 
 
@@ -22,30 +21,23 @@ class RhController extends Controller
     {
 
         //Pegando informações do usuário que está acessando o sistema
-        $matricula  =   getenv('USERNAME');
-
-        //Listando as empresas
-        $Empresas = Empresa::all();
+        $matricula  	= getenv('USERNAME');
 
         //Listando todas as coordenações 
-        $Coordenacoes = Coordenacao::all();
-        $Contratos = Contrato::all();
+        $Coordenacoes 	= Coordenacao::all();
+        $Contratos 		= Contrato::all();
 
         //Listando todos os contratos válidos do sistema     
-        $Gestores = DB::table('GESTOR_COORDENACAO')
-            ->join('COORDENACOES', 'COORDENACOES.id_coordenacao', '=', 'GESTOR_COORDENACAO.id_coordenacao')
-            ->where('GESTOR_COORDENACAO.deleted_at', null)
-            ->select('COORDENACOES.*', 'GESTOR_COORDENACAO.*')
+        $Agentes = DB::table('AGENTE_RH')
+            ->where('AGENTE_RH.deleted_at', null)
+            ->select('AGENTE_RH.*')
             ->get();    
 
-
-
         //Carregando View e repassando as variáveis necessárias
-        return view('gestor', [ 'matricula' => $matricula,
-                                'Empresas'  => $Empresas, 
-                                'Coordenacoes' => $Coordenacoes,
-                                'Gestores'  => $Gestores,
-                                'Contratos' => $Contratos
+        return view('rh', [ 'matricula' 	=> $matricula,
+                                'Coordenacoes' 	=> $Coordenacoes,
+                                'Agentes'  		=> $Agentes,
+                                'Contratos' 	=> $Contratos
                                  ]);
 
     }
@@ -61,27 +53,23 @@ class RhController extends Controller
         $matricula  =  getenv('USERNAME');
 
          //Listando as empresas
-        $Empresas = Empresa::all();
-        $Contratos = Contrato::all();
-
+	        $Contratos = Contrato::all();
           //Listando todas as coordenações 
-        $Coordenacoes = Coordenacao::all();
+    	    $Coordenacoes = Coordenacao::all();
 
         //Buscando informações especificas do ID = $id
-        $Gestores = DB::table('GESTOR_COORDENACAO')
-            ->join('COORDENACOES', 'COORDENACOES.id_coordenacao', '=', 'GESTOR_COORDENACAO.id_coordenacao')
-            ->where('GESTOR_COORDENACAO.deleted_at', null)
-            ->where('GESTOR_COORDENACAO.id_gestor', $id)
-            ->select('GESTOR_COORDENACAO.*', 'COORDENACOES.*')
-            ->get();    
+        $Agentes = DB::table('AGENTE_RH')
+		             ->where('AGENTE_RH.deleted_at', null)
+		             ->where('AGENTE_RH.id_rh', $id)
+		             ->select('AGENTE_RH.*')
+		             ->get();    
 
 
         //Carregando View e repassando as variaveis necessárias
-        return view('gestorEditar', [   'matricula' => $matricula,
-                                        'Empresas'  => $Empresas,
-                                        'Coordenacoes' => $Coordenacoes,
+        return view('rhEditar', [   	'matricula' 	=> $matricula,
+                                        'Coordenacoes' 	=> $Coordenacoes,
                                         'Contratos'     => $Contratos, 
-                                        'Gestores' => $Gestores                                 
+                                        'Agentes' 		=> $Agentes
                                     ]);
     }
 
@@ -90,34 +78,33 @@ class RhController extends Controller
     {
 
         //Verificando se a solicitação veio da inclusão ou edição
-        if($request->input('idgestor') == "") { 
-            $Gestor = new Gestor;
+        if($request->input('idrh') == "") { 
+            $Rh = new Rh;
         } else {
-            $Gestor = Gestor::find($request->input('idgestor'));
-            $Gestor->id_gestor          = $request->input('idgestor');
+            $Rh = Rh::find($request->input('idrh'));
+            $Rh->id_rh          = $request->input('idrh');
         }
 
         //Capiturando os campos do formulário
-        $Gestor->id_coordenacao         = $request->input('idcoordenacao');
-        $Gestor->no_gestor              = $request->input('nogestor');
-        $Gestor->ma_gestor              = $request->input('magestor');
+        $Rh->no_rh              = $request->input('no_rh');
+        $Rh->ma_rh              = $request->input('ma_rh');
 
         //Salvando formulário
-        $Gestor->save();
+        $Rh->save();
 
         //Redirecionandopara a página principal
-        return redirect()->action('GestorController@index')->with('status', 'Sua solicitação foi executada com sucesso!');
+        return redirect()->action('RhController@index')->with('status', 'Sua solicitação foi executada com sucesso!');
     }
 
 
     public function delete($id)
     {
         //Encontrando e deletando Contrato (softDelete)
-        $Gestor = Gestor::find($id);
-        $Gestor->delete();
+        $Rh = Rh::find($id);
+        $Rh->delete();
 
         //Redirecionando para a página principal
-        return redirect()->action('GestorController@index')->with('status', 'Contrato deletado com sucesso');
+        return redirect()->action('RhController@index')->with('status', 'Agente deletado com sucesso');
     }
 
 

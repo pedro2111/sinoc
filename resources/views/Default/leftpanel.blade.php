@@ -40,6 +40,7 @@
                 <a href=""><i class="fa fa-check-square"></i> <span>Administração</span></a>
                 <ul class="children">
                   
+                  <li><a href="{{ url("agentes") }}">Agentes de contrato</a></li>
                   <li><a href="{{ url("prepostos") }}">Prepostos</a></li>
                   <li><a href="{{ url("empresas") }}">Empresas</a></li>
                   <li><a href="{{ url("gestores") }}">Gestores</a></li>

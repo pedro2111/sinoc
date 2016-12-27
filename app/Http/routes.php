@@ -93,9 +93,10 @@ Route::Post('/celulas/incluir/{id}', 'CelulaController@incluir');
 Route::Get('/celulas/delete/{id}', 'CelulaController@delete');
 Route::Get('/celulas/editar/{id}', 'CelulaController@editar');
 
+
 //Controller de agentes de rh
-Route::Get('/rh', 'RhController@index');
-Route::Post('/rh/incluir', 'RhController@incluir');
-Route::Post('/rh/incluir/{id}', 'RhController@incluir');
-Route::Get('/rh/delete/{id}', 'RhController@delete');
-Route::Get('/rh/editar/{id}', 'RhController@editar');
+Route::Get('/agentes', 'RhController@index');
+Route::Post('/agentes/incluir', 'RhController@incluir');
+Route::Post('/agentes/incluir/{id}', 'RhController@incluir');
+Route::Get('/agentes/delete/{id}', 'RhController@delete');
+Route::Get('/agentes/editar/{id}', 'RhController@editar');
