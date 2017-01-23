@@ -9,15 +9,15 @@
           
        		@if (Carbon\Carbon::now()->format('d') == 27 or Carbon\Carbon::now()->format('d') == 28 or Carbon\Carbon::now()->format('d') == 29 or Carbon\Carbon::now()->format('d') == 30 or Carbon\Carbon::now()->format('d') == 31)
        		@else 
-       			<a href="{{ url("notificacao/nova")}}"><button class="btn btn-info btn-quirk" style="width:100%">Abrir notificação</button></a>
+       			<a href="{{ url("notificacao/nova")}}"><button class="btn btn-danger btn-quirk" style="width:100%">Abrir notificação</button></a>
+       			<a style="margin-top:15px; display:block;" href="{{ url("descumprimento/novo")}}"><button class="btn btn-danger btn-quirk" style="width:100%">Abrir descumprimento</button></a>
             @endif
           </div>
         </div>
+
+
+
       <!-- Painel de abertura de notificação --> 
-
-
-
-
 
         <ul class="nav nav-tabs nav-justified nav-sidebar">
           <li class="tooltips " data-toggle="tooltip" title="Main Menu"><a data-toggle="tab" data-target="#mainmenu"><i class="tooltips fa fa-ellipsis-h"></i></a></li>
@@ -34,7 +34,7 @@
             <ul class="nav nav-pills nav-stacked nav-quirk">
               <li class="active"><a href="#"><i class="fa fa-home "></i> <span>Dashboard</span></a></li>
               <li><a href="{{ url("notificacao")}}"><i class="fa fa-home"></i> <span>Notificações</span></a></li>
-              <li><a href="{{ url("notificacao")}}"><i class="fa fa-home"></i> <span>Descumprimento contratual</span></a></li>
+              <li><a href="{{ url("descumprimento")}}"><i class="fa fa-home"></i> <span>Descumprimento contratual</span></a></li>
 
               <li class="nav-parent">
                 <a href=""><i class="fa fa-check-square"></i> <span>Administração</span></a>

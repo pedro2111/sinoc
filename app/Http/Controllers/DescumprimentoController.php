@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Empresa as Empresa; 
 use App\Models\Contrato as Contrato; 
-use App\Models\Preposto as Preposto; 
 use App\Models\Contexto as Contexto; 
 
 use App\Models\Macrocelula as Macrocelula; 
@@ -17,10 +16,12 @@ use App\Models\Motivo as Motivo;
 use App\Models\Indicador as Indicador; 
 
 
+
 use Carbon\Carbon as Carbon;
 use Crypt as Crypt;
 use Illuminate\Http\Request;
 use DB;
+use App\Models\Descumprimento;
 
 
 class DescumprimentoController extends Controller
@@ -42,22 +43,24 @@ class DescumprimentoController extends Controller
         
         
         //Listando todos os contratos válidos do sistema     
-        $Notificacoes = DB::table('NOTIFICACAO')
-            ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
-            ->where('NOTIFICACAO.deleted_at', null)
-            ->where('CONTRATOS.deleted_at', null)
+        $Descumprimento = DB::table('DESCUMPRIMENTO')
+            ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'DESCUMPRIMENTO.id_contrato')
+            ->where('DESCUMPRIMENTO.deleted_at', null)
+            ->where('DESCUMPRIMENTO.deleted_at', null)
             
-            ->select('CONTRATOS.*', 'NOTIFICACAO.*')
+            ->select('CONTRATOS.*', 'DESCUMPRIMENTO.*')
             ->get();    
 
-
+		
+            
+            
 
         //Carregando View e repassando as variáveis necessárias
-        return view('notificacao', ['matricula' => $matricula,
+        return view('descumprimento', ['matricula' => $matricula,
                                     'Empresas'  => $Empresas, 
                                     'Contratos' => $Contratos,
                                     'Coordenacoes' => $Coordenacoes,
-                                    'Notificacoes' => $Notificacoes
+                                    'Descumprimento' => $Descumprimento
                                  ]);
 
     }
@@ -70,69 +73,34 @@ class DescumprimentoController extends Controller
         $matricula  =  getenv('USERNAME');
 
         //Carregando modulos
-        $Empresas = Empresa::all();
         $Contratos = Contrato::all();
-        $Contextos = Contexto::all();
-        $Macrocelulas = Macrocelula::all();
-        $Celulas = Celula::all();
         $Coordenacoes = Coordenacao::all();
-        $Impactos = Impacto::all();
-        $Motivos = Motivo::all();
-        $Indicadores = Indicador::all();
-
+     
         //Carregando View e repassando as variaveis necessárias
-        return view('notificacaoNova', ['matricula'        => $matricula,
-                                        'Empresas'          => $Empresas, 
-                                        'Contratos'         => $Contratos,
-                                        'Contextos'         => $Contextos,
-                                        'Macrocelulas'      => $Macrocelulas,
-                                        'Celulas'           => $Celulas,
-                                        'Coordenacoes'      => $Coordenacoes,
-                                        'Impactos'          => $Impactos,
-                                        'Motivos'           => $Motivos,
-                                        'Indicadores'       => $Indicadores
+        return view('descumprimentoNovo', ['matricula'        	=> $matricula,
+                                        'Contratos'         	=> $Contratos,
+                                        'Coordenacoes'      	=> $Coordenacoes
                                  ]);
-        }
+    }
 
 
-   public function avaliar($id)
+    public function avaliar($id)
     {
         
         //Pegando informações do usuário que está acessando o sistema 
         $matricula  =  getenv('USERNAME');
-        $Empresas = Empresa::all();
         $Contratos = Contrato::all();
-        $Contextos = Contexto::all();
-        $Macrocelulas = Macrocelula::all();
-        $Celulas = Celula::all();
         $Coordenacoes = Coordenacao::all();
-        $Impactos = Impacto::all();
-        $Motivos = Motivo::all();
-        $Indicadores = Indicador::all();
 
         //Buscando informações especificas do ID = $id
-        $Notificacao = Notificacao::find(Crypt::decrypt($id));
-
-      //Listando motivo da notificação
-        $NotificacaoMotivo = DB::table('NOTIFICACAO_MOTIVO')
-            ->where('NOTIFICACAO_MOTIVO.id_notificacao', Crypt::decrypt($id))
-            ->select('NOTIFICACAO_MOTIVO.*')
-            ->get();    
+        $Descumprimento = Descumprimento::find(Crypt::decrypt($id));
 
 
         //Carregando View e repassando as variaveis necessárias
-        return view('notificacaoAvaliar', [     'matricula' => $matricula,
+        return view('descumprimentoAvaliar', [  'matricula' 		=> $matricula,
                                                 'Contratos'         => $Contratos,
-                                                'Contextos'         => $Contextos,
-                                                'Macrocelulas'      => $Macrocelulas,
-                                                'Celulas'           => $Celulas,
                                                 'Coordenacoes'      => $Coordenacoes,
-                                                'Impactos'          => $Impactos,
-                                                'Motivos'           => $Motivos,
-                                                'Indicadores'       => $Indicadores,
-                                                'Empresas'          => $Empresas, 
-                                                'Notificacao'       => $Notificacao,
-                                                'NotificacaoMotivo' => $NotificacaoMotivo
+                                                'Descumprimento'    => $Descumprimento
                                             ]);
     }
 
@@ -353,25 +321,17 @@ class DescumprimentoController extends Controller
 
 
 
-    public function incluir(Request $request) 
-    {
+  public function incluir(Request $request) 
+  {
 
         #Criando o objeto Notificacao
-        $n = new Notificacao;
+        $n = new Descumprimento;
 
         $n->id_contrato = $request->input('id_contrato');
-        $n->ds_ocorrencia = $request->input('ds_ocorrencia');
-        $n->id_notificadora = $request->input('id_notificadora');
-        $n->id_impactada = $request->input('id_impactada');
-        $n->ds_ticket = $request->input('ds_ticket');
-        $n->ds_notificacao = $request->input('ds_notificacao');
-        $n->nu_horas = $request->input('nu_horas');
-        $n->id_impactada = $request->input('id_impactada');
-        $n->ds_ticket = $request->input('ds_ticket');
+        $n->ds_titulo = $request->input('ds_titulo');
+        $n->ds_descumprimento = $request->input('ds_descumprimento');
+        $n->status = 1;
         $n->ma_cadastro = getenv('USERNAME');
-        $n->id_indicador = $request->input('id_indicador');
-        
-        $n->dt_fim_justificativa = Carbon::now()->endOfMonth()->format('d/m/Y H:i');
         
         if($request->file('nome_anexo')) {
         
@@ -391,28 +351,20 @@ class DescumprimentoController extends Controller
         $n->save();
 
         #Pegando o ID do novo registro criado
-        $newId = $n->id_notificacao;  
+        $newId = $n->id_descumprimento;  
 
         #Criando o número da notificação baseado no ID recém criado.
-        $nd = "N" . Carbon::parse(Carbon::now())->format('Ym') . $newId;
-        $ncj = Notificacao::find($newId);
-        $ncj->nu_notificacao = $nd;
+        $nd = "D" . Carbon::parse(Carbon::now())->format('Ym') . $newId;
+        $ncj = Descumprimento::find($newId);
+        $ncj->nu_descumprimento = $nd;
         $ncj->save();
         //------------------------------------------------------------------------------
         
-        #Fazendo a inclusão na tabela :Motivo
-        $id_motivo = [];
-        $id_motivo = $request->input('id_motivo');
-        foreach ($id_motivo as $mot) {
-            $datasetMot[] = [
-                'id_notificacao'    => $newId,
-                'id_motivo'         => $mot,
-            ];
-        }
-        DB::table('NOTIFICACAO_MOTIVO')->insert($datasetMot);
-
+  
         #Redirecionandopara a página principal
-        return redirect()->action('NotificacaoController@index')->with('status', 'Nova notificação foi incluida com sucesso!');
+        return redirect()->action('DescumprimentoController@index')
+        					->with('status', 'Novo descumprimento contratutal cadastrado com sucesso!')
+        					->with('tipo', 'success');
     }
 
 
@@ -430,3 +382,6 @@ class DescumprimentoController extends Controller
 
 
 }
+
+
+
