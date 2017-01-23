@@ -7,16 +7,18 @@ use App\Models\Coordenacao as Coordenacao;
 use App\Models\Rh as Rh; 
 use App\Models\Contrato as Contrato;
 
-
-
 use Illuminate\Http\Request;
 use DB;
 
 
 
-
 class RhController extends Controller
 {
+	
+	public function __construct() {
+	
+	}
+	
     public function index()
     {
 

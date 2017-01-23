@@ -15,31 +15,32 @@ use App\Models\Coordenacao as Coordenacao;
 use App\Models\Impacto as Impacto;
 use App\Models\Motivo as Motivo;    
 use App\Models\Indicador as Indicador; 
-use App\Models\Notificacao as Notificacao;
+
 
 use Carbon\Carbon as Carbon;
-
 use Crypt as Crypt;
-
 use Illuminate\Http\Request;
 use DB;
 
 
-class NotificacaoController extends Controller
+class DescumprimentoController extends Controller
 {
+	
+	
+	
     public function index()
     {
 
         //Pegando informações do usuário que está acessando o sistema
         $matricula  =   getenv('USERNAME');
 
-        //Listando as empresas
+        //Itens do menu esquerda de busca
         $Empresas = Empresa::all();
-
-        //Listando os contratos    
         $Contratos = Contrato::all();
         $Coordenacoes = Coordenacao::all();
 
+        
+        
         //Listando todos os contratos válidos do sistema     
         $Notificacoes = DB::table('NOTIFICACAO')
             ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
@@ -50,8 +51,6 @@ class NotificacaoController extends Controller
             ->get();    
 
 
-        
-            
 
         //Carregando View e repassando as variáveis necessárias
         return view('notificacao', ['matricula' => $matricula,
@@ -64,7 +63,7 @@ class NotificacaoController extends Controller
     }
 
 
-    public function nova()
+    public function novo()
     {
         
         //Pegando informações do usuário que está acessando o sistema 
@@ -98,16 +97,7 @@ class NotificacaoController extends Controller
 
    public function avaliar($id)
     {
-    	if(session('isrh') == 1 OR session('isgestor') == 1) {
-    	
-    	} else {
-    		return redirect()->action('NotificacaoController@index')
-    		->with('status', 'você tentou acessar uma área restrita')
-    		->with('tipo', 'danger');
-    	}
-    	
-    	
-    	
+        
         //Pegando informações do usuário que está acessando o sistema 
         $matricula  =  getenv('USERNAME');
         $Empresas = Empresa::all();
@@ -151,15 +141,7 @@ class NotificacaoController extends Controller
     public function justificar($id)
     {
     	
-    	
-    	if(session('isrh') == 1 OR session('ispreposto') == 1) {
-    		
-    	} else {
-    		return redirect()->action('NotificacaoController@index')
-    			->with('status', 'você tentou acessar uma área restrita')
-    			->with('tipo', 'danger');
-    	}
-    	 
+    
     	
         
         //Pegando informações do usuário que está acessando o sistema 
@@ -300,9 +282,7 @@ class NotificacaoController extends Controller
         $nij->save();
 
         //Redirecionandopara a página principal
-        return redirect()->action('NotificacaoController@index')
-        				->with('status', 'Sua avaliação foi cadastrada com sucesso!')
-        				->with('tipo', 'success');
+        return redirect()->action('NotificacaoController@index')->with('status', 'Sua avaliação foi cadastrada com sucesso!');
 
 
     }
@@ -319,9 +299,7 @@ class NotificacaoController extends Controller
         $ncj->save();
 
         #Redirecionandopara a página principal
-        return redirect()->action('NotificacaoController@index')
-        							->with('status', 'A notificação pode ser corrigida agora!')
-        							->with('tipo', 'success');
+        return redirect()->action('NotificacaoController@index')->with('status', 'A notificação pode ser corrigida agora!');
 
     }
 

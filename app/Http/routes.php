@@ -17,6 +17,28 @@ Route::Get('/notificacao/ver/{id}', 'NotificacaoController@ver');
 Route::Get('/notificacao/corrigir/{id}', 'NotificacaoController@corrigir');
 Route::Post('/notificacao/buscar', 'NotificacaoController@buscar');
 
+
+
+
+Route::Get('/descumprimento', 'DescumprimentoController@index');
+Route::Get('/descumprimento/novo', 'DescumprimentoController@novo');
+Route::Post('/descumprimento/incluir/', 'DescumprimentoController@incluir');
+
+
+//Route::Get('/notificacao/justificar/{id}', 'NotificacaoController@justificar');
+//Route::Get('/notificacao/avaliar/{id}', 'NotificacaoController@avaliar');
+//Route::Post('/notificacao/incluirjustificativa/', 'NotificacaoController@incluirjustificativa');
+//Route::Post('/notificacao/incluiravaliacao/', 'NotificacaoController@incluiravaliacao');
+//Route::Get('/notificacao/ver/{id}', 'NotificacaoController@ver');
+//Route::Get('/notificacao/corrigir/{id}', 'NotificacaoController@corrigir');
+//Route::Post('/notificacao/buscar', 'NotificacaoController@buscar');
+
+
+
+
+
+
+
 //Controller de Relatórios 
 Route::Get('/relatorio/notificacao_por_contrato', 'RelatorioController@notificacaoporcontrato');
 
@@ -100,3 +122,4 @@ Route::Post('/agentes/incluir', 'RhController@incluir');
 Route::Post('/agentes/incluir/{id}', 'RhController@incluir');
 Route::Get('/agentes/delete/{id}', 'RhController@delete');
 Route::Get('/agentes/editar/{id}', 'RhController@editar');
+

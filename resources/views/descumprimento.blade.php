@@ -41,7 +41,7 @@
                 <p>Verifique as notificações registradas no sistema.</p>
                 <div class="panel-body">
                 @if (session('status'))
-                      <div id="alerta" class="alert alert-{{ session('tipo') }}">
+                      <div id="alerta" class="alert alert-success">
                           {{ session('status') }}
                       </div>
                 @endif
@@ -83,14 +83,14 @@
 
                          
 
-                          @foreach ($Coordenacoes as $Coordenacao)
-                         	@if ($n->id_notificadora === $Coordenacao->id_coordenacao)
-                            	<td>{{ $Coordenacao->no_coordenacao }}</td>
-                            @endif
-						  @endforeach
+                               @foreach ($Coordenacoes as $Coordenacao)
+                                      @if ($n->id_notificadora === $Coordenacao->id_coordenacao)
+                                        <td>{{ $Coordenacao->no_coordenacao }}</td>
+                                      @endif
+                              @endforeach
 
 
-                          <td>
+                           <td>
                            @if($n->bit_aceito == 4) 
                             Não acatado
                            @else 
@@ -111,33 +111,19 @@
                             
                           <td>
                             
+                            
+                            @if($n->dt_justificativa == NULL)
+                              <a href="notificacao/justificar/{{ Crypt::encrypt($n->id_notificacao) }}">Justificar</a> |
+                            @endif 
+                            
+                            @if($n->dt_naoacatado == NULL)
+                              <a href="notificacao/avaliar/{{ Crypt::encrypt($n->id_notificacao) }}">Avaliar</a> |
+                            @endif 
 
-							<!--  Verifica se a pessoa é preposto -->
-							@if(Session::get('ispreposto') == 1)
-	                            @if($n->dt_justificativa == NULL)
-    	                          <a href="notificacao/justificar/{{ Crypt::encrypt($n->id_notificacao) }}">Justificar</a> |
-        	                    @endif 
-							@endif
-                            
-                            
-                            <!--  Verifica se a pessoa é gestor-->
-							@if(Session::get('isgestor') == 1)
-		                            @if($n->dt_naoacatado == NULL)
-		                              <a href="notificacao/avaliar/{{ Crypt::encrypt($n->id_notificacao) }}">Avaliar</a> |
-		                            @endif 
-							@endif 
-							
-							
-							
-							
-							<!--  Verifica se a pessoa é agente de RH e Contratos-->
-							@if(Session::get('isrh') == 1)
-	                            @if($n->dt_naoacatado != NULL)
-    	                          <a href="notificacao/corrigir/{{ Crypt::encrypt($n->id_notificacao) }}">Corrigir</a> |
-        	                    @endif 
-							@endif
-                            
-                            
+                            @if($n->dt_naoacatado != NULL)
+                              <a href="notificacao/corrigir/{{ Crypt::encrypt($n->id_notificacao) }}">Corrigir</a> |
+                            @endif 
+
                             <a href="notificacao/ver/{{ Crypt::encrypt($n->id_notificacao) }}">Informações</a>                            
                             
                             
@@ -232,7 +218,7 @@ $(document).ready(function(){
 	 } 
 });
 
-$( "#alerta" ).fadeOut(5200);
+$( "#alerta" ).fadeOut(3200);
 
 
 
