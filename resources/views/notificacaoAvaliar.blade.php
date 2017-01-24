@@ -128,13 +128,14 @@
 												<div class="col-sm-8">
 													<select class="select2" id="id_contrato" name="id_contrato"
 														style="width: 100%" disabled>
-														<option value=""></option> @foreach ($Contratos as
-														$Contrato) @if ($Notificacao->id_contrato ===
-														$Contrato->id_contrato)
+														<option value=""></option> 
+														@foreach ($Contratos as $Contrato) 
+														@if ($Notificacao->id_contrato === $Contrato->id_contrato)
 														<option value="{{ $Contrato->id_contrato }}" selected>{{
 															$Contrato->nu_contrato }}</option> @else
 														<option value="{{ $Contrato->id_contrato }}">{{
-															$Contrato->nu_contrato }}</option> @endif @endforeach
+															$Contrato->nu_contrato }}</option> @endif 
+														@endforeach
 
 													</select>
 

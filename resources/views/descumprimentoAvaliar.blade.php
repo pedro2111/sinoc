@@ -37,10 +37,13 @@
 							<div class="col-md-12">
 								<div class="panel">
 									<div class="panel-heading nopaddingbottom">
-										<h4 class="panel-title">Preencha corretamente o formulário
-											abaixo</h4>
+										<h4 class="panel-title">Preencha corretamente o formulário abaixo</h4>
 									</div>
 									<br>
+									
+									
+									
+									
 									<div class="panel-body nopaddingtop">
 										<form id='basicForm' name='basicForm'
 											enctype="multipart/form-data"
@@ -51,19 +54,40 @@
 											<div class="error"></div>
 
 
+
+											<hr>
 											<div class="form-group">
-												<label class="col-sm-3 control-label">Contrato <span
-													class="text-danger">*</span></label>
+					                          <label class="col-sm-3 control-label">Data de cadastro</label>
+					                        <div class="col-sm-8">
+					                         <input type="text" name="created_at" id="created_at"  value="{{ $Descumprimento->created_at->format('d/m/Y H:i') }}" class="form-control" disabled/>
+					                          </div>
+					                        </div>
+					
+					
+					                      <div class="form-group">
+				    	                      <label class="col-sm-3 control-label">Responsável pelo cadastro</label>
+				        	                  <div class="col-sm-8">
+				            	    	          <input type="text" name="ma_cadastro" id="ma_cadastro"  value="{{ $Descumprimento->ma_cadastro }}" class="form-control" title="Informe o nome do contexto" disabled/>
+				                	          </div>
+				                          </div>
+				
+					
+
+
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Contrato </label>
 												<div class="col-sm-8">
-													<select class="select2" id="id_contrato" name="id_contrato"
+													<select class="select2" id="id_contrato" name="id_contrato" 
 														style="width: 100%"
 														data-placeholder="Selecione o contrato"
-														title="Você precisa selecionar um contrato" required>
-														<option value=""></option> @foreach ($Contratos as
-														$Contrato)
-														<option value="{{ $Contrato->id_contrato }}">{{
-															$Contrato->nu_contrato }}</option> @endforeach
-
+														title="Você precisa selecionar um contrato" disabled>
+													 @foreach ($Contratos as $Contrato)
+														@if ($Descumprimento->id_contrato === $Contrato->id_contrato)
+															<option value="{{ $Contrato->id_contrato }}" selected>{{ $Contrato->nu_contrato }}</option> 
+														@else
+															<option value="{{ $Contrato->id_contrato }}">{{ $Contrato->nu_contrato }}</option> 
+														@endif
+													 @endforeach
 													</select>
 
 												</div>
@@ -80,10 +104,10 @@
 											<div class="form-group">
 												<label class="col-sm-3 control-label">Título</label>
 												<div class="col-sm-8">
-													<input type="text" name="ds_titulo" id="ds_titulo" value=""
+													<input type="text" name="ds_titulo" id="ds_titulo" value="{{$Descumprimento->ds_titulo }}"
 														class="form-control"
 														title="Você precisa informar um resumo do ocorrido"
-														required />
+														disabled />
 												</div>
 											</div>
 
@@ -100,7 +124,7 @@
 													<textarea style="width: 90.7%;" name="ds_descumprimento"
 														id="ds_descumprimento"
 														placeholder="Preencha esse campo com a descrição do descumprimento contratual"
-														class="wtext" rows="22"></textarea>
+														class="wtext" rows="22" disabled>{{ $Descumprimento->ds_descumprimento }}</textarea>
 												</div>
 											</div>
 											<!-- form-group -->
@@ -109,9 +133,13 @@
 
 											<div class="form-group">
 												<label class="col-sm-3 control-label">Arquivo anexo: </label>
-												<div class="col-sm-8">
-													<input type="file" name="nome_anexo" id="nome_anexo"
-														value="" class="form-control" placeholder="" />
+												<div class="col-sm-8" style='padding-top:12px;'>
+													  @if($Descumprimento->nome_anexo)
+							                            <a href='{{ url('../storage/uploads') }}/{{ $Descumprimento->nome_anexo}}' target='_new'>{{ $Descumprimento->nome_anexo}}</a>
+							                          @else 
+							                          	Não existe arquivo anexado
+							                          @endif 
+																			
 												</div>
 											</div>
 									
@@ -120,6 +148,55 @@
 
 								</div>
 								<!-- form-group -->
+								
+								
+								   
+										<hr>
+										
+
+
+
+								<div class="panel-heading">
+									<h4 class="panel-title">Por favor avalie a ocorrência</h4>
+									<br>
+								</div>
+
+
+								<br>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Avaliação <span
+										class="text-danger">*</span></label>
+									<div class="col-sm-8">
+										<select class="select2" id="bit_aceito" name="bit_aceito" style="width: 100%" data-placeholder="Informe sua decisão"  title="Informe sua posição a respeito da justificativa">
+											<option value="" selected></option>
+											<option value="3">Favorável a notificar o fornecedor</option>
+											<option value="4">Não favorável a notificar o fornecedor</option>
+										</select>
+
+
+									</div>
+								</div>
+								<!-- form-group -->
+
+
+								<div class="form-group" id="campo_texto_avaliacao">
+									<label class="col-sm-3 control-label"><b>Justificativa da avaliação</b></label>
+									<div class="panel-body col-sm-9" style="margin-left: -10px">
+										<textarea style="width: 90.7%;" name="ds_naoacatado"
+											id="ds_naoacatado" placeholder="Informe sua avaliação..."
+											class="wtext" rows="9"></textarea>
+									</div>
+								</div>
+								<!-- form-group -->
+
+								<br><br>
+								
+								
+								
+								
+								
+								
 
 								<hr>
 
@@ -127,7 +204,7 @@
 									<div class="col-sm-9 col-sm-offset-3">
 
 										<button type="submit"
-											class="btn btn-wide btn-primary btn-quirk mr5">Cadastrar</button>
+											class="btn btn-wide btn-primary btn-quirk mr5">Salvar</button>
 
 
 										<button type="button" onClick="history.back();"
@@ -198,6 +275,7 @@ $(document).ready(function(){
   });
 
 
+  
 
 
   
