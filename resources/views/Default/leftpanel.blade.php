@@ -72,29 +72,31 @@
             </ul>
           </div><!-- tab-pane -->
 
-          <!-- #################### SETTINGS ################### -->
+          <!-- #################### BUSCA ################### -->
 
           <div class="tab-pane active" id="settings">
             <h5 class="sidebar-title">Busca de notificações</h5>
             
             
+            <form id='basicForm' name='basicForm' enctype="multipart/form-data" action='{{ url("notificacao/buscar")}}' method="post" class='form-horizontal'>
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
             
             
             <ul class="list-group list-group-settings">
               <li class="list-group-item">
             
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Nº da notificação ou parte">
+                <input type="text" class="form-control" id="n_notificacao" name="n_notificacao" placeholder="Nº da notificação ou parte">
               </div>
 
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Palavra chave">
+                <input type="text" class="form-control" id="palavra_chave" name="palavra_chave" placeholder="Palavra chave">
               </div>
 
 
 			  <div class="form-group">
                         <div>
-                          <select class="select2" id="id_notificadora" name="id_notificadora" style="width: 100%" data-placeholder="Selecione a coordenação notificadora" title="Você precisa selecionar a coordenação notificadora" required>
+                          <select class="select2" id="id_notificadora" name="id_notificadora" style="width: 100%" data-placeholder="Selecione a coordenação notificadora" title="Você precisa selecionar a coordenação notificadora">
                             <option value=""></option>
                               @foreach ($Coordenacoes as $Coordenacao)
                                       <option value="{{ $Coordenacao->id_coordenacao }}">{{ $Coordenacao->ds_coordenacao }}</option>
@@ -108,7 +110,7 @@
 
             <div class="form-group">
                 
-            <select class="select2" id="id_contrato" name="id_contrato" style="width: 100%" data-placeholder="Selecione um contrato" title="Você precisa selecionar uma contrato" required>
+            <select class="select2" id="id_contrato" name="id_contrato" style="width: 100%" data-placeholder="Selecione um contrato" title="Você precisa selecionar uma contrato">
                         <option value=""></option>
                           @foreach ($Contratos as $c)
                             <option value="{{ $c->id_contrato }}">{{ $c->nu_contrato }}</option>
@@ -121,7 +123,7 @@
             <div class="form-group">
               <label>Data início</label>
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="dd/mm/aaaa" id="datepicker">
+                <input type="text" class="form-control" placeholder="dd/mm/aaaa" name="datainicio" id="datepicker">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
               </div>
             </div>  
@@ -132,7 +134,7 @@
             <div class="form-group">
               <label>Data fim</label>
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="dd/mm/aaaa" id="datepicker2">
+                <input type="text" class="form-control" placeholder="dd/mm/aaaa" name="datafinal" id="datepicker2">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
               </div>
             </div>  

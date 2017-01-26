@@ -24,12 +24,16 @@ Route::Get('/descumprimento', 'DescumprimentoController@index');
 Route::Get('/descumprimento/novo', 'DescumprimentoController@novo');
 Route::Post('/descumprimento/incluir/', 'DescumprimentoController@incluir');
 Route::Get('/descumprimento/avaliar/{id}', 'descumprimentoController@avaliar');
+Route::Post('/descumprimento/incluiravaliacao', 'DescumprimentoController@incluiravaliacao');
+Route::Get('/descumprimento/ver/{id}', 'DescumprimentoController@ver');
+
+
+
 
 //Route::Get('/notificacao/justificar/{id}', 'NotificacaoController@justificar');
 
 //Route::Post('/notificacao/incluirjustificativa/', 'NotificacaoController@incluirjustificativa');
-//Route::Post('/notificacao/incluiravaliacao/', 'NotificacaoController@incluiravaliacao');
-//Route::Get('/notificacao/ver/{id}', 'NotificacaoController@ver');
+
 //Route::Get('/notificacao/corrigir/{id}', 'NotificacaoController@corrigir');
 //Route::Post('/notificacao/buscar', 'NotificacaoController@buscar');
 

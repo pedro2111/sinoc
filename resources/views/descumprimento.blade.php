@@ -85,7 +85,7 @@
                             Aguardando análise
                            @else 
                               @if($n->status == 2)
-                                Acatado
+                                Avaliação realizada
                               @else 
                                 Aguardando
                               @endif  
@@ -95,9 +95,15 @@
                           </td>
                           <td>
                           
-                          <a href="descumprimento/ver/{{ Crypt::encrypt($n->id_descumprimento) }}">Informações</a>
-                          <a href="descumprimento/avaliar/{{ Crypt::encrypt($n->id_descumprimento) }}">Avaliar</a>
-                          <a href="descumprimento/ver/{{ Crypt::encrypt($n->id_descumprimento) }}">Informações</a>
+                          			<!--  Verifica se a pessoa é preposto -->
+							@if(Session::get('isrh') == 1)
+	                            @if($n->dt_avaliacao == NULL)
+									<a href="descumprimento/avaliar/{{ Crypt::encrypt($n->id_descumprimento) }}">Avaliar</a> |     	                          
+        	                    @endif 
+							@endif
+                            
+                            
+                          <a href="descumprimento/ver/{{ Crypt::encrypt($n->id_descumprimento) }}">+Informações</a>
                           
                           
                           </td>

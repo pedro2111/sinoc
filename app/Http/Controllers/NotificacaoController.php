@@ -330,11 +330,12 @@ class NotificacaoController extends Controller
         
         $matricula  =   getenv('USERNAME');
 
-        $q = $request->input('q');
-
-
-        //Listando as empresas
-        $Empresas = Empresa::all();
+        $n_notificacao 		= $request->input('n_notificacao');
+        $palavra_chave 		= $request->input('palavra_chave');
+        $id_notificadora 	= $request->input('id_notificadora');
+        $id_contrato 		= $request->input('id_contrato');
+        $datainicio 		= $request->input('datainicio');
+        $datafinal 			= $request->input('datafinal');
 
         //Listando os contratos    
         $Contratos = Contrato::all();
@@ -343,24 +344,20 @@ class NotificacaoController extends Controller
         //Listando todos os contratos válidos do sistema     
         $Notificacoes = DB::table('NOTIFICACAO')
             ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
-            
             ->Where('NOTIFICACAO.deleted_at', null)
             ->Where('CONTRATOS.deleted_at', null)
+            ->Where('NOTIFICACAO.nu_notificacao', 'like', '%'.$n_notificacao.'%')
+            ->Where('NOTIFICACAO.ds_notificacao', 'like', '%'.$palavra_chave.'%')
             
-            ->orWhere('NOTIFICACAO.ds_ocorrencia', 'like', '%'.$q.'%')
-            ->orWhere('NOTIFICACAO.ds_ticket', 'like', '%'.$q.'%')    
-            ->orWhere('NOTIFICACAO.ds_notificacao', 'like', '%'.$q.'%')
-            ->orWhere('NOTIFICACAO.ds_justificativa', 'like', '%'.$q.'%')
-            ->orWhere('NOTIFICACAO.ds_naoacatado', 'like', '%'.$q.'%')
-            ->orWhere('NOTIFICACAO.ma_cadastro', 'like', '%'.$q.'%')
-
-    
+            
+            
+            
             
             ->select('CONTRATOS.*', 'NOTIFICACAO.*')
             ->get();    
 
 
-            //print_r($Notificacoes);
+            dd($Notificacoes);
 
 
         //Carregando View e repassando as variáveis necessárias
