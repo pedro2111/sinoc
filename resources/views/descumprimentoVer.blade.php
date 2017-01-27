@@ -42,7 +42,8 @@
 									<br>
 									
 									
-										<form id='basicForm' name='basicForm' enctype="multipart/form-data" action='{{ url("descumprimento/incluiravaliacao")}}' method="post" class='form-horizontal'>
+										<form id='basicForm' name='basicForm' enctype="multipart/form-data" action='#' method="post" class='form-horizontal'>
+										
 											<input type="hidden" name="id_descumprimento" value="{{ $Descumprimento->id_descumprimento }}"> 
 											<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -142,7 +143,7 @@
 									</div>
 
 
-								</div>
+								
 								<!-- form-group -->
 								
 								
@@ -152,36 +153,59 @@
 
 
 								<div class="panel-heading">
-									<h4 class="panel-title">Por favor avalie a ocorrência</h4>
+									<h4 class="panel-title">Verifique a avaliação fornecida</h4>
 									<br>
 								</div>
 
 
-								<br>
+				
 
 								<div class="form-group">
 									<label class="col-sm-3 control-label">Avaliação <span
 										class="text-danger">*</span></label>
 									<div class="col-sm-8">
-										<select class="select2" id="bit_favoravel" name="bit_favoravel" style="width: 100%" data-placeholder="Informe sua decisão"  title="Informe sua avaliação do descumprimento ocorrido.">
+										<select class="select2" id="bit_favoravel" name="bit_favoravel" style="width: 100%" data-placeholder="Informe sua decisão"  title="Informe sua avaliação do descumprimento ocorrido." disabled>
 											<option value="" selected></option>
-											<option value="1">Favorável a notificar o fornecedor</option>
-											<option value="0">Não favorável a notificar o fornecedor</option>
+											 @if($Descumprimento->bit_favoravel === 1)
+												<option value="1" selected>Favorável a notificar o fornecedor</option>
+											 @else 
+												<option value="0" selected>Não favorável a notificar o fornecedor</option>
+											 @endif
 										</select>
 
 
 									</div>
 								</div>
 								<!-- form-group -->
+								
+								
+											
 
 
 								<div class="form-group" id="campo_texto_avaliacao">
 									<label class="col-sm-3 control-label"><b>Justificativa da avaliação</b></label>
 									<div class="panel-body col-sm-9" style="margin-left: -10px">
-										<textarea style="width: 90.7%;" name="ds_avaliacao" id="ds_avaliacao" placeholder="Informe sua avaliação..." class="wtext" rows="12"></textarea>
+										<textarea style="width: 90.7%;" name="ds_avaliacao" id="ds_avaliacao" placeholder="Informe sua avaliação..." class="wtext" rows="12" disabled>{{ $Descumprimento->ds_avaliacao }}</textarea>
 									</div>
 								</div>
 								<!-- form-group -->
+
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Avaliador</label>
+					                <div class="col-sm-8">
+					                	<input type="text" name="ma_avaliador" id="ma_avaliador"  value="{{ $Descumprimento->ma_avaliador }}" class="form-control" disabled/>
+					                </div>
+					            </div>
+
+
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Data de cadastro</label>
+					                <div class="col-sm-8">
+					                	<input type="text" name="created_at" id="created_at"  value="{{ $Descumprimento->created_at->format('d/m/Y H:i') }}" class="form-control" disabled/>
+					                </div>
+					            </div>
 
 								<br><br>
 								
@@ -191,20 +215,11 @@
 								
 								
 
-								<hr>
 
-								<div class="row">
-									<div class="col-sm-9 col-sm-offset-3">
-
-										<button type="submit"
-											class="btn btn-wide btn-primary btn-quirk mr5">Avaliar</button>
-
-
-										<button type="button" onClick="history.back();"
-											class="btn btn-wide btn-default btn-quirk">Cancelar</button>
-									</div>
-								</div>
 								</form>
+							</div>	
+
+
 
 							</div>
 							<!-- panel-body -->

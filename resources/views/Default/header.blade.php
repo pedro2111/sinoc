@@ -4,6 +4,9 @@
         <h2><a href="{{ url('notificacao')}}"><img src='{{ asset("theme/images/logo.jpg") }}'></a></h2>
       </div><!-- logopanel -->
 
+
+
+
       <div class="headerbar">
 
         <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>

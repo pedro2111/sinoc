@@ -346,23 +346,44 @@ class NotificacaoController extends Controller
             ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
             ->Where('NOTIFICACAO.deleted_at', null)
             ->Where('CONTRATOS.deleted_at', null)
-            ->Where('NOTIFICACAO.nu_notificacao', 'like', '%'.$n_notificacao.'%')
-            ->Where('NOTIFICACAO.ds_notificacao', 'like', '%'.$palavra_chave.'%')
+
+            ->when($id_notificadora, function ($query) use ($id_notificadora) {
+            	return $query->Where('NOTIFICACAO.id_notificadora', $id_notificadora);
+            }, function ($query) {
+            	//return $query->orderBy('name');
+            })
+            
+            ->when($palavra_chave , function ($query) use ($palavra_chave) {  
+            	return $query->Where('NOTIFICACAO.nu_notificacao', 'like', '%'.$palavra_chave.'%')->orWhere('NOTIFICACAO.ds_notificacao', 'like', '%'.$palavra_chave.'%');
+            }, function ($query) {
+            
+            }) 
+            
+			
+            ->when($id_contrato, function ($query) use ($id_contrato) {
+            	return $query->Where('NOTIFICACAO.id_contrato', $id_contrato);
+            }, function ($query) {
+            	//return $query->orderBy('name');
+            })
+            
+            ->when($datainicio, function ($query) use ($datainicio) {
+            	return $query->Where('NOTIFICACAO.created_at','>',  $datainicio);
+            }, function ($query) {
+            	//return $query->orderBy('name');
+            })
             
             
             
-            
-            
+			
             ->select('CONTRATOS.*', 'NOTIFICACAO.*')
             ->get();    
-
-
-            dd($Notificacoes);
+	
+            
+           
 
 
         //Carregando View e repassando as variáveis necessárias
         return view('notificacao', ['matricula' => $matricula,
-                                    'Empresas'  => $Empresas, 
                                     'Contratos' => $Contratos,
                                     'Coordenacoes' => $Coordenacoes,
                                     'Notificacoes' => $Notificacoes

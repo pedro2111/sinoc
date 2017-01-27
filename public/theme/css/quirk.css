@@ -7105,6 +7105,14 @@ fieldset[disabled] .btn-warning.active {
   background-color: #d9534f;
   border-color: transparent;
 }
+.btn-blue {
+  color: #ffffff;
+  background-color: #4FB4D9;
+  border-color: transparent;
+}
+
+
+
 .btn-danger:focus,
 .btn-danger.focus {
   color: #ffffff;
@@ -9692,7 +9700,7 @@ blockquote {
 /***** LEFTPANEL PROFILE *****/
 .leftpanel-profile {
   padding: 15px;
-  background-color: #3b4354;
+  background-color: #E4E7EC;
 }
 .leftpanel-profile .media-object {
   width: 48px;

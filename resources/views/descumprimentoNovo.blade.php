@@ -8,7 +8,7 @@
 	<section>
 		@include('Default.leftpanel')
 
- 
+
 
 		<div class="mainpanel">
 
@@ -42,6 +42,7 @@
 									</div>
 									<br>
 									<div class="panel-body nopaddingtop">
+
 										<form id='basicForm' name='basicForm'
 											enctype="multipart/form-data"
 											action='{{ url("descumprimento/incluir/")}}' method="post"
@@ -114,7 +115,8 @@
 														value="" class="form-control" placeholder="" />
 												</div>
 											</div>
-									
+
+										</form>
 									</div>
 
 
@@ -134,7 +136,7 @@
 											class="btn btn-wide btn-default btn-quirk">Cancelar</button>
 									</div>
 								</div>
-								</form>
+								<form></form>
 
 							</div>
 							<!-- panel-body -->
@@ -151,9 +153,9 @@
 
 
 
-		</div>
+		<div></div>
 		<!-- contentpanel -->
-		</div>
+		<div></div>
 		<!-- mainpanel -->
 	</section>
 
@@ -170,32 +172,32 @@
 
 
 	<script>
-$(document).ready(function(){
-  'use strict';
-
-
-  // HTML5 WYSIWYG Editor
-  $('.wtext').wysihtml5({
-   toolbar: {
-    "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
-    "emphasis": true, //Italics, bold, etc. Default true
-    "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-    "html": false, //Button which allows you to edit the generated HTML. Default false
-    "link": true, //Button to insert a link. Default true
-    "image": false, //Button to insert an image. Default true,
-    "color": false, //Button to change color of font  
-    "blockquote": true, //Blockquote  
-    
-  }
-  });
-
-
-  $('.select2').select2();
-
-  // Error Message In One Container
-  $('#basicForm').validate({
-   errorLabelContainer: jQuery('#basicForm div.error')
-  });
+	$(document).ready(function(){
+	  'use strict';
+	
+	
+	  // HTML5 WYSIWYG Editor
+	  $('.wtext').wysihtml5({
+	   toolbar: {
+	    "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+	    "emphasis": true, //Italics, bold, etc. Default true
+	    "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+	    "html": false, //Button which allows you to edit the generated HTML. Default false
+	    "link": true, //Button to insert a link. Default true
+	    "image": false, //Button to insert an image. Default true,
+	    "color": false, //Button to change color of font  
+	    "blockquote": true, //Blockquote  
+	    
+	  }
+	  });
+	
+	
+	  $('.select2').select2();
+	
+	  // Error Message In One Container
+	  $('#basicForm').validate({
+	   	errorLabelContainer: jQuery('#basicForm div.error')
+	  });
 
 
 
