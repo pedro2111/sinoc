@@ -7,7 +7,7 @@
           <div class="media-body">
           
           
-       		@if (Carbon\Carbon::now()->format('d') == 22 or Carbon\Carbon::now()->format('d') == 28 or Carbon\Carbon::now()->format('d') == 29 or Carbon\Carbon::now()->format('d') == 30 or Carbon\Carbon::now()->format('d') == 31)
+       		@if (Carbon\Carbon::now()->format('d') == 27 or Carbon\Carbon::now()->format('d') == 28 or Carbon\Carbon::now()->format('d') == 29 or Carbon\Carbon::now()->format('d') == 22 or Carbon\Carbon::now()->format('d') == 31)
        		@else 
        			<a href="{{ url("notificacao/nova")}}">
        				<button class="btn btn-blue btn-quirk" style="width:100%">Abrir notificação</button>
@@ -35,12 +35,14 @@
 
           <div class="tab-pane active" id="settings">
           
-                <h5 class="sidebar-title">Navegação</h5>
+            <h5 class="sidebar-title">Descumprimentos</h5>
+            
             <ul class="nav nav-pills nav-stacked nav-quirk">
             
-              <li><a href="{{ url("notificacao")}}"><i class="fa fa-home"></i> <span>Notificações</span></a></li>
-              <li><a href="{{ url("descumprimento")}}"><i class="fa fa-home"></i> <span>Descumprimento contratual</span></a></li>
-
+              <li><a href="{{ url("notificacao")}}"><i class="fa fa-asterisk"></i> <span>Nível de serviço</span></a></li>
+              <li><a href="{{ url("descumprimento")}}"><i class="fa fa-list"></i> <span>Contratual</span></a></li>
+			
+			<h5 class="sidebar-title">Navegação</h5>
               <li class="nav-parent">
                 <a href=""><i class="fa fa-check-square"></i> <span>Administração</span></a>
                 <ul class="children">
@@ -68,7 +70,7 @@
 
                 </ul>
               </li>
-              <li class="nav-parent"><a href=""><i class="fa fa-suitcase"></i> <span>Relatórios</span></a>
+              <li class="nav-parent"><a href=""><i class="fa fa-bar-chart"></i> <span>Relatórios</span></a>
                 <ul class="children">
                    <li><a href="{{ url('relatorio/notificacao_por_contrato')}}">Notificações por contrato</a></li>
                   <li><a href="#">Por definir</a></li>

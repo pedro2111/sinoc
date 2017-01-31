@@ -116,7 +116,7 @@
 												</div>
 											</div>
 
-										</form>
+										
 									</div>
 
 
@@ -136,7 +136,7 @@
 											class="btn btn-wide btn-default btn-quirk">Cancelar</button>
 									</div>
 								</div>
-								<form></form>
+								</form>
 
 							</div>
 							<!-- panel-body -->

@@ -8,6 +8,7 @@ Route::Get('/', 'NotificacaoController@index');
 //Controller de Notificações
 Route::Get('/notificacao', 'NotificacaoController@index');
 Route::Get('/notificacao/nova', 'NotificacaoController@nova');
+Route::Get('/notificacao/autorizar/{id}', 'NotificacaoController@autorizar');
 Route::Post('/notificacao/incluir/', 'NotificacaoController@incluir');
 Route::Get('/notificacao/justificar/{id}', 'NotificacaoController@justificar');
 Route::Get('/notificacao/avaliar/{id}', 'NotificacaoController@avaliar');

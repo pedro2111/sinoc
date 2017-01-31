@@ -16,7 +16,7 @@
         <!-- Breadcrump --> 
         <ol class="breadcrumb breadcrumb-quirk">
           <li><a href="#"><i class="fa fa-home mr5"></i> Dashboard</a></li>
-          <li><a href="#">Notificações</a></li>
+          <li><a href="#">Descumprimento de nível de serviço</a></li>
         </ol>
         <!-- Final Breadcrump --> 
 
@@ -24,7 +24,7 @@
          <!-- ABAS DA TAB -->  
         <ul class="nav nav-tabs">
           <li class="active"><a href="#popular" data-toggle="tab"
-            aria-expanded="false">Notificações registradas</a></li>
+            aria-expanded="false">Descumprimentos de nível de serviço registradas</a></li>
         </ul>
         <!--Final da ABAS DA TAB --> 
 
@@ -38,7 +38,7 @@
          
 
               <div class="panel-heading">
-                <p>Verifique as notificações registradas no sistema.</p>
+                <p>Verifique os descumprimentos de nível de serviço registrados</p>
                 <div class="panel-body">
                 @if (session('status'))
                       <div id="alerta" class="alert alert-{{ session('tipo') }}">
@@ -121,6 +121,13 @@
                             
                             
                             <!--  Verifica se a pessoa é gestor-->
+                            <!--  Verifica se a pessoa é gestor-->
+							@if(Session::get('isgestor') == 1)
+		                            @if($n->dt_naoacatado == NULL)
+		                              <a href="notificacao/autorizar/{{ Crypt::encrypt($n->id_notificacao) }}">Autorizar</a> |
+		                            @endif 
+							@endif 
+
 							@if(Session::get('isgestor') == 1)
 		                            @if($n->dt_naoacatado == NULL)
 		                              <a href="notificacao/avaliar/{{ Crypt::encrypt($n->id_notificacao) }}">Avaliar</a> |

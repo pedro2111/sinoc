@@ -18,7 +18,7 @@
             <li>
               <div class="btn-group">
                 <button type="button" class="btn btn-logged" data-toggle="dropdown">
-                  <b><?php echo $matricula ?></b>
+                  <b>{{ getenv('USERNAME') }}</b>
                   <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu pull-right">

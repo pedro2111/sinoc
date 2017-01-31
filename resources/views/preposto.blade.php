@@ -81,7 +81,6 @@
   
                           <td>
                             <a href="prepostos/editar/{{ $Preposto->id_preposto }}">Editar</a> 
-                            | <a href="#">Ver noficações</a>
                             | <a data-href="prepostos/delete/{{ $Preposto->id_preposto }}" data-toggle="modal" data-target="#confirm-delete">Excluir</a>
 
                             
