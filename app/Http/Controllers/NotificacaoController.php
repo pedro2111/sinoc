@@ -206,7 +206,7 @@ class NotificacaoController extends Controller
 
 
 
- public function ver($id)
+    public function ver($id)
     {
         
     	
@@ -251,6 +251,73 @@ class NotificacaoController extends Controller
 
 
 
+    public function autorizar($id)
+    {
+        
+        
+        
+        //Pegando informações do usuário que está acessando o sistema 
+        $matricula  =  getenv('USERNAME');
+        $Empresas = Empresa::all();
+        $Contratos = Contrato::all();
+        $Contextos = Contexto::all();
+        $Macrocelulas = Macrocelula::all();
+        $Celulas = Celula::all();
+        $Coordenacoes = Coordenacao::all();
+        $Impactos = Impacto::all();
+        $Motivos = Motivo::all();
+        $Indicadores = Indicador::all();
+
+        //Buscando informações especificas do ID = $id
+        $Notificacao = Notificacao::find(Crypt::decrypt($id));
+
+        //Listando motivo da notificação
+        $NotificacaoMotivo = DB::table('NOTIFICACAO_MOTIVO')
+            ->where('NOTIFICACAO_MOTIVO.id_notificacao', Crypt::decrypt($id))
+            ->select('NOTIFICACAO_MOTIVO.*')
+            ->get();    
+
+
+        //Carregando View e repassando as variaveis necessárias
+        return view('notificacaoAutorizar', [   'matricula'         => $matricula,
+                                                'Contratos'         => $Contratos,
+                                                'Contextos'         => $Contextos,
+                                                'Macrocelulas'      => $Macrocelulas,
+                                                'Celulas'           => $Celulas,
+                                                'Coordenacoes'      => $Coordenacoes,
+                                                'Impactos'          => $Impactos,
+                                                'Motivos'           => $Motivos,
+                                                'Indicadores'       => $Indicadores,
+                                                'Empresas'          => $Empresas, 
+                                                'Notificacao'       => $Notificacao,
+                                                'NotificacaoMotivo' => $NotificacaoMotivo
+                                            ]);
+    }
+
+
+    public function incluirautorizacao(Request $request) { 
+        
+        $matricula  =  getenv('USERNAME');
+        
+        
+        $nij = Notificacao::find($request->input('id_notificacao'));
+
+        $nij->bit_aceito    = $request->input('bit_aceito');
+        $nij->ds_naoautorizado = $request->input('ds_naoautorizado');
+        $nij->ma_autorizador  = $matricula;
+        $nij->dt_autorizacao = Carbon::now();
+
+        $nij->save();
+
+        //Redirecionandopara a página principal
+        return redirect()->action('NotificacaoController@index')
+                        ->with('status', 'Sua avaliação foi cadastrada com sucesso!')
+                        ->with('tipo', 'success');
+
+
+    }
+
+
     public function incluirjustificativa(Request $request) { 
         
         $matricula  =  getenv('USERNAME');
@@ -261,6 +328,7 @@ class NotificacaoController extends Controller
         $nij->ds_justificativa = $request->input('ds_justificativa');
         $nij->ma_justificativa = $matricula;
         $nij->dt_justificativa = Carbon::now();
+        $nij->bit_aceito = 3;
         
         
         if($request->file('justificativa_anexo')) {
@@ -313,14 +381,17 @@ class NotificacaoController extends Controller
         
         $ncj = Notificacao::find(Crypt::decrypt($id));
 
-        $ncj->dt_justificativa = NULL;
         $ncj->dt_naoacatado = NULL;
+        $ncj->ds_naoacatado = NULL;
+        $ncj->ma_avaliador  = NULL;
+        $ncj->bit_aceito    = 3;
+
 
         $ncj->save();
 
         #Redirecionandopara a página principal
         return redirect()->action('NotificacaoController@index')
-        							->with('status', 'A notificação pode ser corrigida agora!')
+        							->with('status', 'O descumprimento de nível de serviço já pode ser corrigido!')
         							->with('tipo', 'success');
 
     }
@@ -410,6 +481,7 @@ class NotificacaoController extends Controller
         $n->ds_ticket = $request->input('ds_ticket');
         $n->ma_cadastro = getenv('USERNAME');
         $n->id_indicador = $request->input('id_indicador');
+        $n->bit_aceito = 1;
         
         $n->dt_fim_justificativa = Carbon::now()->endOfMonth()->format('d/m/Y H:i');
         
@@ -452,7 +524,7 @@ class NotificacaoController extends Controller
         DB::table('NOTIFICACAO_MOTIVO')->insert($datasetMot);
 
         #Redirecionandopara a página principal
-        return redirect()->action('NotificacaoController@index')->with('status', 'Nova notificação foi incluida com sucesso!');
+        return redirect()->action('NotificacaoController@index')->with('status', 'Novo descumprimento de nível de serviço foi incluida com sucesso!');
     }
 
 

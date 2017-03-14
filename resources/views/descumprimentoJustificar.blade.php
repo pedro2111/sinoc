@@ -1,4 +1,4 @@
-@include('Default.head')
+ @include('Default.head')
 
 <body>
 	@include('Default.header')
@@ -18,6 +18,7 @@
 				<ol class="breadcrumb breadcrumb-quirk">
 					<li><a href="#"><i class="fa fa-home mr5"></i> Dashboard</a></li>
 					<li><a href="#">Descumprimento contratual</a></li>
+					<li><a href="#">Justificativa por parte da empresa contratada</a></li>
 				</ol>
 				<!-- Final Breadcrump -->
 
@@ -25,7 +26,7 @@
 				<!-- ABAS DA TAB -->
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#recent" data-toggle="tab"
-						aria-expanded="false">Novo descumprimento contratual</a></li>
+						aria-expanded="false">Justificativa do descumprimento contratual</a></li>
 				</ul>
 				<!--Final da ABAS DA TAB -->
 
@@ -42,7 +43,7 @@
 									<br>
 									
 									
-										<form id='basicForm' name='basicForm' enctype="multipart/form-data" action='{{ url("descumprimento/incluiravaliacao")}}' method="post" class='form-horizontal'>
+										<form id='basicForm' name='basicForm' enctype="multipart/form-data" action='{{ url("descumprimento/incluirjustificativa")}}' method="post" class='form-horizontal'>
 											<input type="hidden" name="id_descumprimento" value="{{ $Descumprimento->id_descumprimento }}"> 
 											<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -152,33 +153,17 @@
 
 
 								<div class="panel-heading">
-									<h4 class="panel-title">Por favor avalie a ocorrência</h4>
+									<h4 class="panel-title">Por favor informe sua justificativa para a ocorrência</h4>
 									<br>
 								</div>
 
 
 								<br>
 
-								<div class="form-group">
-									<label class="col-sm-3 control-label">Avaliação <span
-										class="text-danger">*</span></label>
-									<div class="col-sm-8">
-										<select class="select2" id="bit_favoravel" name="bit_favoravel" style="width: 100%" data-placeholder="Informe sua decisão"  title="Informe sua avaliação do descumprimento ocorrido.">
-											<option value="" selected></option>
-											<option value="1">Favorável a notificar o fornecedor</option>
-											<option value="0">Não favorável a notificar o fornecedor</option>
-										</select>
-
-
-									</div>
-								</div>
-								<!-- form-group -->
-
-
 								<div class="form-group" id="campo_texto_avaliacao">
-									<label class="col-sm-3 control-label"><b>Justificativa da avaliação</b></label>
+									<label class="col-sm-3 control-label"><b>Justificativa da ocorrência</b></label>
 									<div class="panel-body col-sm-9" style="margin-left: -10px">
-										<textarea style="width: 90.7%;" name="ds_avaliacao" id="ds_avaliacao" placeholder="Informe sua avaliação..." class="wtext" rows="12"></textarea>
+										<textarea style="width: 90.7%;" name="ds_justificativa" id="ds_justificativa" placeholder="Informe sua justificativa..." class="wtext" rows="12"></textarea>
 									</div>
 								</div>
 								<!-- form-group -->

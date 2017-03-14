@@ -83,7 +83,7 @@
             <h5 class="sidebar-title">Busca de notificações</h5>
             
             
-            <form id='basicForm' name='basicForm' enctype="multipart/form-data" action='{{ url("notificacao/buscar")}}' method="post" class='form-horizontal'>
+            <form id='basicForm1' name='basicForm1' enctype="multipart/form-data" action='{{ url("notificacao/buscar")}}' method="post" class='form-horizontal'>
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
             
             

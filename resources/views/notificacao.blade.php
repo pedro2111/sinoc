@@ -19,12 +19,13 @@
           <li><a href="#">Descumprimento de nível de serviço</a></li>
         </ol>
         <!-- Final Breadcrump --> 
-
+	
+		
 
          <!-- ABAS DA TAB -->  
         <ul class="nav nav-tabs">
           <li class="active"><a href="#popular" data-toggle="tab"
-            aria-expanded="false">Descumprimentos de nível de serviço registradas</a></li>
+            aria-expanded="false">Descumprimentos de nível de serviço registrados</a></li>
         </ul>
         <!--Final da ABAS DA TAB --> 
 
@@ -87,63 +88,95 @@
                          	@if ($n->id_notificadora === $Coordenacao->id_coordenacao)
                             	<td>{{ $Coordenacao->no_coordenacao }}</td>
                             @endif
-						  @endforeach
+						          @endforeach
+
+
 
 
                           <td>
-                           @if($n->bit_aceito == 4) 
-                            Não acatado
-                           @else 
-                              @if($n->bit_aceito == 3)
-                                Acatado
-                              @else 
-                                Aguardando
-                              @endif  
-                           @endif
+                            @if($n->bit_aceito == 9)
+                              Não autorizado
+                            @endif 
+
+
+
+
+                            @if($n->bit_aceito == 5)
+                              Justificativa não acatada
+                            @endif 
+
+                            @if($n->bit_aceito == 4)
+                              Justificativa acatada
+                            @endif 
+
+
+
+
+                            @if($n->bit_aceito == 3)
+                              Aguardando avaliação
+                            @endif 
+
+
+                            @if($n->bit_aceito == 2)
+                              Aguardando justificativa
+                            @endif 
+
+
+
+                            @if($n->bit_aceito == 1)
+                              Aguardando autorização
+                            @endif 
+
                            
                            </td>
 
-						  @if($n->dt_fim_justificativa)
-                          	<td>{{ Carbon\Carbon::parse($n->dt_fim_justificativa)->format('d/m/Y') }}</td>
+
+
+
+
+
+						              @if($n->dt_fim_justificativa)
+                          	<td>{{ Carbon\Carbon::parse($n->dt_fim_justificativa)->format('d/m/Y H:i') }}</td>
                           @else 
                           	<td></td>
                           @endif
                             
                           <td>
-                            
-
-							<!--  Verifica se a pessoa é preposto -->
-							@if(Session::get('ispreposto') == 1)
-	                            @if($n->dt_justificativa == NULL)
-    	                          <a href="notificacao/justificar/{{ Crypt::encrypt($n->id_notificacao) }}">Justificar</a> |
-        	                    @endif 
-							@endif
-                            
-                            
                             <!--  Verifica se a pessoa é gestor-->
                             <!--  Verifica se a pessoa é gestor-->
-							@if(Session::get('isgestor') == 1)
-		                            @if($n->dt_naoacatado == NULL)
-		                              <a href="notificacao/autorizar/{{ Crypt::encrypt($n->id_notificacao) }}">Autorizar</a> |
-		                            @endif 
-							@endif 
+                            @if(Session::get('isgestor') == 1)
+                                              @if($n->dt_naoacatado == NULL && $n->bit_aceito == 1)
+                                                <a href="notificacao/autorizar/{{ Crypt::encrypt($n->id_notificacao) }}">Autorizar</a> |
+                                              @endif 
+                            @endif 
 
-							@if(Session::get('isgestor') == 1)
-		                            @if($n->dt_naoacatado == NULL)
-		                              <a href="notificacao/avaliar/{{ Crypt::encrypt($n->id_notificacao) }}">Avaliar</a> |
-		                            @endif 
-							@endif 
+                                                                                                         
+              							<!--  Verifica se a pessoa é preposto -->
+              							@if(Session::get('ispreposto') == 1)
+              	                            @if($n->bit_aceito == 2)
+                  	                          <a href="notificacao/justificar/{{ Crypt::encrypt($n->id_notificacao) }}">Justificar</a> |
+                      	                    @endif 
+              							@endif
+                                          
+                                          
+                    
+
+              							@if(Session::get('isgestor') == 1)
+              		                             @if($n->bit_aceito == 3)
+              		                              <a href="notificacao/avaliar/{{ Crypt::encrypt($n->id_notificacao) }}">Avaliar</a> |
+              		                            @endif 
+              							@endif 
+              							
 							
 							
 							
-							
-							<!--  Verifica se a pessoa é agente de RH e Contratos-->
-							@if(Session::get('isrh') == 1)
-	                            @if($n->dt_naoacatado != NULL)
-    	                          <a href="notificacao/corrigir/{{ Crypt::encrypt($n->id_notificacao) }}">Corrigir</a> |
-        	                    @endif 
-							@endif
-                            
+              							<!--  Verifica se a pessoa é agente de RH e Contratos-->
+              							@if(Session::get('isrh') == 1)
+              	                             @if($n->bit_aceito == 5)
+                  	                          <a href="notificacao/corrigir/{{ Crypt::encrypt($n->id_notificacao) }}">Corrigir</a> |
+                      	                    @endif 
+              							@endif
+                                          
                             
                             <a href="notificacao/ver/{{ Crypt::encrypt($n->id_notificacao) }}">Informações</a>                            
                             

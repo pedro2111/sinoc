@@ -18,7 +18,7 @@
 				<ol class="breadcrumb breadcrumb-quirk">
 					<li><a href="#"><i class="fa fa-home mr5"></i> Dashboard</a></li>
 					<li><a href="#">Notificação</a></li>
-					<li><a href="#">Avaliar</a></li>
+					<li><a href="#">Autorizar</a></li>
 				</ol>
 				<!-- Final Breadcrump -->
 
@@ -26,7 +26,7 @@
 				<!-- ABAS DA TAB -->
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#recent" data-toggle="tab"
-						aria-expanded="false">Avaliar justificativa notificação</a></li>
+						aria-expanded="false">Autorizar o encaminhamento do descumprimento de nível de serviço</a></li>
 				</ul>
 				<!--Final da ABAS DA TAB -->
 
@@ -40,7 +40,7 @@
 									<div class="panel-heading nopaddingbottom"></div>
 									<br>
 									<div class="panel-body nopaddingtop">
-										<form id='basicForm' name='basicForm' action='{{ url("notificacao/incluiravaliacao/")}}' method="post" class='form-horizontal'>
+										<form id='basicForm' name='basicForm' action='{{ url("notificacao/incluirautorizacao/")}}' method="post" class='form-horizontal'>
 											<input type="hidden" name="id_notificacao" value="{{ $Notificacao->id_notificacao }}"> 
 											<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -48,25 +48,24 @@
 
 
 
-											<h4 class="panel-title">Verifique as informações da
-												notificação</h4>
+											<h4 class="panel-title">Verifique as informações do descumprimento de nível de serviço</h4>
 											<br>
 											
-						<hr>
-											                   	<div class="form-group">
-                          <label class="col-sm-3 control-label">Data de cadastro</label>
-                        <div class="col-sm-8">
-                         <input type="text" name="created_at" id="created_at"  value="{{ $Notificacao->created_at->format('d/m/Y H:i') }}" class="form-control" disabled/>
-                          </div>
-                        </div>
+											<hr>
+						                   	<div class="form-group">
+					                          <label class="col-sm-3 control-label">Data de cadastro</label>
+					                        <div class="col-sm-8">
+					                         <input type="text" name="created_at" id="created_at"  value="{{ $Notificacao->created_at->format('d/m/Y H:i') }}" class="form-control" disabled/>
+					                          </div>
+					                        </div>
 
 
-                      <div class="form-group">
-                          <label class="col-sm-3 control-label">Responsável pela notificação</label>
-                          <div class="col-sm-8">
-                            <input type="text" name="ma_cadastro" id="ma_cadastro"  value="{{ $Notificacao->ma_cadastro }}" class="form-control" title="Informe o nome do contexto" disabled/>
-                          </div>
-                        </div>
+					                      <div class="form-group">
+					                          <label class="col-sm-3 control-label">Responsável pela notificação</label>
+					                          <div class="col-sm-8">
+					                            <input type="text" name="ma_cadastro" id="ma_cadastro"  value="{{ $Notificacao->ma_cadastro }}" class="form-control" title="Informe o nome do contexto" disabled/>
+					                          </div>
+					                        </div>
 
                       
 											
@@ -243,80 +242,13 @@
                         </div>
 
 
-				<hr>
-
-
-
-
-
-
-
-								<div class="panel-heading">
-									<h4 class="panel-title">Verifique a justificativa informada</h4>
-									<br>
-								</div>
-								
-								
-								
-										<div class="form-group">
-											<div class="col-sm-12">
-											<label class="col-sm-3 control-label"><b>Justificativa</b></label>
-											
-											<div class="panel-body col-sm-9" style="margin-left: -10px">
-												<textarea style="width: 91.7%;" name="ds_justificativa"
-													id="ds_justificativa"
-													placeholder="descrição da justificativa..." class="wtext form-control"
-													rows="9" disabled>{{ $Notificacao->ds_justificativa }}</textarea>
-											</div>
-											</div>
-										</div>
-										<!-- form-group -->	
-		
-										<div class="form-group">
-											<div class="col-sm-12">
-												<label class="col-sm-3 control-label">Data da justificativa</label>
-												<div class="col-sm-8">
-													<input type="text" name="dt_justificativa" id="dt_justificativa" value="{{ Carbon\Carbon::parse($Notificacao->dt_justificativa)->format('d/m/Y h:i') }}" class="form-control" disabled />
-												</div>
-											</div>
-										</div>
-										
-										
-									
-										
-										<div class="form-group">
-											<div class="col-sm-12">
-									
-												<label class="col-sm-3 control-label">Responsável pela justificativa</label>
-												<div class="col-sm-8">
-													<input type="text" name="ma_justificativa" id="ma_justificativa" value="{{ $Notificacao->ma_justificativa }}" class="form-control" title="Informe o nome do contexto" disabled />
-												</div>
-											</div>
-										</div>
-												
-												
-										
-				                        <div class="form-group">
-				                          <label class="col-sm-3 control-label">Arquivo anexo:</label>
-				                          <div class="col-sm-4" style='padding-top:12px;'>
-				                          @if($Notificacao->justificativa_anexo)
-				                            <a href='{{ url('../storage/uploads') }}/{{ $Notificacao->justificativa_anexo}}' target='_new'>{{ $Notificacao->justificativa_anexo}}</a>
-				                          @else 
-				                          	Não existe arquivo anexado
-				                          @endif 
-				                          </div>
-				                        </div>
-				                  
-				                  
-				                  
-										<hr>
+							<hr>
 										
 
 
 
 								<div class="panel-heading">
-									<h4 class="panel-title">Preencha corretamente o formulário
-										abaixo com sua avaliação caso necessário</h4>
+									<h4 class="panel-title">Prezado coordenador, conforme seu entendimento, autorize ou não a abertura do descumprimento de nível de serviço</h4>
 									<br>
 								</div>
 
@@ -324,15 +256,15 @@
 								<br>
 
 								<div class="form-group">
-									<label class="col-sm-3 control-label">Parecer <span
+									<label class="col-sm-3 control-label">Autorização: <span
 										class="text-danger">*</span></label>
 									<div class="col-sm-8">
 										<select class="select2" id="bit_aceito" name="bit_aceito"
 											style="width: 100%" data-placeholder="Informe sua decisão"
-											title="Informe sua posição a respeito da justificativa">
+											title="Informe sua posição a respeito do descumprimento de nível de serviço">
 											<option value="" selected></option>
-											<option value="4">Justificativa acatada</option>
-											<option value="5">Justificativa não acatada</option>
+											<option value="2">AUTORIZO a abertura do descumprimento de nível de serviço</option>
+											<option value="9">NÃO AUTORIZO a abertura do descumprimento de nível de serviço</option>
 										</select>
 
 
@@ -342,10 +274,10 @@
 
 
 								<div class="form-group" id="campo_texto_avaliacao">
-									<label class="col-sm-3 control-label"><b>Informe sua avaliação</b></label>
+									<label class="col-sm-3 control-label"><b>Caso não, informe o motivo</b></label>
 									<div class="panel-body col-sm-9" style="margin-left: -10px">
-										<textarea style="width: 90.7%;" name="ds_naoacatado"
-											id="ds_naoacatado" placeholder="Informe sua avaliação..."
+										<textarea style="width: 90.7%;" name="ds_naoautorizado"
+											id="ds_naoautorizado" placeholder="Informe sua avaliação..."
 											class="wtext" rows="9"></textarea>
 									</div>
 								</div>
@@ -474,7 +406,7 @@ $(document).ready(function(){
   //Configurando o campo de avaliação caso ele seja necessário. 
   $("#bit_aceito").change(function(){
 	
-	if($("#bit_aceito").val() == 5) 
+	if($("#bit_aceito").val() == 9) 
 	{
 		$("#campo_texto_avaliacao").show();
 	}

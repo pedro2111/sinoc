@@ -208,7 +208,43 @@
 				<hr>
 
 
+                      <div class="panel-heading nopaddingbottom">
+                            <h4 class="panel-title">Autorização da notificação</h4>
+                            <br>
+                      </div>
 
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label"><b>Negativa da autorização</b></label>
+                        <div class="panel-body col-sm-9" style="margin-left:-10px">
+                          <textarea style="width:90.7%;" name="ds_naoautorizado" id="ds_naoautorizado"  class="wtext"  placeholder="descrição da negativa de autorização..." class="form-control" rows="9" disabled>{{ $Notificacao->ds_naoautorizado }}</textarea>
+                        </div>
+                      </div><!-- form-group -->
+
+                      <div class="form-group">
+                          <label class="col-sm-3 control-label">Data da autorização</label>
+                          <div class="col-sm-8">
+                            @if($Notificacao->dt_autorizacao)
+                                <input type="text" name="dt_autorizacao" id="dt_autorizacao"  value="{{ Carbon\Carbon::parse($Notificacao->dt_autorizacao)->format('d/m/Y H:i') }}" class="form-control" disabled/>
+                              @else 
+                                <input type="text" name="dt_autorizacao" id="dt_autorizacao"  value="" class="form-control" disabled/>
+                              @endif
+                          </div>
+                        </div>
+
+                      <div class="form-group">
+                          <label class="col-sm-3 control-label">Responsável pela autorização</label>
+                          <div class="col-sm-8">
+                            <input type="text" name="ma_autorizador" id="ma_autorizador"  value="{{ $Notificacao->ma_autorizador }}" class="form-control" title="Informe o nome do contexto" disabled/>
+                          </div>
+                        </div>
+
+
+    
+              @if($Notificacao->bit_aceito <> 9 )
+
+
+
+                <hr>
 
 
 
@@ -278,10 +314,10 @@
                         <div class="col-sm-8">
                           <select class="select2" id="bit_aceito" name="bit_aceito" style="width: 100%" disabled>
                                         <option value=""></option>
-                                        @if ($Notificacao->bit_aceito == 3) 
-                            	            <option value="3" selected>Justificativa acatada</option>
-                                        @elseif ($Notificacao->bit_aceito == 4)
-                             	           	<option value="4" selected>Justificativa não acatada</option>
+                                        @if ($Notificacao->bit_aceito == 4) 
+                            	            <option value="4" selected>Justificativa acatada</option>
+                                        @elseif ($Notificacao->bit_aceito == 5)
+                             	           	<option value="5" selected>Justificativa não acatada</option>
                                         @else 
                                		        <option value="#" selected>Informação ainda não disponível</option>
                                         @endif
@@ -311,7 +347,7 @@
 
 
 
-
+                    @endif
 
 
 

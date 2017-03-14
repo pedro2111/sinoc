@@ -78,32 +78,54 @@
                           <td>{{ Carbon\Carbon::parse($n->created_at)->format('d/m/Y') }}</td>
                           <td>{{ $n->nu_contrato }}</td>
                           <td>{{ $n->ma_cadastro }}</td>
- 						  <td>{{ $n->ds_titulo }}</td>
+ 						              <td>{{ $n->ds_titulo }}</td>
                           <td>
                           
-                           @if($n->status == 1) 
-                            Aguardando análise
-                           @else 
-                              @if($n->status == 2)
-                                Avaliação realizada
-                              @else 
-                                Aguardando
-                              @endif  
-                           @endif
+
+
+                            @if($n->status == 1) 
+                              Aguardando análise interna
+                            @endif
+
+
+                            @if($n->status == 2) 
+                              Aguardando justificativa da empresa
+                            @endif
+
+                            @if($n->status == 3) 
+                              Aguardando avaliação da justificativa da empresa
+                            @endif
+
+
                           
+                            @if($n->status == 9) 
+                              Descumprimento contratual desconsiderado
+                            @endif
+
                           
                           </td>
                           <td>
                           
-                          			<!--  Verifica se a pessoa é preposto -->
-							@if(Session::get('isrh') == 1)
-	                            @if($n->dt_avaliacao == NULL)
-									<a href="descumprimento/avaliar/{{ Crypt::encrypt($n->id_descumprimento) }}">Avaliar</a> |     	                          
-        	                    @endif 
-							@endif
-                            
-                            
-                          <a href="descumprimento/ver/{{ Crypt::encrypt($n->id_descumprimento) }}">+Informações</a>
+                    			<!--  Verifica se a pessoa é preposto -->
+            							@if(Session::get('isrh') == 1)
+ 	                            @if($n->status == 1)
+              									<a href="descumprimento/avaliar/{{ Crypt::encrypt($n->id_descumprimento) }}">Avaliação interna</a> |     	                          
+         	                    @endif 
+            							@endif
+                      
+                          @if(Session::get('ispreposto') == 1)
+                              @if($n->status == 2)
+                                <a href="descumprimento/justificar/{{ Crypt::encrypt($n->id_descumprimento) }}">Informar justificativa</a> |                                
+                              @endif 
+                          @endif
+                      
+                          @if(Session::get('isrh') == 1)
+                              @if($n->status == 3)
+                                <a href="descumprimento/avaliarresposta/{{ Crypt::encrypt($n->id_descumprimento) }}">Avaliar justificativa da empresa</a> |                                
+                              @endif 
+                          @endif
+
+                          <a href="descumprimento/ver/{{ Crypt::encrypt($n->id_descumprimento) }}">Informações</a>
                           
                           
                           </td>
