@@ -16,8 +16,9 @@ Principais funcionalidades do sistema:
 
 # Servidor de desenvolvimento 
 
-O servidor de desenvolvimento utilizado é o : http://10.116.84.207/ | SBRDEAPRLX021
-Arquivos localizados em /var/www/html/sinoc/
+# O servidor de desenvolvimento : 10.116.84.207 -  SBRDEAPRLX021
+
+# Arquivos localizados em /var/www/html/sinoc/
 
 
 ``` 
