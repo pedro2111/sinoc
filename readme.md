@@ -7,20 +7,26 @@ Principais funcionalidades do sistema:
  * Cadastro de Categorias de impacto;
  * Cadastro de Empresas; 
  * Cadastro de Gestores; 
- * Cadastro de CoordenaÁıes;
- * Cadastro de MacrocÈlulas;
- * Cadastro de CÈlulas;
- * Cadastro de NotificaÁıes;
- * Controle de usu·rios
+ * Cadastro de Coordena√ß√µes;
+ * Cadastro de Macroc√©lulas;
+ * Cadastro de C√©lulas;
+ * Cadastro de Notifica√ß√µes;
+ * Controle de usu√°rios
+
+
+# Servidor de desenvolvimento 
+
+O servidor de desenvolvimento utilizado √© o : http://10.116.84.207/ | SBRDEAPRLX021
+Arquivos localizados em /var/www/html/sinoc/
 
 
 ``` 
 Desenvolvimento em PHP / Laravel / PostgreSQL 
 
-CoordenaÁ„o respons·vel: CEPTIBR01
+Coordena√ß√£o respons√°vel: CEPTIBR01
 
-Respons·veis: 
+Respons√°veis: 
 	* Allan Torres : allan.t.silva@caixa.gov.br
-	* Guilherme Santos : guilherme.v.santos@caixa.gov.br
+	
 
 ```
