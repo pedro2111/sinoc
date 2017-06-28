@@ -33,9 +33,7 @@ class EmpresaController extends Controller
             ->join('EMPRESA', 'CONTRATOS.id_empresa', '=', 'EMPRESA.id_empresa')
             ->where('CONTRATOS.deleted_at', null)
             ->select('CONTRATOS.*', 'EMPRESA.*')
-            ->get();    
-
-
+            ->get();  
 
         //Carregando View e repassando as variáveis necessárias
         return view('empresa', [ 'matricula' => $matricula,

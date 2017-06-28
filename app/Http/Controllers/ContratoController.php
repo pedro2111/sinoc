@@ -25,7 +25,6 @@ class ContratoController extends Controller
         $Empresas = Empresa::all();
         $Coordenacoes = Coordenacao::all();
         
-        
         //Listando todos os contratos válidos do sistema     
         $Contratos = DB::table('CONTRATOS')
             ->join('EMPRESA', 'CONTRATOS.id_empresa', '=', 'EMPRESA.id_empresa')
@@ -44,9 +43,6 @@ class ContratoController extends Controller
                                  ]);
 
     }
-
-
-
 
 
     public function editar($id)

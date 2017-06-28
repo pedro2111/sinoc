@@ -94,10 +94,6 @@
 											<hr>
 
 
-
-
-
-
 											<div class="form-group">
 												<label class="col-sm-3 control-label">Título</label>
 												<div class="col-sm-8">
@@ -107,11 +103,6 @@
 														disabled />
 												</div>
 											</div>
-
-
-
-
-
 
 
 											<div class="form-group">
@@ -163,18 +154,12 @@
 								<div class="form-group" id="campo_texto_avaliacao">
 									<label class="col-sm-3 control-label"><b>Justificativa da ocorrência</b></label>
 									<div class="panel-body col-sm-9" style="margin-left: -10px">
-										<textarea style="width: 90.7%;" name="ds_justificativa" id="ds_justificativa" placeholder="Informe sua justificativa..." class="wtext" rows="12"></textarea>
+										<textarea style="width: 90.7%;" name="ds_justificativa" id="ds_justificativa" placeholder="Informe sua justificativa..." class="wtext" rows="12" title="Campo Justificativa Obrigatório!! Favor preencher!" required></textarea>
 									</div>
 								</div>
 								<!-- form-group -->
 
 								<br><br>
-								
-								
-								
-								
-								
-								
 
 								<hr>
 

@@ -50,7 +50,7 @@
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Coordenação Notificadora <span class="text-danger">*</span></label>
                         <div class="col-sm-8">
-                          <select class="select2" id="id_notificadora" name="id_notificadora" style="width: 100%" data-placeholder="Selecione a coordenação notificadora" title="Você precisa selecionar a coordenação notificadora" required>
+                          <select class="select2" id="id_notificadora" name="id_notificadora" style="width: 100%" data-placeholder="Selecione a coordenação notificadora" title="Campo Coordenação Notificadora Obrigatório!! Favor preencher!" required>
                             <option value=""></option>
                               @foreach ($Coordenacoes as $Coordenacao)
                                       <option value="{{ $Coordenacao->id_coordenacao }}">{{ $Coordenacao->ds_coordenacao }}</option>
@@ -80,8 +80,9 @@
                         <div class="form-group">
                         <label class="col-sm-3 control-label">Contrato <span class="text-danger">*</span></label>
                         <div class="col-sm-8">
-                          <select class="select2" id="id_contrato" name="id_contrato" style="width: 100%" data-placeholder="Selecione o contrato" title="Você precisa selecionar um contrato" required>
+                          <select class="select2" id="id_contrato" name="id_contrato" style="width: 100%" data-placeholder="Selecione o contrato" title="Campo Contrato Obrigatório!! Favor preencher!" required>
                             <option value=""></option>
+            
                               @foreach ($Contratos as $Contrato)
                                       <option value="{{ $Contrato->id_contrato }}">{{ $Contrato->nu_contrato }}</option>
                               @endforeach
@@ -95,50 +96,39 @@
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Indicador afetado <span class="text-danger">*</span></label>
                           <div class="col-sm-8">
-                            <select class="select2" id="id_indicador" name="id_indicador" style="width: 100%" data-placeholder="Selecione a coordenação impactada">
+                            <select class="select2" id="id_indicador" name="id_indicador" style="width: 100%" data-placeholder="Selecione o indicador afetado" title="Campo Indicador afetado Obrigatório!! Favor preencher!" required>
                                       <option value=""></option>
                               @foreach ($Indicadores as $indicador)
                                       <option value="{{ $indicador->id_indicador }}">{{ $indicador->no_indicador }}</option>
                               @endforeach      
                             </select>
-                          </div>
-                        </div>
+                </div>
+              </div>
 
-                        <hr>
+                <hr>
 
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Nº da ocorrência</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="ds_ocorrencia" id="ds_ocorrencia"  value="" class="form-control"/>
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Descrição da ocorrência </label>
+                    <div class="panel-body col-sm-9" style="margin-left:-10px">
+                        <textarea style="width:90.7%;" name="ds_ticket" id="ds_ticket" placeholder="Preencha esse campo com a descrição da ocorrência" class="wtext"></textarea>
+                    </div>
+                </div><!-- form-group -->
 
-
-
-
-                              <div class="form-group">
-                                <label class="col-sm-3 control-label">Nº da ocorrência</label>
-                                <div class="col-sm-8">
-                                  <input type="text" name="ds_ocorrencia" id="ds_ocorrencia"  value="" class="form-control"/>
-                                </div>
-                              </div>
-
-
-
-
-             
-
-
-                      <div class="form-group">
-                        <label class="col-sm-3 control-label">Descrição da ocorrência </label>
-                        <div class="panel-body col-sm-9" style="margin-left:-10px">
-                          <textarea style="width:90.7%;" name="ds_ticket" id="ds_ticket" placeholder="Preencha esse campo com a descrição da ocorrência" class="wtext"></textarea>
-                        </div>
-                      </div><!-- form-group -->
-                      
-                      <hr>
+                <hr>
                       
 
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Motivos da notificação <span class="text-danger">*</span></label>
                           <div class="col-sm-8">
                              @foreach ($Motivos as $motivo)
-                                      <input name="id_motivo[]" type="radio" value="{{ $motivo->id_motivo }}"> {{ $motivo->no_motivo }} <br>
+                                      <input name="id_motivo[]" type="radio" value="{{ $motivo->id_motivo }}" title="Campo Motivo Obrigatório!! Favor preencher!" required> {{ $motivo->no_motivo }} <br>
                               @endforeach
                           </div>
                         </div>
@@ -146,18 +136,11 @@
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Descrição da notificação <span class="text-danger">*</span></label>
                         <div class="panel-body col-sm-9" style="margin-left:-10px">
-                          <textarea style="width:90.7%;" id="ds_notificacao" name="ds_notificacao" class="wtext" placeholder="Preencha este campo com a descrição da notificação" rows="18"></textarea>
+                          <textarea style="width:90.7%;" id="ds_notificacao" name="ds_notificacao" class="wtext" placeholder="Preencha este campo com a descrição da notificação" rows="18" title="Campo Descrição da notificação Obrigatório!! Favor preencher!" required></textarea>
                         </div>
                       </div><!-- form-group -->
 
                     <hr>
-
-
-
-
-
-
-
 
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Duração da inconformidade (em horas): </label>
@@ -166,13 +149,7 @@
                           </div>
                         </div>
 
-
-
-
         			<hr>
-
-
-
 
 						<div class="form-group">
                           <label class="col-sm-3 control-label">Arquivo anexo: </label>
@@ -180,15 +157,6 @@
                             <input type="file" name="nome_anexo" id="nome_anexo" value="" class="form-control" placeholder=""/>
                           </div>
 						</div>
-
-
-                        
-
-
-
-
-
-               
 
                     </div>
 
@@ -262,13 +230,6 @@ $(document).ready(function(){
   $('#basicForm').validate({
    errorLabelContainer: jQuery('#basicForm div.error')
   });
-
-
-
-
-  
-
-  
 
 });   
 </script>

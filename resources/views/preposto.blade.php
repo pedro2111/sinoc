@@ -69,7 +69,6 @@
                         </tr>
                       </tfoot>
                       <tbody>
-
                       @foreach ($Prepostos as $Preposto)
                         <tr>
                           <td>{{ $Preposto->ma_preposto }}</td>

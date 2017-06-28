@@ -7,15 +7,13 @@
           <div class="media-body">
           
           
-       		@if (Carbon\Carbon::now()->format('d') == 27 or Carbon\Carbon::now()->format('d') == 28 or Carbon\Carbon::now()->format('d') == 29 or Carbon\Carbon::now()->format('d') == 22 or Carbon\Carbon::now()->format('d') == 31)
-       		@else 
+       		
        			<a href="{{ url("notificacao/nova")}}">
        				<button class="btn btn-blue btn-quirk" style="width:100%">Abrir notificação</button>
        			</a>
        			<a style="margin-top:15px; display:block;" href="{{ url("descumprimento/novo")}}">
        				<button class="btn btn-blue btn-quirk" style="width:100%">Abrir descumprimento</button>
        			</a>
-            @endif
           </div>
         </div>
 
@@ -35,7 +33,7 @@
 
           <div class="tab-pane active" id="settings">
           
-            <h5 class="sidebar-title">Descumprimentos</h5>
+            <h5 class="sidebar-title" >Descumprimentos</h5>
             
             <ul class="nav nav-pills nav-stacked nav-quirk">
             
@@ -137,8 +135,6 @@
            
 
 
-
-
             <div class="form-group">
               <label></label>
               <div class="input-group">
@@ -150,25 +146,13 @@
             <button class="btn btn-warning btn-quirk" style="width:100%">Buscar notificação</button>
 
 
-
-
-
 			</form>
 
        
               </li>
             </ul>
             
-            
-            
-            
-            
-            
-          
-            
-            
-            
-            
+
           </div><!-- tab-pane -->
 
         </div><!-- tab-content -->

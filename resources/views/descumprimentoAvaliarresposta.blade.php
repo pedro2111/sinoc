@@ -47,6 +47,7 @@
 											<input type="hidden" name="id_descumprimento" value="{{ $Descumprimento->id_descumprimento }}"> 
 											<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
+
 											<div class="error"></div>
 										
 									
@@ -94,10 +95,6 @@
 											<hr>
 
 
-
-
-
-
 											<div class="form-group">
 												<label class="col-sm-3 control-label">Título</label>
 												<div class="col-sm-8">
@@ -107,11 +104,6 @@
 														disabled />
 												</div>
 											</div>
-
-
-
-
-
 
 
 											<div class="form-group">
@@ -195,8 +187,8 @@
 								<div class="form-group">
 									<label class="col-sm-3 control-label">Avaliação final<span class="text-danger">*</span></label>
 									<div class="col-sm-8">
-										<select class="select2" id="bit_avaliacaofinal" name="bit_avaliacaofinal" style="width: 100%" data-placeholder="Informe sua decisão"  title="Informe sua avaliação final do descumprimento ocorrido.">
-											<option value="" selected></option>
+										<select class="select2" id="bit_avaliacaofinal" name="bit_avaliacaofinal" style="width: 100%" data-placeholder="Informe sua decisão"  title="Campo Avaliação final Obrigatório!! Favor preencher!" required>
+											<option  disabled></option>
 											<option value="1">Favorável a dar continuidade no processo de notificação do fornecedor</option>
 											<option value="0">Não favorável a dar continuidade no processo de notificar o fornecedor</option>
 										</select>
@@ -216,31 +208,8 @@
 								<!-- form-group -->
 
 								<br><br>
-								
 
-
-
-
-	
 									</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-								
-								
-								
 
 								<hr>
 
@@ -270,17 +239,11 @@
 
 
 
-
-
 		</div>
 		<!-- contentpanel -->
 		</div>
 		<!-- mainpanel -->
 	</section>
-
-
-
-
 
 
 	@include('Default.endScripts')
@@ -317,14 +280,6 @@ $(document).ready(function(){
   $('#basicForm').validate({
    errorLabelContainer: jQuery('#basicForm div.error')
   });
-
-
-  
-
-
-  
-
-  
 
 });   
 </script>

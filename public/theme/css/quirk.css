@@ -2994,6 +2994,15 @@ select[multiple].input-lg {
     font-size: 11px;
   }
 }
+
+.menu-mes{
+margin-bottom: 20px;
+}
+.menu-mes button{
+  margin-left: 10px;
+}
+
+
 .btn {
   display: inline-block;
   margin-bottom: 0;
@@ -10182,8 +10191,9 @@ blockquote {
   color: #9fa8bc;
   line-height: normal;
   padding: 0 15px;
-  font-weight: 500;
+  font-weight: bold;
   letter-spacing: .5px;
+  text-align: center;
 }
 .nav-sidebar.nav-justified {
   background-color: #657390;

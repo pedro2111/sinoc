@@ -310,9 +310,6 @@
 				                  
 				                  
 										<hr>
-										
-
-
 
 								<div class="panel-heading">
 									<h4 class="panel-title">Preencha corretamente o formulário
@@ -329,7 +326,7 @@
 									<div class="col-sm-8">
 										<select class="select2" id="bit_aceito" name="bit_aceito"
 											style="width: 100%" data-placeholder="Informe sua decisão"
-											title="Informe sua posição a respeito da justificativa">
+											title="Campo Parecer Obrigatório!! Favor preencher!"  required>
 											<option value="" selected></option>
 											<option value="4">Justificativa acatada</option>
 											<option value="5">Justificativa não acatada</option>
@@ -351,12 +348,6 @@
 								</div>
 								<!-- form-group -->
 
-
-
-
-								 
-
-
 								<div class="row">
 									<div class="col-sm-9 col-sm-offset-3">
 
@@ -367,42 +358,10 @@
 										<button type="button" onClick="history.back();"
 											class="btn btn-wide btn-default btn-quirk">Cancelar</button>
 									</div>
-								</div>
-
-								 
-										
-										
+								</div>	
 										
 									</div>
 								</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 								</form>
@@ -417,10 +376,6 @@
 			</div>
 			<!-- Final da tab -->
 		</div>
-
-
-
-
 
 		<div></div>
 		<!-- contentpanel -->

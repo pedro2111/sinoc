@@ -81,7 +81,7 @@
                           <td>
                             <a href="coordenacoes/editar/{{ $Coordenacao->id_coordenacao }}">Editar</a> 
                             | <a href="#">Ver noficações</a>
-                            | <a data-href="coordenacoes/delete/{{ $Coordenacao->id_coordenacao }}" data-toggle="modal" data-target="#confirm-delete">Excluir</a>
+                            | <a data-href="coordenacoes/delete/{{ $Coordenacao->id_coordenacao }}" data-toggle="modal" data-target="#confirm-delete"}">Excluir</a>
                           </td>
                         </tr>
                       @endforeach

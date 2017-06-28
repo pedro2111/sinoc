@@ -18,7 +18,9 @@ Route::Post('/notificacao/incluirautorizacao/', 'NotificacaoController@incluirau
 Route::Get('/notificacao/ver/{id}', 'NotificacaoController@ver');
 Route::Get('/notificacao/corrigir/{id}', 'NotificacaoController@corrigir');
 Route::Post('/notificacao/buscar', 'NotificacaoController@buscar');
-
+Route::Get('/notificacao/validar', 'NotificacaoController@validarnotificacao');
+Route::Get('/notificacao/testar', 'NotificacaoController@testarfuncoes');
+Route::Post('/notificacao/buscarmes', 'NotificacaoController@buscarmes');
 
 
 

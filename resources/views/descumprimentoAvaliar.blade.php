@@ -47,7 +47,6 @@
 											<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 											<div class="error"></div>
-										
 									
 									
 									<div class="panel-body nopaddingtop">
@@ -109,10 +108,6 @@
 
 
 
-
-
-
-
 											<div class="form-group">
 												<label class="col-sm-3 control-label">Descrição do
 													descumprimento </label>
@@ -163,8 +158,8 @@
 									<label class="col-sm-3 control-label">Avaliação <span
 										class="text-danger">*</span></label>
 									<div class="col-sm-8">
-										<select class="select2" id="bit_favoravel" name="bit_favoravel" style="width: 100%" data-placeholder="Informe sua decisão"  title="Informe sua avaliação do descumprimento ocorrido.">
-											<option value="" selected></option>
+										<select class="select2" id="bit_favoravel" name="bit_favoravel" style="width: 100%" data-placeholder="Informe sua decisão"  title="Campo Avaliação Obrigatório!! Favor preencher!" required>
+											<option disabled></option>
 											<option value="1">Favorável a notificar o fornecedor</option>
 											<option value="0">Não favorável a notificar o fornecedor</option>
 										</select>
@@ -184,12 +179,6 @@
 								<!-- form-group -->
 
 								<br><br>
-								
-								
-								
-								
-								
-								
 
 								<hr>
 

@@ -261,7 +261,7 @@
 									<div class="col-sm-8">
 										<select class="select2" id="bit_aceito" name="bit_aceito"
 											style="width: 100%" data-placeholder="Informe sua decisão"
-											title="Informe sua posição a respeito do descumprimento de nível de serviço">
+											title="Informe sua posição a respeito do descumprimento de nível de serviço" required>
 											<option value="" selected></option>
 											<option value="2">AUTORIZO a abertura do descumprimento de nível de serviço</option>
 											<option value="9">NÃO AUTORIZO a abertura do descumprimento de nível de serviço</option>
@@ -283,12 +283,6 @@
 								</div>
 								<!-- form-group -->
 
-
-
-
-								 
-
-
 								<div class="row">
 									<div class="col-sm-9 col-sm-offset-3">
 
@@ -307,33 +301,6 @@
 										
 									</div>
 								</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
