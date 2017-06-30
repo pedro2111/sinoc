@@ -40,10 +40,9 @@
                                     </div>
                                     @endif
 
-                                    <form id="" name="" enctype="multipart/form-data" action='{{ url("notificacao/buscarmes")}}' method="post" class="">
+                                    <form id="relatoriomensal" name="" enctype="multipart/form-data" action='{{ url("notificacao/notificacaoporcoordenacao")}}' method="post" class="">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                                        
                                         <div class="menu-mes">
 
                                             <?php
@@ -53,9 +52,24 @@
                                                 $mes = Carbon\Carbon::now()->month;
                                             }
                                             ?>
+                                            <select class="select2" id="" name="id_contrato" data-placeholder="Contrato" title="Selecione um contrato">
+                                                <option value=""></option>
 
+                                                @foreach ($Contratos as $Contrato)
+                                                <option value="{{ $Contrato->id_contrato }}">{{ $Contrato->nu_contrato }}</option>
+                                                @endforeach
 
-                                            <select name="mes" class="select2" style="width: 9% !important;" title="Selecione o mês visualizar" >
+                                            </select>
+
+                                            <select class="select2" id="" name="id_coordenacao"  data-placeholder="Coordenação">
+                                                <option value=""></option>
+                                                @foreach ($Coordenacoes as $Coordenacao)
+                                                <option value="{{ $Coordenacao->id_coordenacao }}">{{ $Coordenacao->ds_coordenacao }}</option>
+                                                @endforeach
+
+                                            </select>
+
+                                            <select name="mes" class="select2" data-placeholder="Mês" title="Selecione o mês visualizar" >
                                                 <option value="01" <?php echo ($mes == 01) ? "selected" : ""; ?>>Janeiro</option>
                                                 <option value="02" <?php echo ($mes == 02) ? "selected" : ""; ?>>Fevereiro</option>
                                                 <option value="03" <?php echo ($mes == 03) ? "selected" : ""; ?>>Março</option>
@@ -84,10 +98,9 @@
                                                     <th>Nº</th>
                                                     <th>DATA</th>
                                                     <th>CONTRATO</th>
-                                                    <th>NOTIFICANTE</th>
+                                                    <th>INDICADOR</th>                                                    
                                                     <th>EQUIPE NOTIFICADORA</th>
                                                     <th>STATUS</th>
-                                                    <th>PRAZO</th>
                                                     <th>AÇÕES</th>
                                                 </tr>
                                             </thead>
@@ -96,10 +109,9 @@
                                                     <th>Nº</th>
                                                     <th>DATA</th>
                                                     <th>CONTRATO</th>
-                                                    <th>NOTIFICANTE</th>
+                                                    <th>INDICADOR</th>                                                    
                                                     <th>EQUIPE NOTIFICADORA</th>
                                                     <th>STATUS</th>
-                                                    <th>PRAZO</th>
                                                     <th>AÇÕES</th>
                                                 </tr>
                                             </tfoot>
@@ -112,9 +124,14 @@
                                                         <a href="notificacao/ver/{{ Crypt::encrypt($n->id_notificacao) }}">{{ $n->nu_notificacao }}</a>
                                                     </td>
                                                     <td>{{ Carbon\Carbon::parse($n->created_at)->format('d/m/Y') }}</td>
-                                                    <td>{{ $n->nu_contrato }}</td>
-                                                    <td>{{ $n->ma_cadastro }}</td>
-
+                                                    
+                                                    <td> {{ $n->nu_contrato }}</td>
+                                                    
+                                                    @foreach ($Indicadores as $ind)
+                                                    @if ($n->id_indicador == $ind->id_indicador)
+                                                    <td>{{$ind->sg_indicador}}</td>
+                                                    @endif
+                                                    @endforeach
 
                                                     @foreach ($Coordenacoes as $Coordenacao)
                                                     @if ($n->id_notificadora === $Coordenacao->id_coordenacao)
@@ -166,11 +183,7 @@
 
                                                     </td>
 
-                                                    @if($n->dt_fim_justificativa)
-                                                    <td>{{ Carbon\Carbon::parse($n->dt_fim_justificativa)->format('d/m/Y H:i') }}</td>
-                                                    @else
-                                                    <td></td>
-                                                    @endif
+  
 
                                                     <td>
                                                         <!--  Verifica se a pessoa é gestor-->

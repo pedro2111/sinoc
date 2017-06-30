@@ -40,7 +40,7 @@
                                         {{ session('status') }}
                                     </div>
                                 @endif
-  
+                                  
                                <form id="" name="" enctype="multipart/form-data" action='{{ url("notificacao/buscarmes")}}' method="post" class="">
                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -211,6 +211,8 @@
                                                     @if(Session::get('isrh') == 1)
                                                         @if($n->bit_aceito == 5)
                                                             <a href="notificacao/corrigir/{{ Crypt::encrypt($n->id_notificacao) }}">Corrigir</a>
+                                                            |
+                                                            <a href="notificacao/devolverpreposto/{{ Crypt::encrypt($n->id_notificacao) }}">Devolver preposto</a>
                                                             |
                                                         @endif
                                                     @endif

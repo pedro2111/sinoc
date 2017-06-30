@@ -99,7 +99,7 @@
                             <select class="select2" id="id_indicador" name="id_indicador" style="width: 100%" data-placeholder="Selecione o indicador afetado" title="Campo Indicador afetado Obrigatório!! Favor preencher!" required>
                                       <option value=""></option>
                               @foreach ($Indicadores as $indicador)
-                                      <option value="{{ $indicador->id_indicador }}">{{ $indicador->no_indicador }}</option>
+                                      <option value="{{ $indicador->id_indicador }}">{{ $indicador->sg_indicador }}</option>
                               @endforeach      
                             </select>
                 </div>

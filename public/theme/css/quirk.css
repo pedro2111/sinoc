@@ -190,6 +190,28 @@ td,
 th {
   padding: 0;
 }
+/*Seção do css desenvolvido por Pedro Chaves*/
+#relatoriomensal select{
+
+}
+
+.menu-mes{
+margin-bottom: 20px;
+
+}
+.menu-mes .select2{
+    margin-left: 10px;
+    color: #000 !important;
+}
+.menu-mes .select2:first-child{
+    margin-left: 0;
+}
+.menu-mes button{
+  margin-left: 10px;
+}
+
+/*Seção do css desenvolvido por Pedro Chaves*/
+
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
   *,
@@ -2995,12 +3017,7 @@ select[multiple].input-lg {
   }
 }
 
-.menu-mes{
-margin-bottom: 20px;
-}
-.menu-mes button{
-  margin-left: 10px;
-}
+
 
 
 .btn {

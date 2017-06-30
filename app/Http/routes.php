@@ -17,6 +17,7 @@ Route::Post('/notificacao/incluiravaliacao/', 'NotificacaoController@incluiraval
 Route::Post('/notificacao/incluirautorizacao/', 'NotificacaoController@incluirautorizacao');
 Route::Get('/notificacao/ver/{id}', 'NotificacaoController@ver');
 Route::Get('/notificacao/corrigir/{id}', 'NotificacaoController@corrigir');
+Route::Get('/notificacao/devolverpreposto/{id}', 'NotificacaoController@devolverpreposto');
 Route::Post('/notificacao/buscar', 'NotificacaoController@buscar');
 Route::Get('/notificacao/validar', 'NotificacaoController@validarnotificacao');
 Route::Get('/notificacao/testar', 'NotificacaoController@testarfuncoes');
@@ -47,6 +48,7 @@ Route::Get('/descumprimento/ver/{id}', 'DescumprimentoController@ver');
 //Controller de Relatórios 
 Route::Get('/relatorio/notificacao_por_contrato', 'RelatorioController@notificacaoporcontrato');
 Route::Get('/relatorio/notificacao_por_coordenacao', 'RelatorioController@notificacaoporcoordenacao');
+Route::Post('/relatorio/notificacao_por_coordenacao', 'RelatorioController@listarnotificacaoporcoordenacao');
 
 
 

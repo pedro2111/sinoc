@@ -7,6 +7,7 @@ use App\Models\Contrato as Contrato;
 use App\Models\Empresa as Empresa;
 use App\Models\macrocelula as Macrocelula;
 use App\Models\Coordenacao as Coordenacao;
+use App\Models\Indicador as Indicador;
 use DB;
 use function GuzzleHttp\json_decode;
 
@@ -61,16 +62,47 @@ class RelatorioController extends Controller {
         return $this->random_color_part() . $this->random_color_part() . $this->random_color_part();
     }
 
-    public function notificacaoporcoordenacao() {
-        $matricula = getenv('USERNAME');
+    public function listarnotificacaoporcoordenacao(Request $request) {
+       $matricula = getenv('USERNAME');
 
+       $mes = $request->input('mes');
+       $id_contrato = $request->input('id_contrato');
+       $id_coordenacao = $request->input('id_coordenacao');
         //Listando as empresas
         $Empresas = Empresa::all();
 
-        //Listando os contratos    
-        //$Contratos = Contrato::all();
+        $Indicadores = Indicador::all();
+
         $Contratos = Contrato::orderBy('nu_contrato', 'asc')->get();
-        //$Coordenacoes = Coordenacao::all();
+
+        $Coordenacoes = Coordenacao::orderBy('nu_coordenacao', 'asc')->get();
+
+        //Listando todos os contratos válidos do sistema     
+        $Notificacoes = DB::table('NOTIFICACAO')
+                ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
+                ->where('NOTIFICACAO.deleted_at', null)
+                ->where('CONTRATOS.deleted_at', null)
+                ->where('NOTIFICACAO.id_contrato', '=', $id_contrato)
+                ->where('NOTIFICACAO.id_notificadora', '=', '$id_coordenacao')
+                ->select('CONTRATOS.*', 'NOTIFICACAO.*')
+                ->get();
+        
+        return view('relatorio.notificacaoporcoordenacao', ['matricula' => $matricula,
+            'Empresas' => $Empresas,
+            'Contratos' => $Contratos,
+            'Coordenacoes' => $Coordenacoes,
+            'Notificacoes' => $Notificacoes,
+            'Indicadores' => $Indicadores,
+        ]);
+
+    }
+    
+    public function notificacaoporcoordenacao() {
+       $matricula = getenv('USERNAME');
+        //Listando as empresas
+        $Empresas = Empresa::all();
+        $Indicadores = Indicador::all();
+        $Contratos = Contrato::orderBy('nu_contrato', 'asc')->get();
         $Coordenacoes = Coordenacao::orderBy('nu_coordenacao', 'asc')->get();
 
         //Listando todos os contratos válidos do sistema     
@@ -86,6 +118,7 @@ class RelatorioController extends Controller {
             'Contratos' => $Contratos,
             'Coordenacoes' => $Coordenacoes,
             'Notificacoes' => $Notificacoes,
+            'Indicadores' => $Indicadores,
         ]);
 
     }

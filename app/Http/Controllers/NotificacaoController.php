@@ -76,7 +76,7 @@ class NotificacaoController extends Controller
         //$Coordenacoes = Coordenacao::all();
         $Coordenacoes = Coordenacao::orderBy('nu_coordenacao', 'asc')->get();
         $Impactos = Impacto::all();
-        $Motivos = Motivo::all();
+        $Motivos = Motivo::orderBy('no_motivo', 'asc')->get();
         $Indicadores = Indicador::all();
 
         //Carregando View e repassando as variaveis necessárias
@@ -294,7 +294,30 @@ class NotificacaoController extends Controller
         $nij->ds_naoautorizado = $request->input('ds_naoautorizado');
         $nij->ma_autorizador = $matricula;
         $nij->dt_autorizacao = Carbon::now();
-        $nij->dt_fim_justificativa = Carbon::now()->addDay(2)->endOfDay()->format('d/m/Y H:i');
+        
+        $dt_prazo_old = Carbon::createFromFormat('Y-m-d H:i:s',$nij->dt_fim_justificativa);
+
+        $dt_prazo = $dt_prazo_old->addDay(2);
+        $ehferiado = DB::table('CALENDARIO')
+        ->where('dt_feriado','>=',$dt_prazo_old)
+        ->where('dt_feriado','<=',$dt_prazo)
+        ->count();
+
+        if($ehferiado >= 1):
+                $dt_prazo->addDay(1);
+            
+        endif;
+                
+        if($dt_prazo->dayOfWeek == '6'):
+            $dt_prazo->addDay(2);
+
+        elseif($dt_prazo->dayOfWeek == '0'):
+            $dt_prazo->addDay(2);
+
+            endif;
+
+        $nij->dt_fim_justificativa = $dt_prazo->endOfDay();
+
 
         $nij->save();
 
@@ -319,7 +342,30 @@ class NotificacaoController extends Controller
         $nij->ma_justificativa = $matricula;
         $nij->dt_justificativa = Carbon::now();
         $nij->bit_aceito = 3;
-        $nij->dt_fim_justificativa = Carbon::now()->addDay(2)->endOfDay()->format('d/m/Y H:i');
+        
+        $dt_prazo_old = Carbon::createFromFormat('Y-m-d H:i:s',$nij->dt_fim_justificativa);
+
+        $dt_prazo = $dt_prazo_old->addDay(2);
+        $ehferiado = DB::table('CALENDARIO')
+        ->where('dt_feriado','>=',$dt_prazo_old)
+        ->where('dt_feriado','<=',$dt_prazo)
+        ->count();
+
+        if($ehferiado >= 1):
+                $dt_prazo->addDay(1);
+            
+        endif;
+                
+        if($dt_prazo->dayOfWeek == '6'):
+            $dt_prazo->addDay(2);
+
+        elseif($dt_prazo->dayOfWeek == '0'):
+            $dt_prazo->addDay(2);
+
+            endif;
+
+        $nij->dt_fim_justificativa = $dt_prazo->endOfDay();
+
 
 
         if ($request->file('justificativa_anexo')) {
@@ -338,7 +384,9 @@ class NotificacaoController extends Controller
         $nij->save();
 
         //Redirecionandopara a página principal
-        return redirect()->action('NotificacaoController@index')->with('status', 'Sua justificativa foi cadastrada com sucesso!');
+        return redirect()->action('NotificacaoController@index')
+                ->with('status', 'Sua justificativa foi cadastrada com sucesso!')
+                ->with('tipo', 'success');
 
 
     }
@@ -392,7 +440,31 @@ class NotificacaoController extends Controller
         $nij->ds_naoacatado = $request->input('ds_naoacatado');
         $nij->ma_avaliador = $matricula;
         $nij->dt_naoacatado = Carbon::now();
-        $nij->dt_fim_justificativa = Carbon::now()->endOfMonth()->format('d/m/Y H:i');
+        
+        $dt_prazo_old = Carbon::createFromFormat('Y-m-d H:i:s',$nij->dt_fim_justificativa);
+
+        $dt_prazo = $dt_prazo_old->addDay(2);
+        $ehferiado = DB::table('CALENDARIO')
+        ->where('dt_feriado','>=',$dt_prazo_old)
+        ->where('dt_feriado','<=',$dt_prazo)
+        ->count();
+
+        if($ehferiado >= 1):
+                $dt_prazo->addDay(1);
+            
+        endif;
+                
+        if($dt_prazo->dayOfWeek == '6'):
+            $dt_prazo->addDay(2);
+
+        elseif($dt_prazo->dayOfWeek == '0'):
+            $dt_prazo->addDay(2);
+
+            endif;
+
+        $nij->dt_fim_justificativa = $dt_prazo->endOfDay();
+
+
 
         $nij->save();
 
@@ -402,6 +474,29 @@ class NotificacaoController extends Controller
             ->with('tipo', 'success');
 
 
+    }
+    public function devolverpreposto($id){
+        $matricula = getenv('USERNAME');
+
+        $ncj = Notificacao::find(Crypt::decrypt($id));
+
+        $ncj->dt_naoacatado = NULL;
+        $ncj->ds_naoacatado = NULL;
+        $ncj->ma_avaliador = NULL;
+        $ncj->ds_justificativa = NULL;
+        $ncj->ma_justificativa = NULL;
+        $ncj->dt_justificativa = NULL;
+        
+        $ncj->bit_aceito = 2;
+
+
+        $ncj->save();
+
+        #Redirecionandopara a página principal
+        return redirect()->action('NotificacaoController@index')
+            ->with('status', 'A notificação foi devolvida! O preposto já pode incluir nova justificativa.')
+            ->with('tipo', 'success');
+        
     }
 
     public function corrigir($id)
@@ -534,27 +629,7 @@ class NotificacaoController extends Controller
         $n->id_indicador = $request->input('id_indicador');
         $n->bit_aceito = 1;
 
-        $no_days = array(25,26,27,28,29,30,31);
-        $dt_now = Carbon::now()->addDay(4);
-
-        if( in_array($dt_now->day, $no_days)){
-
-           $dt_now->addMonth()->firstOfMonth()->next(Carbon::MONDAY);
-           $dt_prazo = $dt_now->addDay(2);
-           $ehferiado = DB::table('CALENDARIO')
-        ->where('dt_feriado','>=',$dt_now)
-        ->where('dt_feriado','<=',$dt_prazo)
-        ->count();
-
-            if($ehferiado >= 1):
-                    $dt_prazo->addDay(1);
-                
-            endif;
-
-            $n->created_at = Carbon::now()->addMonth()->firstOfMonth();
-            $n->dt_fim_justificativa = $dt_prazo->endOfDay();
-        
-        }else{
+        $dt_now = Carbon::now();
 
         $dt_prazo = Carbon::now()->addDay(2);
         $ehferiado = DB::table('CALENDARIO')
@@ -566,8 +641,7 @@ class NotificacaoController extends Controller
                 $dt_prazo->addDay(1);
             
         endif;
-            
-        
+                
         if($dt_prazo->dayOfWeek == '6'):
             $dt_prazo->addDay(2);
 
@@ -576,9 +650,7 @@ class NotificacaoController extends Controller
 
             endif;
 
-        $n->dt_fim_justificativa = $dt_prazo->endOfDay();
-
-        }
+        $n->dt_fim_justificativa = $dt_prazo->endOfDay();        
 
             //--------------------------------------------------------------------------
             
@@ -625,7 +697,9 @@ class NotificacaoController extends Controller
         DB::table('NOTIFICACAO_MOTIVO')->insert($datasetMot);
 
         #Redirecionandopara a página principal
-        return redirect()->action('NotificacaoController@index')->with('status', 'Novo descumprimento de nível de serviço foi incluida com sucesso!');
+        return redirect()->action('NotificacaoController@index')
+                ->with('status', 'Novo descumprimento de nível de serviço foi incluida com sucesso!')
+                ->with('tipo', 'success');
     }
 
 
@@ -638,7 +712,9 @@ class NotificacaoController extends Controller
         $n->delete();
 
         // #Redirecionando para a página principal
-        return redirect()->action('NotificacaoController@index')->with('status', 'Notificação deletada com sucesso');
+        return redirect()->action('NotificacaoController@index')
+                ->with('status', 'Notificação deletada com sucesso')
+                ->with('tipo', 'success');
     }
 
      public function testarfuncoes(){
