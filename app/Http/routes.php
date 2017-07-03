@@ -47,8 +47,8 @@ Route::Get('/descumprimento/ver/{id}', 'DescumprimentoController@ver');
 
 //Controller de Relatórios 
 Route::Get('/relatorio/notificacao_por_contrato', 'RelatorioController@notificacaoporcontrato');
-Route::Get('/relatorio/notificacao_por_coordenacao', 'RelatorioController@notificacaoporcoordenacao');
-Route::Post('/relatorio/notificacao_por_coordenacao', 'RelatorioController@listarnotificacaoporcoordenacao');
+Route::Get('/relatorio/definirrelatorio', 'RelatorioController@notificacaoporcoordenacao');
+Route::Post('/relatorio/relatoriomensal', 'RelatorioController@listarnotificacaoporcoordenacao');
 
 
 

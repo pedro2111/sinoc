@@ -10,6 +10,7 @@ use App\Models\Coordenacao as Coordenacao;
 use App\Models\Indicador as Indicador;
 use DB;
 use function GuzzleHttp\json_decode;
+use Illuminate\Http\Request;
 
 class RelatorioController extends Controller {
 
@@ -68,6 +69,7 @@ class RelatorioController extends Controller {
        $mes = $request->input('mes');
        $id_contrato = $request->input('id_contrato');
        $id_coordenacao = $request->input('id_coordenacao');
+
         //Listando as empresas
         $Empresas = Empresa::all();
 
@@ -83,17 +85,34 @@ class RelatorioController extends Controller {
                 ->where('NOTIFICACAO.deleted_at', null)
                 ->where('CONTRATOS.deleted_at', null)
                 ->where('NOTIFICACAO.id_contrato', '=', $id_contrato)
-                ->where('NOTIFICACAO.id_notificadora', '=', '$id_coordenacao')
+                ->where('NOTIFICACAO.id_notificadora', '=', $id_coordenacao)
+                ->whereIn('bit_aceito', array(4,5,44,55))
                 ->select('CONTRATOS.*', 'NOTIFICACAO.*')
                 ->get();
         
-        return view('relatorio.notificacaoporcoordenacao', ['matricula' => $matricula,
+        $Total = DB::table('NOTIFICACAO')
+                ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
+                ->select('NOTIFICACAO.id_indicador', DB::raw("count('NOTIFICACAO.id_indicador') as total") )
+                ->where('NOTIFICACAO.deleted_at', null)
+                ->where('CONTRATOS.deleted_at', null)
+                ->where('NOTIFICACAO.id_contrato', '=', $id_contrato)
+                ->where('NOTIFICACAO.id_notificadora', '=', $id_coordenacao)
+                ->whereIn('bit_aceito', array(4,5,44,55))
+                ->groupBy('NOTIFICACAO.id_indicador')
+                
+                ->get();
+        
+        return view('relatorio.relatoriomensal', ['matricula' => $matricula,
             'Empresas' => $Empresas,
             'Contratos' => $Contratos,
             'Coordenacoes' => $Coordenacoes,
             'Notificacoes' => $Notificacoes,
             'Indicadores' => $Indicadores,
+            'Total' => $Total,
         ]);
+        
+        
+      
 
     }
     
@@ -111,9 +130,11 @@ class RelatorioController extends Controller {
                 ->where('NOTIFICACAO.deleted_at', null)
                 ->where('CONTRATOS.deleted_at', null)
                 ->select('CONTRATOS.*', 'NOTIFICACAO.*')
+                ->whereIn('bit_aceito', array(4,5,44,55))
                 ->get();
         
-        return view('relatorio.notificacaoporcoordenacao', ['matricula' => $matricula,
+        
+        return view('relatorio.relatoriomensal', ['matricula' => $matricula,
             'Empresas' => $Empresas,
             'Contratos' => $Contratos,
             'Coordenacoes' => $Coordenacoes,

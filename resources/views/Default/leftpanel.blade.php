@@ -71,7 +71,7 @@
               <li class="nav-parent"><a href=""><i class="fa fa-bar-chart"></i> <span>Relatórios</span></a>
                 <ul class="children">
                    <li><a href="{{ url('relatorio/notificacao_por_contrato')}}">Notificações por contrato</a></li>
-                  <li><a href="{{ url('relatorio/notificacao_por_coordenacao')}}">Relatório mensal</a></li>
+                  <li><a href="{{ url('relatorio/definirrelatorio')}}">Relatório mensal</a></li>
                 </ul>
               </li>
             </ul>
