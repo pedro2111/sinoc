@@ -64,11 +64,11 @@ class RelatorioController extends Controller {
     }
 
     public function listarnotificacaoporcoordenacao(Request $request) {
-       $matricula = getenv('USERNAME');
+        $matricula = getenv('USERNAME');
 
-       $mes = $request->input('mes');
-       $id_contrato = $request->input('id_contrato');
-       $id_coordenacao = $request->input('id_coordenacao');
+        $mes = $request->input('mes');
+        $id_contrato = $request->input('id_contrato');
+        $id_coordenacao = $request->input('id_coordenacao');
 
         //Listando as empresas
         $Empresas = Empresa::all();
@@ -79,29 +79,73 @@ class RelatorioController extends Controller {
 
         $Coordenacoes = Coordenacao::orderBy('nu_coordenacao', 'asc')->get();
 
-        //Listando todos os contratos válidos do sistema     
-        $Notificacoes = DB::table('NOTIFICACAO')
-                ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
-                ->where('NOTIFICACAO.deleted_at', null)
-                ->where('CONTRATOS.deleted_at', null)
-                ->where('NOTIFICACAO.id_contrato', '=', $id_contrato)
-                ->where('NOTIFICACAO.id_notificadora', '=', $id_coordenacao)
-                ->whereIn('bit_aceito', array(4,5,44,55))
-                ->select('CONTRATOS.*', 'NOTIFICACAO.*')
-                ->get();
-        
-        $Total = DB::table('NOTIFICACAO')
-                ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
-                ->select('NOTIFICACAO.id_indicador', DB::raw("count('NOTIFICACAO.id_indicador') as total") )
-                ->where('NOTIFICACAO.deleted_at', null)
-                ->where('CONTRATOS.deleted_at', null)
-                ->where('NOTIFICACAO.id_contrato', '=', $id_contrato)
-                ->where('NOTIFICACAO.id_notificadora', '=', $id_coordenacao)
-                ->whereIn('bit_aceito', array(4,5,44,55))
-                ->groupBy('NOTIFICACAO.id_indicador')
-                
-                ->get();
-        
+        //Listando todos os contratos válidos do sistema  
+        if ($id_coordenacao == 999) {
+            $Notificacoes = DB::table('NOTIFICACAO')
+                    ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
+                    ->join('INDICADOR', 'INDICADOR.id_indicador', '=', 'NOTIFICACAO.id_indicador')
+                    ->where('NOTIFICACAO.deleted_at', null)
+                    ->where('CONTRATOS.deleted_at', null)
+                    ->where('NOTIFICACAO.id_contrato', '=', $id_contrato)
+                    ->whereIn('bit_aceito', array(4, 5, 44, 55))
+                    ->select('CONTRATOS.*', 'NOTIFICACAO.*', 'INDICADOR.*')
+                    ->get();
+
+            $TotalAcat = DB::table('NOTIFICACAO')
+                    ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
+                    ->select('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador', DB::raw("count('NOTIFICACAO.id_indicador') as total"))
+                    ->where('NOTIFICACAO.deleted_at', null)
+                    ->where('CONTRATOS.deleted_at', null)
+                    ->where('NOTIFICACAO.id_contrato', '=', $id_contrato)
+                    ->whereIn('bit_aceito', array(4,44))
+                    ->groupBy('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador')
+                    ->get();
+            
+            $TotalNotAcat = DB::table('NOTIFICACAO')
+                    ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
+                    ->select('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador', DB::raw("count('NOTIFICACAO.id_indicador') as total"))
+                    ->where('NOTIFICACAO.deleted_at', null)
+                    ->where('CONTRATOS.deleted_at', null)
+                    ->where('NOTIFICACAO.id_contrato', '=', $id_contrato)
+                    ->whereIn('bit_aceito', array(5,55))
+                    ->groupBy('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador')
+                    ->get();
+        } else {
+            $Notificacoes = DB::table('NOTIFICACAO')
+                    ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
+                    ->join('INDICADOR', 'INDICADOR.id_indicador', '=', 'NOTIFICACAO.id_indicador')
+                    ->where('NOTIFICACAO.deleted_at', null)
+                    ->where('CONTRATOS.deleted_at', null)
+                    ->where('NOTIFICACAO.id_contrato', '=', $id_contrato)
+                    ->where('NOTIFICACAO.id_notificadora', '=', $id_coordenacao)
+                    ->whereIn('bit_aceito', array(4, 5, 44, 55))
+                    ->select('CONTRATOS.*', 'NOTIFICACAO.*', 'INDICADOR.*')
+                    ->get();
+
+            $TotalAcat = DB::table('NOTIFICACAO')
+                    ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
+                    ->select('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador', DB::raw("count('NOTIFICACAO.id_indicador') as total"))
+                    ->where('NOTIFICACAO.deleted_at', null)
+                    ->where('CONTRATOS.deleted_at', null)
+                    ->where('NOTIFICACAO.id_contrato', '=', $id_contrato)
+                    ->where('NOTIFICACAO.id_notificadora', '=', $id_coordenacao)
+                    ->whereIn('bit_aceito', array(4,44))
+                    ->groupBy('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador')
+                    ->get();
+            $TotalNotAcat = DB::table('NOTIFICACAO')
+                    ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
+                    ->select('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador', DB::raw("count('NOTIFICACAO.id_indicador') as total"))
+                    ->where('NOTIFICACAO.deleted_at', null)
+                    ->where('CONTRATOS.deleted_at', null)
+                    ->where('NOTIFICACAO.id_contrato', '=', $id_contrato)
+                    ->where('NOTIFICACAO.id_notificadora', '=', $id_coordenacao)
+                    ->whereIn('bit_aceito', array(5,55))
+                    ->groupBy('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador')
+                    ->get();
+        }
+
+
+
         return view('relatorio.relatoriomensal', ['matricula' => $matricula,
             'Empresas' => $Empresas,
             'Contratos' => $Contratos,
@@ -110,14 +154,10 @@ class RelatorioController extends Controller {
             'Indicadores' => $Indicadores,
             'Total' => $Total,
         ]);
-        
-        
-      
-
     }
-    
+
     public function notificacaoporcoordenacao() {
-       $matricula = getenv('USERNAME');
+        $matricula = getenv('USERNAME');
         //Listando as empresas
         $Empresas = Empresa::all();
         $Indicadores = Indicador::all();
@@ -127,13 +167,17 @@ class RelatorioController extends Controller {
         //Listando todos os contratos válidos do sistema     
         $Notificacoes = DB::table('NOTIFICACAO')
                 ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
+                ->join('INDICADOR', 'INDICADOR.id_indicador', '=', 'NOTIFICACAO.id_indicador')
                 ->where('NOTIFICACAO.deleted_at', null)
                 ->where('CONTRATOS.deleted_at', null)
-                ->select('CONTRATOS.*', 'NOTIFICACAO.*')
-                ->whereIn('bit_aceito', array(4,5,44,55))
+                ->whereIn('bit_aceito', array(4, 5, 44, 55))
+                ->select('CONTRATOS.*', 'NOTIFICACAO.*', 'INDICADOR.*')
                 ->get();
-        
-        
+
+
+
+
+
         return view('relatorio.relatoriomensal', ['matricula' => $matricula,
             'Empresas' => $Empresas,
             'Contratos' => $Contratos,
@@ -141,7 +185,6 @@ class RelatorioController extends Controller {
             'Notificacoes' => $Notificacoes,
             'Indicadores' => $Indicadores,
         ]);
-
     }
 
 }

@@ -42,7 +42,7 @@
                                     </div>
                                     @endif
 
-                                    <form id="relatoriomensal" name="" enctype="multipart/form-data" action='{{ url("relatorio/relatoriomensal")}}' method="post" class="">
+                                    <form  id="relatoriomensal" name="" enctype="multipart/form-data" action='{{ url("relatorio/relatoriomensal")}}' method="post" class="">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                                         <div class="menu-mes">
@@ -64,7 +64,7 @@
                                             </select>
 
                                             <select class="select2" id="" name="id_coordenacao"  data-placeholder="Coordenação">
-                                                <option value=""></option>
+                                                <option value="999">Coordenação</option>
                                                 @foreach ($Coordenacoes as $Coordenacao)
                                                 <option value="{{ $Coordenacao->id_coordenacao }}">{{ $Coordenacao->ds_coordenacao }}</option>
                                                 @endforeach
@@ -140,6 +140,9 @@
                                     <?php if (isset($_POST['id_coordenacao'])) { ?>
                                         <center><h1>Relatorio mês de <?= $titulo_mes; ?>: <?= $titulo_contrato['nu_contrato'] ?> - <?= $titulo_coordenacao['no_coordenacao'] ?> </h1></center>
                                     <?php } ?>
+                                        
+                                        <?php //var_dump($Total); ?>
+                                        
                                     <div class="table-responsive">
 
                                         <table id="dataTable1" class="table table-bordered table-striped-col">
@@ -148,10 +151,10 @@
                                                     <th>Nº</th>
                                                     <th>DATA</th>
                                                     <th>CONTRATO</th>
-                                                    <th>NOTIFICANTE</th>
                                                     <th>EQUIPE NOTIFICADORA</th>
+                                                    <th>Indicador</th>
+                                                    <th>Descrição</th>
                                                     <th>STATUS</th>
-                                                    <th>PRAZO</th>
                                                     <th>AÇÕES</th>
                                                 </tr>
                                             </thead>
@@ -166,7 +169,6 @@
                                                     </td>
                                                     <td>{{ Carbon\Carbon::parse($n->created_at)->format('d/m/Y') }}</td>
                                                     <td>{{ $n->nu_contrato }}</td>
-                                                    <td>{{ $n->ma_cadastro }}</td>
 
 
                                                     @foreach ($Coordenacoes as $Coordenacao)
@@ -175,7 +177,8 @@
                                                     @endif
                                                     @endforeach
 
-
+                                                    <td>{{$n->sg_indicador}}</td>
+                                                    <td>{{strip_tags($n->ds_notificacao)}}</td>
                                                     <td>
                                                         @if($n->bit_aceito == 9)
                                                         Não autorizado
@@ -219,11 +222,6 @@
 
                                                     </td>
 
-                                                    @if($n->dt_fim_justificativa)
-                                                    <td>{{ Carbon\Carbon::parse($n->dt_fim_justificativa)->format('d/m/Y H:i') }}</td>
-                                                    @else
-                                                    <td></td>
-                                                    @endif
 
                                                     <td>
                                                         <!--  Verifica se a pessoa é gestor-->
