@@ -67,6 +67,7 @@ class RelatorioController extends Controller {
         $matricula = getenv('USERNAME');
 
         $mes = $request->input('mes');
+        var_dump($mes);
         $id_contrato = $request->input('id_contrato');
         $id_coordenacao = $request->input('id_coordenacao');
 
@@ -152,7 +153,8 @@ class RelatorioController extends Controller {
             'Coordenacoes' => $Coordenacoes,
             'Notificacoes' => $Notificacoes,
             'Indicadores' => $Indicadores,
-            'Total' => $Total,
+            'TotalAcat' => $TotalAcat,
+            'TotalNotAcat' => $TotalNotAcat,
         ]);
     }
 
@@ -163,6 +165,8 @@ class RelatorioController extends Controller {
         $Indicadores = Indicador::all();
         $Contratos = Contrato::orderBy('nu_contrato', 'asc')->get();
         $Coordenacoes = Coordenacao::orderBy('nu_coordenacao', 'asc')->get();
+        $TotalAcat='vazio';
+        $TotalNotAcat='vazio';
 
         //Listando todos os contratos válidos do sistema     
         $Notificacoes = DB::table('NOTIFICACAO')
@@ -184,6 +188,8 @@ class RelatorioController extends Controller {
             'Coordenacoes' => $Coordenacoes,
             'Notificacoes' => $Notificacoes,
             'Indicadores' => $Indicadores,
+            'TotalAcat' => $TotalAcat,
+            'TotalNotAcat' => $TotalNotAcat,
         ]);
     }
 

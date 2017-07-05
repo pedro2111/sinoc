@@ -140,9 +140,9 @@
                                     <?php if (isset($_POST['id_coordenacao'])) { ?>
                                         <center><h1>Relatorio mês de <?= $titulo_mes; ?>: <?= $titulo_contrato['nu_contrato'] ?> - <?= $titulo_coordenacao['no_coordenacao'] ?> </h1></center>
                                     <?php } ?>
-                                        
-                                        <?php //var_dump($Total); ?>
-                                        
+
+                                    <?php //var_dump($TotalNotAcat); ?>
+
                                     <div class="table-responsive">
 
                                         <table id="dataTable1" class="table table-bordered table-striped-col">
@@ -282,67 +282,214 @@
 
                                             </tbody>
                                         </table>
-                                        @if(isset($Total))
-                                        @foreach ($Total as $tot)
-                                        echo {{$tot->total}}
-                                        
-                                        @endforeach
-                                        @endif
-                                        <table class="table table-hover table-total" style="margin-top: 30px !important;width: 50%;">
-                                           <thead>
+                                        <?php if($TotalAcat != 'vazio'){?>
+                                        <table class="table table-striped  table-total" style="margin-top: 30px !important;width: 50%;">
+                                            <thead>
                                                 <tr>
                                                     <th>Indicador</th>
                                                     <th>Ocorrências Notificadas</th>
                                                     <th>Não acatadas</th>
                                                     <th>Acatadas</th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>IEPC001</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
+                                                    <td style="background: #ffb3ff;">IEPC001</td>
+                                                    <!-- Total-->
+                                                    <?php
+                                                    $contacat = 0;
+                                                    $contnacat = 0;
+                                                    $totalacatada = 0;
+                                                    $totalnacatada = 0;
+                                                    foreach ($TotalAcat as $acat):
+                                                        if ($acat->id_indicador == 4):
+                                                            $contacat = $acat->total;
+                                                            $totalacatada = $totalacatada + $contacat;
+                                                        endif;
+                                                    endforeach;
+                                                    foreach ($TotalNotAcat as $nacat):
+                                                        if ($nacat->id_indicador == 4):
+                                                            $contnacat = $nacat->total;
+                                                            $totalnacatada = $totalnacatada + $contnacat;
+                                                        endif;
+                                                    endforeach;
+                                                    $total01 = $contacat + $contnacat;
+                                                    ?>
+                                                    <td>{{$total01}}</td>
+                                                    <!-- Not Acat-->
+                                                    <td>{{$contnacat}}</td>                                                     
+                                                    <!-- Acat-->
+                                                    <td>{{$contacat}}</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>IEPC002</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
+                                                <tr >
+                                                    <td style="background: #ffb3b3;">IEPC002</td>
+                                                    <!-- Total-->
+                                                    <?php
+                                                    
+                                                    $contacat = 0;
+                                                    $contnacat = 0;
+                                                    foreach ($TotalAcat as $acat):
+                                                        if ($acat->id_indicador == 5):
+                                                            $contacat = $acat->total;                                                            
+                                                            $totalacatada = $totalacatada + $contacat;
+                                                        endif;
+                                                    endforeach;
+                                                    foreach ($TotalNotAcat as $nacat):
+                                                        if ($nacat->id_indicador == 5):
+                                                            $contnacat = $nacat->total;
+                                                            $totalnacatada = $totalnacatada + $contnacat;
+                                                        endif;
+                                                    endforeach;
+                                                    $total02 = $contacat + $contnacat;
+                                                    ?>
+                                                    <td>{{$total02}}</td>
+                                                    <!-- Not Acat-->
+                                                    <td>{{$contnacat}}</td>                                                     
+                                                    <!-- Acat-->
+                                                    <td>{{$contacat}}</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>IEPC003</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
+                                                <tr >
+                                                    <td style="background: #ffffb3;">IEPC003</td>
+                                                    <!-- Total-->
+                                                    <?php
+                                                    $contacat = 0;
+                                                    $contnacat = 0;
+                                                    foreach ($TotalAcat as $acat):
+                                                        if ($acat->id_indicador == 6):
+                                                            $contacat = $acat->total;
+                                                            $totalacatada = $totalacatada + $contacat;
+
+                                                        endif;
+                                                    endforeach;
+                                                    foreach ($TotalNotAcat as $nacat):
+                                                        if ($nacat->id_indicador == 6):
+                                                            $contnacat = $nacat->total;
+                                                            $totalnacatada = $totalnacatada + $contnacat;
+                                                        endif;
+                                                    endforeach;
+                                                    $total03 = $contacat + $contnacat;
+                                                    ?>
+                                                    <td>{{$total03}}</td>
+                                                    <!-- Not Acat-->
+                                                    <td>{{$contnacat}}</td>                                                     
+                                                    <!-- Acat-->
+                                                    <td>{{$contacat}}</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>IEPC004</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
+                                                <tr >
+                                                    <td style="background: #b3b3ff;">IEPC004</td>
+                                                    <!-- Total-->
+                                                    <?php
+                                                    $contacat = 0;
+                                                    $contnacat = 0;
+                                                    foreach ($TotalAcat as $acat):
+                                                        if ($acat->id_indicador == 7):
+                                                            $contacat = $acat->total;
+                                                            $totalacatada = $totalacatada + $contacat;
+                                                        endif;
+                                                    endforeach;
+                                                    foreach ($TotalNotAcat as $nacat):
+                                                        if ($nacat->id_indicador == 7):
+                                                            $contnacat = $nacat->total;
+                                                            $totalnacatada = $totalnacatada + $contnacat;
+                                                        endif;
+                                                    endforeach;
+                                                    $total04 = $contacat + $contnacat;
+                                                    ?>
+                                                    <td>{{$total04}}</td>
+                                                    <!-- Not Acat-->
+                                                    <td>{{$contnacat}}</td>                                                     
+                                                    <!-- Acat-->
+                                                    <td>{{$contacat}}</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>IEPC005</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
+                                                <tr >
+                                                    <td style="background: #ffb3d9;">IEPC005</td>
+                                                    <!-- Total-->
+                                                    <?php
+                                                    $contacat = 0;
+                                                    $contnacat = 0;
+                                                    foreach ($TotalAcat as $acat):
+                                                        if ($acat->id_indicador == 8):
+                                                            $contacat = $acat->total;
+                                                            $totalacatada = $totalacatada + $contacat;
+                                                        endif;
+                                                    endforeach;
+                                                    foreach ($TotalNotAcat as $nacat):
+                                                        if ($nacat->id_indicador == 8):
+                                                            $contnacat = $nacat->total;
+                                                            $totalnacatada = $totalnacatada + $contnacat;
+                                                        endif;
+                                                    endforeach;
+                                                    $total05 = $contacat + $contnacat;
+                                                    ?>
+                                                    <td>{{$total05}}</td>
+                                                    <!-- Not Acat-->
+                                                    <td>{{$contnacat}}</td>                                                     
+                                                    <!-- Acat-->
+                                                    <td>{{$contacat}}</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>IDSP001</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
+                                                <tr >
+                                                    <td style="background: #b3d9ff;">IEPC006</td>
+                                                    <!-- Total-->
+                                                    <?php
+                                                    $contacat = 0;
+                                                    $contnacat = 0;
+                                                    foreach ($TotalAcat as $acat):
+                                                        if ($acat->id_indicador == 9):
+                                                            $contacat = $acat->total;
+                                                            $totalacatada = $totalacatada + $contacat;
+                                                        endif;
+                                                    endforeach;
+                                                    foreach ($TotalNotAcat as $nacat):
+                                                        if ($nacat->id_indicador == 9):
+                                                            $contnacat = $nacat->total;
+                                                            $totalnacatada = $totalnacatada + $contnacat;
+                                                        endif;
+                                                    endforeach;
+                                                    $total06 = $contacat + $contnacat;
+                                                    ?>
+                                                    <td>{{$total06}}</td>
+                                                    <!-- Not Acat-->
+                                                    <td>{{$contnacat}}</td>                                                     
+                                                    <!-- Acat-->
+                                                    <td>{{$contacat}}</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>IEPC001</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
+                                                <tr >
+                                                    <td style="background: #d9d9d9;">IDSP001</td>
+                                                    <!-- Total-->
+                                                    <?php
+                                                    $contacat = 0;
+                                                    $contnacat = 0;
+                                                    foreach ($TotalAcat as $acat):
+                                                        if ($acat->id_indicador == 10):
+                                                            $contacat = $acat->total;
+                                                            $totalacatada = $totalacatada + $contacat;
+                                                        endif;
+                                                    endforeach;
+                                                    foreach ($TotalNotAcat as $nacat):
+                                                        if ($nacat->id_indicador == 10):
+                                                            $contnacat = $nacat->total;
+                                                            $totalnacatada = $totalnacatada + $contnacat;
+                                                        endif;
+                                                    endforeach;
+                                                    $total07 = $contacat + $contnacat;
+                                                    ?>
+                                                    <td>{{$total07}}</td>
+                                                    <!-- Not Acat-->
+                                                    <td>{{$contnacat}}</td>                                                     
+                                                    <!-- Acat-->
+                                                    <td>{{$contacat}}</td>
+                                                </tr>
+                                                <tr style="background: #b3ffb3;">
+                                                    <td>TOTAL</td>
+                                                    <td><?= $total01 + $total02 + $total03 + $total04 + $total05 + $total05 + $total06 + $total07; ?></td>
+                                                    <td><?= $totalnacatada;?></td>
+                                                    <td><?= $totalacatada;?></td>
+                                                    
                                                 </tr>
                                             </tbody>
                                         </table>
-
+                                        <?php }?>
                                     </div>
                                 </div> <!-- panel-body -->
                             </div>
