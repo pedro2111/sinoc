@@ -26,7 +26,7 @@
                                           aria-expanded="false">Relatório mensal de Notificações</a></li>
                 </ul>
                 <!--Final da ABAS DA TAB -->
-
+               
 
                 <div class="tab-content mb20">
 
@@ -54,7 +54,7 @@
                                                 $mes = Carbon\Carbon::now()->month;
                                             }
                                             ?>
-                                            <select class="select2" id="" name="id_contrato" data-placeholder="Contrato" title="Selecione um contrato">
+                                            <select class="select2" id="id_contrato" name="id_contrato" data-placeholder="Contrato" title="Selecione um contrato" required>
                                                 <option value=""></option>
 
                                                 @foreach ($Contratos as $Contrato)
@@ -63,8 +63,8 @@
 
                                             </select>
 
-                                            <select class="select2" id="" name="id_coordenacao"  data-placeholder="Coordenação">
-                                                <option value="999">Coordenação</option>
+                                            <select class="select2" id="id_coordenacao" name="id_coordenacao"  data-placeholder="Selecione uma Coordenação ou nehuma para todas!">
+                                                <option value="999">Selecione uma Coordenação ou nehuma para todas!</option>
                                                 @foreach ($Coordenacoes as $Coordenacao)
                                                 <option value="{{ $Coordenacao->id_coordenacao }}">{{ $Coordenacao->ds_coordenacao }}</option>
                                                 @endforeach
@@ -93,7 +93,8 @@
                                     </form>
 
                                     <?php
-                                    switch ($mes):
+                                    if (isset($_POST['mes'])) {
+                                    switch ($_POST['mes']):
                                         case $mes = 1:
                                             $titulo_mes = 'Janeiro';
                                             break;
@@ -131,6 +132,7 @@
                                             $titulo_mes = 'Dezembro';
                                             break;
                                     endswitch;
+                                    }
 
                                     if (isset($_POST['id_coordenacao'])) {
                                         $titulo_coordenacao = \App\Models\Coordenacao::find($_POST['id_coordenacao']);
@@ -141,11 +143,12 @@
                                         <center><h1>Relatorio mês de <?= $titulo_mes; ?>: <?= $titulo_contrato['nu_contrato'] ?> - <?= $titulo_coordenacao['no_coordenacao'] ?> </h1></center>
                                     <?php } ?>
 
-                                    <?php //var_dump($TotalNotAcat); ?>
 
-                                    <div class="table-responsive">
+                                    <?php for ($i=1; $i<=17; $i++){ ?>
+                                        
+                                        <div class="table-responsive">
 
-                                        <table id="dataTable1" class="table table-bordered table-striped-col">
+                                        <table  class="table table-bordered table-striped-col dataTable1">
                                             <thead>
                                                 <tr>
                                                     <th>Nº</th>
@@ -162,10 +165,10 @@
                                             <tbody>
 
                                                 @foreach ($Notificacoes as $n)
-
+                                                <?php if($n->id_notificadora == $i) {?>
                                                 <tr>
                                                     <td>
-                                                        <a href="notificacao/ver/{{ Crypt::encrypt($n->id_notificacao) }}">{{ $n->nu_notificacao }}</a>
+                                                        <a href="../notificacao/ver/{{ Crypt::encrypt($n->id_notificacao) }}">{{ $n->nu_notificacao }}</a>
                                                     </td>
                                                     <td>{{ Carbon\Carbon::parse($n->created_at)->format('d/m/Y') }}</td>
                                                     <td>{{ $n->nu_contrato }}</td>
@@ -228,7 +231,7 @@
                                                         <!--  Verifica se a pessoa é gestor-->
                                                         @if(Session::get('isgestor') == 1)
                                                         @if($n->dt_naoacatado == NULL && $n->bit_aceito == 1)
-                                                        <a href="notificacao/autorizar/{{ Crypt::encrypt($n->id_notificacao) }}">Autorizar</a>
+                                                        <a href="../notificacao/autorizar/{{ Crypt::encrypt($n->id_notificacao) }}">Autorizar</a>
                                                         |
                                                         @endif
                                                         @endif
@@ -237,36 +240,30 @@
                                                         <!--  Verifica se a pessoa é preposto -->
                                                         @if(Session::get('ispreposto') == 1)
                                                         @if($n->bit_aceito == 2)
-                                                        <a href="notificacao/justificar/{{ Crypt::encrypt($n->id_notificacao) }}">Justificar</a>
+                                                        <a href="../notificacao/justificar/{{ Crypt::encrypt($n->id_notificacao) }}">Justificar</a>
                                                         |
                                                         @endif
                                                         @endif
-
-
-
 
                                                         @if(Session::get('isgestor') == 1)
                                                         @if($n->bit_aceito == 3)
-                                                        <a href="notificacao/avaliar/{{ Crypt::encrypt($n->id_notificacao) }}">Avaliar</a>
+                                                        <a href="../notificacao/avaliar/{{ Crypt::encrypt($n->id_notificacao) }}">Avaliar</a>
                                                         |
                                                         @endif
                                                         @endif
-
-
-
 
                                                         <!--  Verifica se a pessoa é agente de RH e Contratos-->
                                                         @if(Session::get('isrh') == 1)
                                                         @if($n->bit_aceito == 5)
-                                                        <a href="notificacao/corrigir/{{ Crypt::encrypt($n->id_notificacao) }}">Corrigir</a>
+                                                        <a href="../notificacao/corrigir/{{ Crypt::encrypt($n->id_notificacao) }}">Corrigir</a>
                                                         |
-                                                        <a href="notificacao/devolverpreposto/{{ Crypt::encrypt($n->id_notificacao) }}">Devolver preposto</a>
+                                                        <a href="../notificacao/devolverpreposto/{{ Crypt::encrypt($n->id_notificacao) }}">Devolver preposto</a>
                                                         |
                                                         @endif
                                                         @endif
 
 
-                                                        <a href="notificacao/ver/{{ Crypt::encrypt($n->id_notificacao) }}">Informações</a>
+                                                        <a href="../notificacao/ver/{{ Crypt::encrypt($n->id_notificacao) }}">Informações</a>
 
                                                         <!--
                                     # COLOCAR ESSAS FUNCIONALIDADES NA PROXIMA VERSÃO
@@ -278,12 +275,17 @@
 
                                                     </td>
                                                 </tr>
+                                                <?php }?><!-- fechamento if do for notificadora-->
                                                 @endforeach
 
                                             </tbody>
                                         </table>
-                                        <?php if($TotalAcat != 'vazio'){?>
-                                        <table class="table table-striped  table-total" style="margin-top: 30px !important;width: 50%;">
+                                        <?php 
+                                        if($TotalAcat != 'vazio'){
+                                            var_dump($TotalAcat);                                    
+                                        ?>
+                                            
+                                        <table class="table table-striped  table-total" style="margin-top: 30px !important;width: 50%;" align="center">
                                             <thead>
                                                 <tr>
                                                     <th>Indicador</th>
@@ -297,7 +299,7 @@
                                                 <tr>
                                                     <td style="background: #ffb3ff;">IEPC001</td>
                                                     <!-- Total-->
-                                                    <?php
+                                                    <?php                                                         
                                                     $contacat = 0;
                                                     $contnacat = 0;
                                                     $totalacatada = 0;
@@ -491,6 +493,7 @@
                                         </table>
                                         <?php }?>
                                     </div>
+                                        <?php }?><!-- fechamento for -->
                                 </div> <!-- panel-body -->
                             </div>
                         </div> <!-- panel -->
@@ -540,7 +543,7 @@
 
             //$('#dataTable1').DataTable();
 
-            $('#dataTable1').dataTable({
+            $('.dataTable1').dataTable({
                 "order": [[0, "desc"]],
                 "pageLength": 25,
                 "oLanguage": {

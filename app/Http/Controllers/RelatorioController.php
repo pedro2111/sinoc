@@ -67,7 +67,6 @@ class RelatorioController extends Controller {
         $matricula = getenv('USERNAME');
 
         $mes = $request->input('mes');
-        var_dump($mes);
         $id_contrato = $request->input('id_contrato');
         $id_coordenacao = $request->input('id_coordenacao');
 
@@ -81,68 +80,174 @@ class RelatorioController extends Controller {
         $Coordenacoes = Coordenacao::orderBy('nu_coordenacao', 'asc')->get();
 
         //Listando todos os contratos válidos do sistema  
-        if ($id_coordenacao == 999) {
+        if ($id_coordenacao != 999) {
             $Notificacoes = DB::table('NOTIFICACAO')
                     ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
                     ->join('INDICADOR', 'INDICADOR.id_indicador', '=', 'NOTIFICACAO.id_indicador')
                     ->where('NOTIFICACAO.deleted_at', null)
                     ->where('CONTRATOS.deleted_at', null)
-                    ->where('NOTIFICACAO.id_contrato', '=', $id_contrato)
                     ->whereIn('bit_aceito', array(4, 5, 44, 55))
+                    ->when($mes, function ($query) use ($mes) {
+                        return $query->WhereRaw('EXTRACT(Month from "NOTIFICACAO".created_at) = ' . $mes);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
+                    ->when($id_coordenacao, function ($query) use ($id_coordenacao) {
+                        return $query->where('NOTIFICACAO.id_notificadora', '=', $id_coordenacao);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
+                    ->when($id_contrato, function ($query) use ($id_contrato) {
+                        return $query->where('NOTIFICACAO.id_contrato', '=', $id_contrato);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
                     ->select('CONTRATOS.*', 'NOTIFICACAO.*', 'INDICADOR.*')
                     ->get();
 
             $TotalAcat = DB::table('NOTIFICACAO')
                     ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
-                    ->select('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador', DB::raw("count('NOTIFICACAO.id_indicador') as total"))
                     ->where('NOTIFICACAO.deleted_at', null)
                     ->where('CONTRATOS.deleted_at', null)
-                    ->where('NOTIFICACAO.id_contrato', '=', $id_contrato)
-                    ->whereIn('bit_aceito', array(4,44))
+                    ->whereIn('bit_aceito', array(4, 44))
+                    ->when($mes, function ($query) use ($mes) {
+                        return $query->WhereRaw('EXTRACT(Month from "NOTIFICACAO".created_at) = ' . $mes);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
+                    ->when($id_coordenacao, function ($query) use ($id_coordenacao) {
+                        return $query->where('NOTIFICACAO.id_notificadora', '=', $id_coordenacao);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
+                    ->when($id_contrato, function ($query) use ($id_contrato) {
+                        return $query->where('NOTIFICACAO.id_contrato', '=', $id_contrato);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
+                    ->select('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador', DB::raw("count('NOTIFICACAO.id_indicador') as total"))
                     ->groupBy('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador')
                     ->get();
-            
+
             $TotalNotAcat = DB::table('NOTIFICACAO')
                     ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
-                    ->select('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador', DB::raw("count('NOTIFICACAO.id_indicador') as total"))
                     ->where('NOTIFICACAO.deleted_at', null)
                     ->where('CONTRATOS.deleted_at', null)
-                    ->where('NOTIFICACAO.id_contrato', '=', $id_contrato)
-                    ->whereIn('bit_aceito', array(5,55))
+                    ->whereIn('bit_aceito', array(5, 55))
+                    ->when($mes, function ($query) use ($mes) {
+                        return $query->WhereRaw('EXTRACT(Month from "NOTIFICACAO".created_at) = ' . $mes);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
+                    ->when($id_coordenacao, function ($query) use ($id_coordenacao) {
+                        return $query->where('NOTIFICACAO.id_notificadora', '=', $id_coordenacao);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
+                    ->when($id_contrato, function ($query) use ($id_contrato) {
+                        return $query->where('NOTIFICACAO.id_contrato', '=', $id_contrato);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
+                    ->select('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador', DB::raw("count('NOTIFICACAO.id_indicador') as total"))
                     ->groupBy('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador')
                     ->get();
+            $All = DB::table('NOTIFICACAO')
+                    ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
+                    ->where('NOTIFICACAO.deleted_at', null)
+                    ->where('CONTRATOS.deleted_at', null)
+                    ->whereIn('bit_aceito', array(4,44,5, 55))
+                    ->when($mes, function ($query) use ($mes) {
+                        return $query->WhereRaw('EXTRACT(Month from "NOTIFICACAO".created_at) = ' . $mes);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
+                    ->when($id_contrato, function ($query) use ($id_contrato) {
+                        return $query->where('NOTIFICACAO.id_contrato', '=', $id_contrato);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
+                    ->select('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador', 'NOTIFICACAO.bit_aceito',DB::raw("count('NOTIFICACAO.id_indicador') as total"))
+                    ->groupBy('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador','NOTIFICACAO.bit_aceito')
+                    ->get();
+            
         } else {
             $Notificacoes = DB::table('NOTIFICACAO')
                     ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
                     ->join('INDICADOR', 'INDICADOR.id_indicador', '=', 'NOTIFICACAO.id_indicador')
                     ->where('NOTIFICACAO.deleted_at', null)
                     ->where('CONTRATOS.deleted_at', null)
-                    ->where('NOTIFICACAO.id_contrato', '=', $id_contrato)
-                    ->where('NOTIFICACAO.id_notificadora', '=', $id_coordenacao)
                     ->whereIn('bit_aceito', array(4, 5, 44, 55))
+                    ->when($mes, function ($query) use ($mes) {
+                        return $query->WhereRaw('EXTRACT(Month from "NOTIFICACAO".created_at) = ' . $mes);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
+                    ->when($id_contrato, function ($query) use ($id_contrato) {
+                        return $query->where('NOTIFICACAO.id_contrato', '=', $id_contrato);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
                     ->select('CONTRATOS.*', 'NOTIFICACAO.*', 'INDICADOR.*')
                     ->get();
 
             $TotalAcat = DB::table('NOTIFICACAO')
                     ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
-                    ->select('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador', DB::raw("count('NOTIFICACAO.id_indicador') as total"))
                     ->where('NOTIFICACAO.deleted_at', null)
                     ->where('CONTRATOS.deleted_at', null)
-                    ->where('NOTIFICACAO.id_contrato', '=', $id_contrato)
-                    ->where('NOTIFICACAO.id_notificadora', '=', $id_coordenacao)
-                    ->whereIn('bit_aceito', array(4,44))
+                    ->whereIn('bit_aceito', array(4, 44))
+                    ->when($mes, function ($query) use ($mes) {
+                        return $query->WhereRaw('EXTRACT(Month from "NOTIFICACAO".created_at) = ' . $mes);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
+                    ->when($id_contrato, function ($query) use ($id_contrato) {
+                        return $query->where('NOTIFICACAO.id_contrato', '=', $id_contrato);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
+                    ->select('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador', DB::raw("count('NOTIFICACAO.id_indicador') as total"))
                     ->groupBy('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador')
                     ->get();
+
             $TotalNotAcat = DB::table('NOTIFICACAO')
                     ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
-                    ->select('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador', DB::raw("count('NOTIFICACAO.id_indicador') as total"))
                     ->where('NOTIFICACAO.deleted_at', null)
                     ->where('CONTRATOS.deleted_at', null)
-                    ->where('NOTIFICACAO.id_contrato', '=', $id_contrato)
-                    ->where('NOTIFICACAO.id_notificadora', '=', $id_coordenacao)
-                    ->whereIn('bit_aceito', array(5,55))
+                    ->whereIn('bit_aceito', array(5, 55))
+                    ->when($mes, function ($query) use ($mes) {
+                        return $query->WhereRaw('EXTRACT(Month from "NOTIFICACAO".created_at) = ' . $mes);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
+                    ->when($id_contrato, function ($query) use ($id_contrato) {
+                        return $query->where('NOTIFICACAO.id_contrato', '=', $id_contrato);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
+                    ->select('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador', DB::raw("count('NOTIFICACAO.id_indicador') as total"))
                     ->groupBy('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador')
                     ->get();
+             
+            $All = DB::table('NOTIFICACAO')
+                    ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
+                    ->where('NOTIFICACAO.deleted_at', null)
+                    ->where('CONTRATOS.deleted_at', null)
+                    ->whereIn('bit_aceito', array(4,44,5, 55))
+                    ->when($mes, function ($query) use ($mes) {
+                        return $query->WhereRaw('EXTRACT(Month from "NOTIFICACAO".created_at) = ' . $mes);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
+                    ->when($id_contrato, function ($query) use ($id_contrato) {
+                        return $query->where('NOTIFICACAO.id_contrato', '=', $id_contrato);
+                    }, function ($query) {
+                        //return $query->orderBy('name');
+                    })
+                    ->select('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador', 'NOTIFICACAO.bit_aceito',DB::raw("count('NOTIFICACAO.id_indicador') as total"))
+                    ->groupBy('NOTIFICACAO.id_notificadora', 'NOTIFICACAO.id_indicador','NOTIFICACAO.bit_aceito')
+                    ->get();
+            
         }
 
 
@@ -155,18 +260,20 @@ class RelatorioController extends Controller {
             'Indicadores' => $Indicadores,
             'TotalAcat' => $TotalAcat,
             'TotalNotAcat' => $TotalNotAcat,
+            'All' => $All,
         ]);
     }
 
     public function notificacaoporcoordenacao() {
         $matricula = getenv('USERNAME');
+        $mes = \Carbon\Carbon::now()->month;
         //Listando as empresas
         $Empresas = Empresa::all();
         $Indicadores = Indicador::all();
         $Contratos = Contrato::orderBy('nu_contrato', 'asc')->get();
         $Coordenacoes = Coordenacao::orderBy('nu_coordenacao', 'asc')->get();
-        $TotalAcat='vazio';
-        $TotalNotAcat='vazio';
+        $TotalAcat = 'vazio';
+        $TotalNotAcat = 'vazio';
 
         //Listando todos os contratos válidos do sistema     
         $Notificacoes = DB::table('NOTIFICACAO')
@@ -174,12 +281,10 @@ class RelatorioController extends Controller {
                 ->join('INDICADOR', 'INDICADOR.id_indicador', '=', 'NOTIFICACAO.id_indicador')
                 ->where('NOTIFICACAO.deleted_at', null)
                 ->where('CONTRATOS.deleted_at', null)
+                ->WhereRaw('EXTRACT(Month from "NOTIFICACAO".created_at) = ' . $mes)
                 ->whereIn('bit_aceito', array(4, 5, 44, 55))
                 ->select('CONTRATOS.*', 'NOTIFICACAO.*', 'INDICADOR.*')
                 ->get();
-
-
-
 
 
         return view('relatorio.relatoriomensal', ['matricula' => $matricula,
