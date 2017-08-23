@@ -18,3 +18,8 @@ $(document).ready(function(){
 	$("#datainicio").mask("99/99/9999");
 });   
 </script>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>

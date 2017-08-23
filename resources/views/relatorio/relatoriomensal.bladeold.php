@@ -26,7 +26,7 @@
                                           aria-expanded="false">Relatório mensal de Notificações</a></li>
                 </ul>
                 <!--Final da ABAS DA TAB -->
-               
+
 
                 <div class="tab-content mb20">
 
@@ -72,18 +72,18 @@
                                             </select>
 
                                             <select name="mes" class="select2" data-placeholder="Mês" title="Selecione o mês visualizar" >
-                                                <option value="01" <?php echo ($mes == 01) ? "selected" : ""; ?>>Janeiro</option>
-                                                <option value="02" <?php echo ($mes == 02) ? "selected" : ""; ?>>Fevereiro</option>
-                                                <option value="03" <?php echo ($mes == 03) ? "selected" : ""; ?>>Março</option>
-                                                <option value="04" <?php echo ($mes == 04) ? "selected" : ""; ?>>Abril</option>
-                                                <option value="05" <?php echo ($mes == 05) ? "selected" : ""; ?>>Maio</option>
-                                                <option value="06" <?php echo ($mes == 06) ? "selected" : ""; ?>>Junho</option>
-                                                <option value="07" <?php echo ($mes == 07) ? "selected" : ""; ?>>Julho</option>
-                                                <option value="08" <?php echo ($mes == 08) ? "selected" : ""; ?>>Agosto</option>
-                                                <option value="09" <?php echo ($mes == 09) ? "selected" : ""; ?>>Setembro</option>
-                                                <option value="10" <?php echo ($mes == 10) ? "selected" : ""; ?>>Outubro</option>
-                                                <option value="11" <?php echo ($mes == 11) ? "selected" : ""; ?>>Novembro</option>
-                                                <option value="12" <?php echo ($mes == 12) ? "selected" : ""; ?>>Dezembro</option>
+                                                <option value="01" <?php echo ($mes == '01') ? "selected" : ""; ?>>Janeiro</option>
+                                                <option value="02" <?php echo ($mes == '02') ? "selected" : ""; ?>>Fevereiro</option>
+                                                <option value="03" <?php echo ($mes == '03') ? "selected" : ""; ?>>Março</option>
+                                                <option value="04" <?php echo ($mes == '04') ? "selected" : ""; ?>>Abril</option>
+                                                <option value="05" <?php echo ($mes == '05') ? "selected" : ""; ?>>Maio</option>
+                                                <option value="06" <?php echo ($mes == '06') ? "selected" : ""; ?>>Junho</option>
+                                                <option value="07" <?php echo ($mes == '07') ? "selected" : ""; ?>>Julho</option>
+                                                <option value="08" <?php echo ($mes == '08') ? "selected" : ""; ?>>Agosto</option>
+                                                <option value="09" <?php echo ($mes == '09') ? "selected" : ""; ?>>Setembro</option>
+                                                <option value="10" <?php echo ($mes == '10') ? "selected" : ""; ?>>Outubro</option>
+                                                <option value="11" <?php echo ($mes == '11') ? "selected" : ""; ?>>Novembro</option>
+                                                <option value="12" <?php echo ($mes == '12') ? "selected" : ""; ?>>Dezembro</option>
                                             </select>
 
 
@@ -94,407 +94,842 @@
 
                                     <?php
                                     if (isset($_POST['mes'])) {
-                                    switch ($_POST['mes']):
-                                        case $mes = 1:
-                                            $titulo_mes = 'Janeiro';
-                                            break;
-                                        case $mes = 2:
-                                            $titulo_mes = 'Fevereiro';
-                                            break;
-                                        case $mes = 3:
-                                            $titulo_mes = 'Março';
-                                            break;
-                                        case $mes = 4:
-                                            $titulo_mes = 'Abril';
-                                            break;
-                                        case $mes = 5:
-                                            $titulo_mes = 'Maio';
-                                            break;
-                                        case $mes = 6:
-                                            $titulo_mes = 'Junho';
-                                            break;
-                                        case $mes = 7:
-                                            $titulo_mes = 'Julho';
-                                            break;
-                                        case $mes = 8:
-                                            $titulo_mes = 'Agosto';
-                                            break;
-                                        case $mes = 9:
-                                            $titulo_mes = 'Setembro';
-                                            break;
-                                        case $mes = 10:
-                                            $titulo_mes = 'Outubro';
-                                            break;
-                                        case $mes = 11:
-                                            $titulo_mes = 'Novembro';
-                                            break;
-                                        case $mes = 12:
-                                            $titulo_mes = 'Dezembro';
-                                            break;
-                                    endswitch;
-                                    }
-
-                                    if (isset($_POST['id_coordenacao'])) {
-                                        $titulo_coordenacao = \App\Models\Coordenacao::find($_POST['id_coordenacao']);
-                                        $titulo_contrato = \App\Models\Contrato::find($_POST['id_contrato']);
+                                        switch ($_POST['mes']):
+                                            case $mes = 1:
+                                                $titulo_mes = 'Janeiro';
+                                                break;
+                                            case $mes = 2:
+                                                $titulo_mes = 'Fevereiro';
+                                                break;
+                                            case $mes = 3:
+                                                $titulo_mes = 'Março';
+                                                break;
+                                            case $mes = 4:
+                                                $titulo_mes = 'Abril';
+                                                break;
+                                            case $mes = 5:
+                                                $titulo_mes = 'Maio';
+                                                break;
+                                            case $mes = 6:
+                                                $titulo_mes = 'Junho';
+                                                break;
+                                            case $mes = 7:
+                                                $titulo_mes = 'Julho';
+                                                break;
+                                            case $mes = 8:
+                                                $titulo_mes = 'Agosto';
+                                                break;
+                                            case $mes = 9:
+                                                $titulo_mes = 'Setembro';
+                                                break;
+                                            case $mes = 10:
+                                                $titulo_mes = 'Outubro';
+                                                break;
+                                            case $mes = 11:
+                                                $titulo_mes = 'Novembro';
+                                                break;
+                                            case $mes = 12:
+                                                $titulo_mes = 'Dezembro';
+                                                break;
+                                        endswitch;
                                     }
                                     ?>
-                                    <?php if (isset($_POST['id_coordenacao'])) { ?>
-                                        <center><h1>Relatorio mês de <?= $titulo_mes; ?>: <?= $titulo_contrato['nu_contrato'] ?> - <?= $titulo_coordenacao['no_coordenacao'] ?> </h1></center>
-                                    <?php } ?>
 
+                                    <?php
+                                    $totalglobal01 = 0;
+                                    $totalglobal02 = 0;
+                                    $totalglobal03 = 0;
+                                    $totalglobal04 = 0;
+                                    $totalglobal05D = 0;
+                                    $totalglobal05P = 0;
+                                    $totalglobal06 = 0;
+                                    $totalglobal07 = 0;
+                                    $totalacatada01 = 0;
+                                    $totalnacatada01 = 0;
+                                    $totalacatada02 = 0;
+                                    $totalnacatada02 = 0;
+                                    $totalacatada03 = 0;
+                                    $totalnacatada03 = 0;
+                                    $totalacatada04 = 0;
+                                    $totalnacatada04 = 0;
+                                    $totalacatada05D = 0;
+                                    $totalnacatada05D = 0;
+                                    $totalacatada05P = 0;
+                                    $totalnacatada05P = 0;
+                                    $totalacatada06 = 0;
+                                    $totalnacatada06 = 0;
+                                    $totalacatada07 = 0;
+                                    $totalnacatada07 = 0;
 
-                                    <?php for ($i=1; $i<=17; $i++){ ?>
-                                        
-                                        <div class="table-responsive">
-
-                                        <table  class="table table-bordered table-striped-col dataTable1">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nº</th>
-                                                    <th>DATA</th>
-                                                    <th>CONTRATO</th>
-                                                    <th>EQUIPE NOTIFICADORA</th>
-                                                    <th>Indicador</th>
-                                                    <th>Descrição</th>
-                                                    <th>STATUS</th>
-                                                    <th>AÇÕES</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-
-                                                @foreach ($Notificacoes as $n)
-                                                <?php if($n->id_notificadora == $i) {?>
-                                                <tr>
-                                                    <td>
-                                                        <a href="../notificacao/ver/{{ Crypt::encrypt($n->id_notificacao) }}">{{ $n->nu_notificacao }}</a>
-                                                    </td>
-                                                    <td>{{ Carbon\Carbon::parse($n->created_at)->format('d/m/Y') }}</td>
-                                                    <td>{{ $n->nu_contrato }}</td>
-
-
-                                                    @foreach ($Coordenacoes as $Coordenacao)
-                                                    @if ($n->id_notificadora === $Coordenacao->id_coordenacao)
-                                                    <td>{{ $Coordenacao->no_coordenacao }}</td>
-                                                    @endif
-                                                    @endforeach
-
-                                                    <td>{{$n->sg_indicador}}</td>
-                                                    <td>{{strip_tags($n->ds_notificacao)}}</td>
-                                                    <td>
-                                                        @if($n->bit_aceito == 9)
-                                                        Não autorizado
-                                                        @endif
-
-                                                        @if($n->bit_aceito == 99)
-                                                        Não autorizado - Tempo de resposta esgotado!
-                                                        @endif
-
-                                                        @if($n->bit_aceito == 55)
-                                                        Justificativa Não acatada - Tempo de resposta esgotado!
-                                                        @endif
-
-                                                        @if($n->bit_aceito == 44)
-                                                        Justificativa Acatada - Tempo de resposta esgotado!
-                                                        @endif
-
-                                                        @if($n->bit_aceito == 5)
-                                                        Justificativa não acatada
-                                                        @endif
-
-                                                        @if($n->bit_aceito == 4)
-                                                        Justificativa acatada
-                                                        @endif
-
-
-                                                        @if($n->bit_aceito == 3)
-                                                        Aguardando avaliação
-                                                        @endif
-
-
-                                                        @if($n->bit_aceito == 2)
-                                                        Aguardando justificativa
-                                                        @endif
-
-
-
-                                                        @if($n->bit_aceito == 1)
-                                                        Aguardando autorização
-                                                        @endif
-
-                                                    </td>
-
-
-                                                    <td>
-                                                        <!--  Verifica se a pessoa é gestor-->
-                                                        <!--  Verifica se a pessoa é gestor-->
-                                                        @if(Session::get('isgestor') == 1)
-                                                        @if($n->dt_naoacatado == NULL && $n->bit_aceito == 1)
-                                                        <a href="../notificacao/autorizar/{{ Crypt::encrypt($n->id_notificacao) }}">Autorizar</a>
-                                                        |
-                                                        @endif
-                                                        @endif
-
-
-                                                        <!--  Verifica se a pessoa é preposto -->
-                                                        @if(Session::get('ispreposto') == 1)
-                                                        @if($n->bit_aceito == 2)
-                                                        <a href="../notificacao/justificar/{{ Crypt::encrypt($n->id_notificacao) }}">Justificar</a>
-                                                        |
-                                                        @endif
-                                                        @endif
-
-                                                        @if(Session::get('isgestor') == 1)
-                                                        @if($n->bit_aceito == 3)
-                                                        <a href="../notificacao/avaliar/{{ Crypt::encrypt($n->id_notificacao) }}">Avaliar</a>
-                                                        |
-                                                        @endif
-                                                        @endif
-
-                                                        <!--  Verifica se a pessoa é agente de RH e Contratos-->
-                                                        @if(Session::get('isrh') == 1)
-                                                        @if($n->bit_aceito == 5)
-                                                        <a href="../notificacao/corrigir/{{ Crypt::encrypt($n->id_notificacao) }}">Corrigir</a>
-                                                        |
-                                                        <a href="../notificacao/devolverpreposto/{{ Crypt::encrypt($n->id_notificacao) }}">Devolver preposto</a>
-                                                        |
-                                                        @endif
-                                                        @endif
-
-
-                                                        <a href="../notificacao/ver/{{ Crypt::encrypt($n->id_notificacao) }}">Informações</a>
-
-                                                        <!--
-                                    # COLOCAR ESSAS FUNCIONALIDADES NA PROXIMA VERSÃO
-        
-                                    | <a href="notificacao/acatamentoespecial/{{ $n->id_notificacao }}">Acatamento especial</a>
-                                    | <a href="notificacao/historico/{{ $n->id_notificacao }}">Histórico</a>
-                                                        -->
-
-
-                                                    </td>
-                                                </tr>
-                                                <?php }?><!-- fechamento if do for notificadora-->
-                                                @endforeach
-
-                                            </tbody>
-                                        </table>
-                                        <?php 
-                                        if($TotalAcat != 'vazio'){
-                                            var_dump($TotalAcat);                                    
+                                    $totalacatada = 0;
+                                    $totalnacatada = 0;
+                                    if ($All != 'vazio') {
+                                        $titulo_contrato = \App\Models\Contrato::find($_POST['id_contrato']);
+                                        if ($_POST['id_coordenacao'] != 999) {
+                                            $i = $_POST['id_coordenacao'];
+                                            $tam = $_POST['id_coordenacao'];
+                                        } else {
+                                            $i = 1;
+                                            $tam = 17;
+                                        }
                                         ?>
-                                            
-                                        <table class="table table-striped  table-total" style="margin-top: 30px !important;width: 50%;" align="center">
+                                        <?php
+                                        for ($i; $i <= $tam; $i++) {
+
+                                            foreach ($Coordenacoes as $cord) {
+                                                if ($cord->id_coordenacao == $i) {
+                                                    $titulo_coordenacao = $cord->ds_coordenacao;
+                                                }
+                                            }
+                                            ?>
+
+                                            <center><h1 style="font-size: 2em; margin-top:40px; margin-bottom: 40px; color: #1c60ab;">Relatorio mês de <?= $titulo_mes; ?>: <?= $titulo_contrato['nu_contrato'] ?> - <?= $titulo_coordenacao; ?> </h1></center>
+
+                                            <div class="table-responsive">
+
+                                                <table  class="table table-bordered table-striped-col dataTable1">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nº</th>
+                                                            <th>DATA</th>
+                                                            <th>CONTRATO</th>
+                                                            <th>EQUIPE NOTIFICADORA</th>
+                                                            <th>Indicador</th>
+                                                            <th>Descrição</th>
+                                                            <th>STATUS</th>
+                                                            <th>AÇÕES</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+
+                                                        @foreach ($Notificacoes as $n)
+                                                        <?php if ($n->id_notificadora == $i) { ?>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="../notificacao/ver/{{ Crypt::encrypt($n->id_notificacao) }}">{{ $n->nu_notificacao }}</a>
+                                                                </td>
+                                                                <td>{{ Carbon\Carbon::parse($n->created_at)->format('d/m/Y') }}</td>
+                                                                <td>{{ $n->nu_contrato }}</td>
+
+
+                                                                @foreach ($Coordenacoes as $Coordenacao)
+                                                                @if ($n->id_notificadora === $Coordenacao->id_coordenacao)
+                                                                <td>{{ $Coordenacao->no_coordenacao }}</td>
+                                                                @endif
+                                                                @endforeach
+
+                                                                <td>{{$n->sg_indicador}}</td>
+                                                                <td>{{strip_tags($n->ds_notificacao)}}</td>
+                                                                <td>
+                                                                    @if($n->bit_aceito == 9)
+                                                                    Não autorizado
+                                                                    @endif
+
+                                                                    @if($n->bit_aceito == 99)
+                                                                    Não autorizado - Tempo de resposta esgotado!
+                                                                    @endif
+
+                                                                    @if($n->bit_aceito == 55)
+                                                                    Justificativa Não acatada - Tempo de resposta esgotado!
+                                                                    @endif
+
+                                                                    @if($n->bit_aceito == 44)
+                                                                    Justificativa Acatada - Tempo de resposta esgotado!
+                                                                    @endif
+
+                                                                    @if($n->bit_aceito == 5)
+                                                                    Justificativa não acatada
+                                                                    @endif
+
+                                                                    @if($n->bit_aceito == 4)
+                                                                    Justificativa acatada
+                                                                    @endif
+
+
+                                                                    @if($n->bit_aceito == 3)
+                                                                    Aguardando avaliação
+                                                                    @endif
+
+
+                                                                    @if($n->bit_aceito == 2)
+                                                                    Aguardando justificativa
+                                                                    @endif
+
+
+
+                                                                    @if($n->bit_aceito == 1)
+                                                                    Aguardando autorização
+                                                                    @endif
+
+                                                                </td>
+
+
+                                                                <td>
+                                                                    <!--  Verifica se a pessoa é gestor-->
+                                                                    <!--  Verifica se a pessoa é gestor-->
+                                                                    @if(Session::get('isgestor') == 1)
+                                                                    @if($n->dt_naoacatado == NULL && $n->bit_aceito == 1)
+                                                                    <a href="../notificacao/autorizar/{{ Crypt::encrypt($n->id_notificacao) }}">Autorizar</a>
+                                                                    |
+                                                                    @endif
+                                                                    @endif
+
+
+                                                                    <!--  Verifica se a pessoa é preposto -->
+                                                                    @if(Session::get('ispreposto') == 1)
+                                                                    @if($n->bit_aceito == 2)
+                                                                    <a href="../notificacao/justificar/{{ Crypt::encrypt($n->id_notificacao) }}">Justificar</a>
+                                                                    |
+                                                                    @endif
+                                                                    @endif
+
+                                                                    @if(Session::get('isgestor') == 1)
+                                                                    @if($n->bit_aceito == 3)
+                                                                    <a href="../notificacao/avaliar/{{ Crypt::encrypt($n->id_notificacao) }}">Avaliar</a>
+                                                                    |
+                                                                    @endif
+                                                                    @endif
+
+                                                                    <!--  Verifica se a pessoa é agente de RH e Contratos-->
+                                                                    @if(Session::get('isrh') == 1)
+                                                                    @if($n->bit_aceito == 5)
+                                                                    <a href="../notificacao/corrigir/{{ Crypt::encrypt($n->id_notificacao) }}">Corrigir</a>
+                                                                    |
+                                                                    <a href="../notificacao/devolverpreposto/{{ Crypt::encrypt($n->id_notificacao) }}">Devolver preposto</a>
+                                                                    |
+                                                                    @endif
+                                                                    @endif
+
+
+                                                                    <a href="../notificacao/ver/{{ Crypt::encrypt($n->id_notificacao) }}">Informações</a>
+
+                                                                    <!--
+                                                # COLOCAR ESSAS FUNCIONALIDADES NA PROXIMA VERSÃO
+                    
+                                                | <a href="notificacao/acatamentoespecial/{{ $n->id_notificacao }}">Acatamento especial</a>
+                                                | <a href="notificacao/historico/{{ $n->id_notificacao }}">Histórico</a>
+                                                                    -->
+
+
+                                                                </td>
+                                                            </tr>
+                                                        <?php } ?><!-- fechamento if do for notificadora-->
+                                                        @endforeach
+
+                                                    </tbody>
+                                                </table>
+
+                                                <?php var_dump($All);?>
+                                                <table class="table table-striped  table-total" style="margin-top: 30px !important;width: 50%;" align="center">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Indicador</th>
+                                                            <th>Ocorrências Notificadas</th>
+                                                            <th>Não acatadas</th>
+                                                            <th>Acatadas</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="background: #ffb3ff;">IEPC001</td>
+                                                            <!-- Total-->
+
+                                                            <?php
+                                                            $contacat = 0;
+                                                            $contnacat = 0;
+                                                            $totalacatada = 0;
+                                                            $totalnacatada = 0;
+
+                                                            $falhaac = 0; //3                         
+                                                            $naoconformeprazoac = 0; //4
+                                                            $naoconformeeficaciaac = 0; //5
+                                                            $indisponibilidadeac = 0; //6
+
+                                                            $falhanac = 0;     //3                         
+                                                            $naoconformeprazonac = 0; //4
+                                                            $naoconformeeficacianac = 0; //5
+                                                            $indisponibilidadenac = 0; //6
+
+                                                            foreach ($All as $not):
+                                                                if ($not->id_indicador == 4 && $not->id_notificadora == $i && ($not->bit_aceito == 4 || $not->bit_aceito == 44)) {
+                                                                    $contacat = $not->total;
+                                                                    $totalacatada01 +=$contacat;
+                                                                    $totalacatada +=$contacat;
+
+                                                                    if ($not->id_motivo == 3) {
+                                                                        $falhaac = $not->total_mot;
+                                                                    }
+                                                                    if ($not->id_motivo == 4) {
+                                                                        $naoconformeprazoac = $not->total_mot;
+                                                                    }
+                                                                    if ($not->id_motivo == 5) {
+                                                                        $naoconformeeficaciaac = $not->total_mot;
+                                                                    }
+                                                                    if ($not->id_motivo == 6) {
+                                                                        $indisponibilidadeac =  $not->total_mot;
+                                                                        echo 'teste';
+                                                                        
+                                                                    }
+                                                                } elseif ($not->id_indicador == 4 && $not->id_notificadora == $i && ($not->bit_aceito == 5 || $not->bit_aceito == 55)) {
+                                                                    $contnacat = $not->total;
+                                                                    $totalnacatada01 += $contnacat;
+                                                                    $totalnacatada += $contnacat;
+
+                                                                    if ($not->id_motivo == 3) {
+                                                                        $falhanac = $falhanac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 4) {
+                                                                        $naoconformeprazonac = $naoconformeprazonac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 5) {
+                                                                        $naoconformeeficacianac = $naoconformeeficacianac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 6) {
+                                                                        $indisponibilidadenac = $indisponibilidadenac + 1;
+                                                                    }
+                                                                }
+                                                            endforeach;
+                                                            $total01 = $contacat + $contnacat;
+                                                            $totalglobal01 += $total01;
+                                                            ?>
+                                                            <td>{{$total01}}</td>
+                                                            <!-- Not Acat-->
+                                                            <td><div data-toggle="tooltip" title="falha - <?= $falhanac; ?> | nao conforme prazo - <?= $naoconformeprazonac; ?> | nao conforme eficacia <?= $naoconformeeficacianac; ?> | indisponibilidade - <?= $indisponibilidadenac; ?> ">{{$contnacat}}</div></td>
+
+                                                            <!-- Acat-->
+                                                            <td><div data-toggle="tooltip" title="falha - <?= $falhaac; ?> | nao conforme prazo - <?= $naoconformeprazoac; ?> | nao conforme eficacia <?= $naoconformeeficaciaac; ?> | indisponibilidade - <?= $indisponibilidadeac; ?> ">{{$contacat}}</div></td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td style="background: #ffb3b3;">IEPC002</td>
+                                                            <!-- Total-->
+                                                            <?php
+                                                            $contacat = 0;
+                                                            $contnacat = 0;
+
+                                                            $falhaac = 0; //3                         
+                                                            $naoconformeprazoac = 0; //4
+                                                            $naoconformeeficaciaac = 0; //5
+                                                            $indisponibilidadeac = 0; //6
+
+                                                            $falhanac = 0;     //3                         
+                                                            $naoconformeprazonac = 0; //4
+                                                            $naoconformeeficacianac = 0; //5
+                                                            $indisponibilidadenac = 0; //6
+
+                                                            foreach ($All as $not):
+                                                                if ($not->id_indicador == 5 && $not->id_notificadora == $i && ($not->bit_aceito == 4 || $not->bit_aceito == 44)) {
+                                                                    $contacat = $not->total;
+                                                                    $totalacatada02 += $contacat;
+                                                                    $totalacatada += $contacat;
+
+                                                                    if ($not->id_motivo == 3) {
+                                                                        $falhaac = $falhaac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 4) {
+                                                                        $naoconformeprazoac = $naoconformeprazoac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 5) {
+                                                                        $naoconformeeficaciaac = $naoconformeeficaciaac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 6) {
+                                                                        $indisponibilidadeac = $indisponibilidadeac + 1;
+                                                                    }
+                                                                } elseif ($not->id_indicador == 5 && $not->id_notificadora == $i && ($not->bit_aceito == 5 || $not->bit_aceito == 55)) {
+                                                                    $contnacat = $not->total;
+                                                                    $totalnacatada02 += $contnacat;
+                                                                    $totalnacatada += $contnacat;
+
+                                                                    if ($not->id_motivo == 3) {
+                                                                        $falhanac = $falhanac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 4) {
+                                                                        $naoconformeprazonac = $naoconformeprazonac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 5) {
+                                                                        $naoconformeeficacianac = $naoconformeeficacianac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 6) {
+                                                                        $indisponibilidadenac = $indisponibilidadenac + 1;
+                                                                    }
+                                                                }
+                                                            endforeach;
+                                                            $total02 = $contacat + $contnacat;
+                                                            $totalglobal02 += $total02;
+                                                            ?>
+                                                            <td>{{$total02}}</td>
+                                                            <!-- Not Acat-->
+                                                            <td><div data-toggle="tooltip" title="falha - <?= $falhanac; ?> | nao conforme prazo - <?= $naoconformeprazonac; ?> | nao conforme eficacia <?= $naoconformeeficacianac; ?> | indisponibilidade - <?= $indisponibilidadenac; ?> ">{{$contnacat}}</div></td>
+
+                                                            <!-- Acat-->
+                                                            <td><div data-toggle="tooltip" title="falha - <?= $falhaac; ?> | nao conforme prazo - <?= $naoconformeprazoac; ?> | nao conforme eficacia <?= $naoconformeeficaciaac; ?> | indisponibilidade - <?= $indisponibilidadeac; ?> ">{{$contacat}}</div></td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td style="background: #ffffb3;">IEPC003</td>
+                                                            <!-- Total-->
+                                                            <?php
+                                                            $contacat = 0;
+                                                            $contnacat = 0;
+                                                            
+                                                            $falhaac = 0; //3                         
+                                                            $naoconformeprazoac = 0; //4
+                                                            $naoconformeeficaciaac = 0; //5
+                                                            $indisponibilidadeac = 0; //6
+
+                                                            $falhanac = 0;     //3                         
+                                                            $naoconformeprazonac = 0; //4
+                                                            $naoconformeeficacianac = 0; //5
+                                                            $indisponibilidadenac = 0; //6
+                                                            
+                                                            foreach ($All as $not):
+                                                                if ($not->id_indicador == 6 && $not->id_notificadora == $i && ($not->bit_aceito == 4 || $not->bit_aceito == 44)) {
+                                                                    $contacat = $not->total;
+                                                                    $totalacatada03 += $contacat;
+                                                                    $totalacatada += $contacat;
+                                                                    
+                                                                    if ($not->id_motivo == 3) {
+                                                                        $falhaac = $falhaac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 4) {
+                                                                        $naoconformeprazoac = $naoconformeprazoac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 5) {
+                                                                        $naoconformeeficaciaac = $naoconformeeficaciaac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 6) {
+                                                                        $indisponibilidadeac = $indisponibilidadeac + 1;
+                                                                    }
+                                                                } elseif ($not->id_indicador == 6 && $not->id_notificadora == $i && ($not->bit_aceito == 5 || $not->bit_aceito == 55)) {
+                                                                    $contnacat = $not->total;
+                                                                    $totalnacatada03 += $contnacat;
+                                                                    $totalnacatada += $contnacat;
+                                                                    
+                                                                    if ($not->id_motivo == 3) {
+                                                                        $falhanac = $falhanac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 4) {
+                                                                        $naoconformeprazonac = $naoconformeprazonac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 5) {
+                                                                        $naoconformeeficacianac = $naoconformeeficacianac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 6) {
+                                                                        $indisponibilidadenac = $indisponibilidadenac + 1;
+                                                                    }
+                                                                }
+                                                            endforeach;
+                                                            $total03 = $contacat + $contnacat;
+                                                            $totalglobal03 += $total03;
+                                                            ?>
+                                                            <td>{{$total03}}</td>
+                                                            <!-- Not Acat-->
+                                                            <td><div data-toggle="tooltip" title="falha - <?= $falhanac; ?> | nao conforme prazo - <?= $naoconformeprazonac; ?> | nao conforme eficacia <?= $naoconformeeficacianac; ?> | indisponibilidade - <?= $indisponibilidadenac; ?> ">{{$contnacat}}</div></td>
+
+                                                            <!-- Acat-->
+                                                            <td><div data-toggle="tooltip" title="falha - <?= $falhaac; ?> | nao conforme prazo - <?= $naoconformeprazoac; ?> | nao conforme eficacia <?= $naoconformeeficaciaac; ?> | indisponibilidade - <?= $indisponibilidadeac; ?> ">{{$contacat}}</div></td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td style="background: #b3b3ff;">IEPC004</td>
+                                                            <!-- Total-->
+                                                            <?php
+                                                            $contacat = 0;
+                                                            $contnacat = 0;
+                                                            
+                                                            $falhaac = 0; //3                         
+                                                            $naoconformeprazoac = 0; //4
+                                                            $naoconformeeficaciaac = 0; //5
+                                                            $indisponibilidadeac = 0; //6
+
+                                                            $falhanac = 0;     //3                         
+                                                            $naoconformeprazonac = 0; //4
+                                                            $naoconformeeficacianac = 0; //5
+                                                            $indisponibilidadenac = 0; //6
+                                                            
+                                                            foreach ($All as $not):
+                                                                if ($not->id_indicador == 7 && $not->id_notificadora == $i && ($not->bit_aceito == 4 || $not->bit_aceito == 44)) {
+                                                                    $contacat = $not->total;
+                                                                    $totalacatada04 += $contacat;
+                                                                    $totalacatada += $contacat;
+                                                                    
+                                                                    if ($not->id_motivo == 3) {
+                                                                        $falhaac = $falhaac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 4) {
+                                                                        $naoconformeprazoac = $naoconformeprazoac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 5) {
+                                                                        $naoconformeeficaciaac = $naoconformeeficaciaac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 6) {
+                                                                        $indisponibilidadeac = $indisponibilidadeac + 1;
+                                                                    }
+                                                                } elseif ($not->id_indicador == 7 && $not->id_notificadora == $i && ($not->bit_aceito == 5 || $not->bit_aceito == 55)) {
+                                                                    $contnacat = $not->total;
+                                                                    $totalnacatada04 += $contnacat;
+                                                                    $totalnacatada += $contnacat;
+                                                                    
+                                                                    if ($not->id_motivo == 3) {
+                                                                        $falhanac = $falhanac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 4) {
+                                                                        $naoconformeprazonac = $naoconformeprazonac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 5) {
+                                                                        $naoconformeeficacianac = $naoconformeeficacianac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 6) {
+                                                                        $indisponibilidadenac = $indisponibilidadenac + 1;
+                                                                    }
+                                                                }
+                                                            endforeach;
+                                                            $total04 = $contacat + $contnacat;
+                                                            $totalglobal04 += $total04;
+                                                            ?>
+                                                            <td>{{$total04}}</td>
+                                                            <!-- Not Acat-->
+                                                            <td><div data-toggle="tooltip" title="falha - <?= $falhanac; ?> | nao conforme prazo - <?= $naoconformeprazonac; ?> | nao conforme eficacia <?= $naoconformeeficacianac; ?> | indisponibilidade - <?= $indisponibilidadenac; ?> ">{{$contnacat}}</div></td>                                                     
+                                                            <!-- Acat-->
+                                                            <td><div data-toggle="tooltip" title="falha - <?= $falhaac; ?> | nao conforme prazo - <?= $naoconformeprazoac; ?> | nao conforme eficacia <?= $naoconformeeficaciaac; ?> | indisponibilidade - <?= $indisponibilidadeac; ?> ">{{$contacat}}</div></td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td style="background: #ffb3d9;">IEPC005D</td>
+                                                            <!-- Total-->
+                                                            <?php
+                                                            $contacat = 0;
+                                                            $contnacat = 0;
+                                                            
+                                                            $falhaac = 0; //3                         
+                                                            $naoconformeprazoac = 0; //4
+                                                            $naoconformeeficaciaac = 0; //5
+                                                            $indisponibilidadeac = 0; //6
+
+                                                            $falhanac = 0;     //3                         
+                                                            $naoconformeprazonac = 0; //4
+                                                            $naoconformeeficacianac = 0; //5
+                                                            $indisponibilidadenac = 0; //6
+                                                            
+                                                            foreach ($All as $not):
+                                                                if ($not->id_indicador == 8 && $not->id_notificadora == $i && ($not->bit_aceito == 4 || $not->bit_aceito == 44)) {
+                                                                    $contacat = $not->total;
+                                                                    $totalacatada05D += $contacat;
+                                                                    $totalacatada += $contacat;
+                                                                    
+                                                                    if ($not->id_motivo == 3) {
+                                                                        $falhaac = $falhaac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 4) {
+                                                                        $naoconformeprazoac = $naoconformeprazoac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 5) {
+                                                                        $naoconformeeficaciaac = $naoconformeeficaciaac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 6) {
+                                                                        $indisponibilidadeac = $indisponibilidadeac + 1;
+                                                                    }
+                                                                } elseif ($not->id_indicador == 8 && $not->id_notificadora == $i && ($not->bit_aceito == 5 || $not->bit_aceito == 55)) {
+                                                                    $contnacat = $not->total;
+                                                                    $totalnacatada05D += $contnacat;
+                                                                    $totalnacatada += $contnacat;
+                                                                    
+                                                                    if ($not->id_motivo == 3) {
+                                                                        $falhanac = $falhanac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 4) {
+                                                                        $naoconformeprazonac = $naoconformeprazonac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 5) {
+                                                                        $naoconformeeficacianac = $naoconformeeficacianac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 6) {
+                                                                        $indisponibilidadenac = $indisponibilidadenac + 1;
+                                                                    }
+                                                                }
+                                                            endforeach;
+                                                            $total05D = $contacat + $contnacat;
+                                                            $totalglobal05P += $total05D;
+                                                            ?>
+                                                            <td>{{$total05D}}</td>
+                                                            <!-- Not Acat-->
+                                                            <td><div data-toggle="tooltip" title="falha - <?= $falhanac; ?> | nao conforme prazo - <?= $naoconformeprazonac; ?> | nao conforme eficacia <?= $naoconformeeficacianac; ?> | indisponibilidade - <?= $indisponibilidadenac; ?> ">{{$contnacat}}</div></td>
+
+                                                            <!-- Acat-->
+                                                            <td><div data-toggle="tooltip" title="falha - <?= $falhaac; ?> | nao conforme prazo - <?= $naoconformeprazoac; ?> | nao conforme eficacia <?= $naoconformeeficaciaac; ?> | indisponibilidade - <?= $indisponibilidadeac; ?> ">{{$contacat}}</div></td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td style="background: #ffb3d9;">IEPC005P</td>
+                                                            <!-- Total-->
+                                                            <?php
+                                                            $contacat = 0;
+                                                            $contnacat = 0;
+                                                            
+                                                            $falhaac = 0; //3                         
+                                                            $naoconformeprazoac = 0; //4
+                                                            $naoconformeeficaciaac = 0; //5
+                                                            $indisponibilidadeac = 0; //6
+
+                                                            $falhanac = 0;     //3                         
+                                                            $naoconformeprazonac = 0; //4
+                                                            $naoconformeeficacianac = 0; //5
+                                                            $indisponibilidadenac = 0; //6
+                                                            
+                                                            foreach ($All as $not):
+                                                                if ($not->id_indicador == 11 && $not->id_notificadora == $i && ($not->bit_aceito == 4 || $not->bit_aceito == 44)) {
+                                                                    $contacat = $not->total;
+                                                                    $totalacatada05P += $contacat;
+                                                                    $totalacatada += $contacat;
+                                                                    
+                                                                    if ($not->id_motivo == 3) {
+                                                                        $falhaac = $falhaac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 4) {
+                                                                        $naoconformeprazoac = $naoconformeprazoac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 5) {
+                                                                        $naoconformeeficaciaac = $naoconformeeficaciaac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 6) {
+                                                                        $indisponibilidadeac = $indisponibilidadeac + 1;
+                                                                    }
+                                                                } elseif ($not->id_indicador == 11 && $not->id_notificadora == $i && ($not->bit_aceito == 5 || $not->bit_aceito == 55)) {
+                                                                    $contnacat = $not->total;
+                                                                    $totalnacatada05P += $contnacat;
+                                                                    $totalnacatada += $contnacat;
+                                                                    
+                                                                    if ($not->id_motivo == 3) {
+                                                                        $falhanac = $falhanac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 4) {
+                                                                        $naoconformeprazonac = $naoconformeprazonac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 5) {
+                                                                        $naoconformeeficacianac = $naoconformeeficacianac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 6) {
+                                                                        $indisponibilidadenac = $indisponibilidadenac + 1;
+                                                                    }
+                                                                }
+                                                            endforeach;
+                                                            $total05P = $contacat + $contnacat;
+                                                            $totalglobal05P += $total05P;
+                                                            ?>
+                                                            <td>{{$total05P}}</td>
+                                                            <!-- Not Acat-->
+                                                            <td><div data-toggle="tooltip" title="falha - <?= $falhanac; ?> | nao conforme prazo - <?= $naoconformeprazonac; ?> | nao conforme eficacia <?= $naoconformeeficacianac; ?> | indisponibilidade - <?= $indisponibilidadenac; ?> ">{{$contnacat}}</div></td>                                                     
+                                                            <!-- Acat-->
+                                                            <td><div data-toggle="tooltip" title="falha - <?= $falhaac; ?> | nao conforme prazo - <?= $naoconformeprazoac; ?> | nao conforme eficacia <?= $naoconformeeficaciaac; ?> | indisponibilidade - <?= $indisponibilidadeac; ?> ">{{$contacat}}</div></td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td style="background: #b3d9ff;">IEPC006</td>
+                                                            <!-- Total-->
+                                                            <?php
+                                                            $contacat = 0;
+                                                            $contnacat = 0;
+                                                            
+                                                            $falhaac = 0; //3                         
+                                                            $naoconformeprazoac = 0; //4
+                                                            $naoconformeeficaciaac = 0; //5
+                                                            $indisponibilidadeac = 0; //6
+
+                                                            $falhanac = 0;     //3                         
+                                                            $naoconformeprazonac = 0; //4
+                                                            $naoconformeeficacianac = 0; //5
+                                                            $indisponibilidadenac = 0; //6
+                                                            
+                                                            foreach ($All as $not):
+                                                                if ($not->id_indicador == 9 && $not->id_notificadora == $i && ($not->bit_aceito == 4 || $not->bit_aceito == 44)) {
+                                                                    $contacat = $not->total;
+                                                                    $totalacatada06 += $contacat;
+                                                                    $totalacatada += $contacat;
+                                                                    
+                                                                    if ($not->id_motivo == 3) {
+                                                                        $falhaac = $falhaac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 4) {
+                                                                        $naoconformeprazoac = $naoconformeprazoac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 5) {
+                                                                        $naoconformeeficaciaac = $naoconformeeficaciaac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 6) {
+                                                                        $indisponibilidadeac = $indisponibilidadeac + 1;
+                                                                    }
+                                                                } elseif ($not->id_indicador == 9 && $not->id_notificadora == $i && ($not->bit_aceito == 5 || $not->bit_aceito == 55)) {
+                                                                    $contnacat = $not->total;
+                                                                    $totalnacatada06 += $contnacat;
+                                                                    $totalnacatada += $contnacat;
+                                                                    
+                                                                    if ($not->id_motivo == 3) {
+                                                                        $falhanac = $falhanac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 4) {
+                                                                        $naoconformeprazonac = $naoconformeprazonac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 5) {
+                                                                        $naoconformeeficacianac = $naoconformeeficacianac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 6) {
+                                                                        $indisponibilidadenac = $indisponibilidadenac + 1;
+                                                                    }
+                                                                }
+                                                            endforeach;
+                                                            $total06 = $contacat + $contnacat;
+                                                            $totalglobal06 += $total06;
+                                                            ?>
+                                                            <td>{{$total06}}</td>
+                                                            <!-- Not Acat-->
+                                                            <td><div data-toggle="tooltip" title="falha - <?= $falhanac; ?> | nao conforme prazo - <?= $naoconformeprazonac; ?> | nao conforme eficacia <?= $naoconformeeficacianac; ?> | indisponibilidade - <?= $indisponibilidadenac; ?> ">{{$contnacat}}</div></td>                                                     
+                                                            <!-- Acat-->
+                                                            <td><div data-toggle="tooltip" title="falha - <?= $falhaac; ?> | nao conforme prazo - <?= $naoconformeprazoac; ?> | nao conforme eficacia <?= $naoconformeeficaciaac; ?> | indisponibilidade - <?= $indisponibilidadeac; ?> ">{{$contacat}}</div></td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td style="background: #d9d9d9;">IDSP001</td>
+                                                            <!-- Total-->
+                                                            <?php
+                                                            $contacat = 0;
+                                                            $contnacat = 0;
+                                                            
+                                                            $falhaac = 0; //3                         
+                                                            $naoconformeprazoac = 0; //4
+                                                            $naoconformeeficaciaac = 0; //5
+                                                            $indisponibilidadeac = 0; //6
+
+                                                            $falhanac = 0;     //3                         
+                                                            $naoconformeprazonac = 0; //4
+                                                            $naoconformeeficacianac = 0; //5
+                                                            $indisponibilidadenac = 0; //6
+                                                            
+                                                            foreach ($All as $not):
+                                                                if ($not->id_indicador == 10 && $not->id_notificadora == $i && ($not->bit_aceito == 4 || $not->bit_aceito == 44)) {
+                                                                    $contacat = $not->total;
+                                                                    $totalacatada07 += $contacat;
+                                                                    $totalacatada += $contacat;
+                                                                    
+                                                                    if ($not->id_motivo == 3) {
+                                                                        $falhaac = $falhaac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 4) {
+                                                                        $naoconformeprazoac = $naoconformeprazoac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 5) {
+                                                                        $naoconformeeficaciaac = $naoconformeeficaciaac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 6) {
+                                                                        $indisponibilidadeac = $indisponibilidadeac + 1;
+                                                                    }
+                                                                } elseif ($not->id_indicador == 10 && $not->id_notificadora == $i && ($not->bit_aceito == 5 || $not->bit_aceito == 55)) {
+                                                                    $contnacat = $not->total;
+                                                                    $totalnacatada07 += $contnacat;
+                                                                    $totalnacatada += $contnacat;
+                                                                    
+                                                                    if ($not->id_motivo == 3) {
+                                                                        $falhanac = $falhanac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 4) {
+                                                                        $naoconformeprazonac = $naoconformeprazonac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 5) {
+                                                                        $naoconformeeficacianac = $naoconformeeficacianac + 1;
+                                                                    }
+                                                                    if ($not->id_motivo == 6) {
+                                                                        $indisponibilidadenac = $indisponibilidadenac + 1;
+                                                                    }
+                                                                }
+                                                            endforeach;
+                                                            $total07 = $contacat + $contnacat;
+                                                            $totalglobal07 += $total07;
+                                                            ?>
+                                                            <td>{{$total07}}</td>
+                                                            <!-- Not Acat-->
+                                                            <td><div data-toggle="tooltip" title="falha - <?= $falhanac; ?> | nao conforme prazo - <?= $naoconformeprazonac; ?> | nao conforme eficacia <?= $naoconformeeficacianac; ?> | indisponibilidade - <?= $indisponibilidadenac; ?> ">{{$contnacat}}</div></td>                                                     
+                                                            <!-- Acat-->
+                                                            <td><div data-toggle="tooltip" title="falha - <?= $falhaac; ?> | nao conforme prazo - <?= $naoconformeprazoac; ?> | nao conforme eficacia <?= $naoconformeeficaciaac; ?> | indisponibilidade - <?= $indisponibilidadeac; ?> ">{{$contacat}}</div></td>
+                                                        </tr>
+                                                        <tr style="background: #b3ffb3;">
+                                                            <td>TOTAL</td>
+                                                            <td><?= $total01 + $total02 + $total03 + $total04 + $total05D + $total05P + $total06 + $total07; ?></td>
+                                                            <td><?= $totalnacatada; ?></td>
+                                                            <td><?= $totalacatada; ?></td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <hr>
+
+                                            </div>
+                                        <?php } ?><!-- fechamento for -->
+                                        <center><h1 style="font-size: 2em; margin-top:40px; margin-bottom: 40px; color: #1c60ab;">Relatorio mês de <?= $titulo_mes; ?>: TOTAL GLOBAL </h1></center>
+                                        <table class="table table-striped  table-total" style="text-align: center; margin-top: 30px !important;width: 55%;" align="center">
                                             <thead>
                                                 <tr>
                                                     <th>Indicador</th>
                                                     <th>Ocorrências Notificadas</th>
-                                                    <th>Não acatadas</th>
                                                     <th>Acatadas</th>
+                                                    <th>Não acatadas</th>
+                                                    
 
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td style="background: #ffb3ff;">IEPC001</td>
-                                                    <!-- Total-->
-                                                    <?php                                                         
-                                                    $contacat = 0;
-                                                    $contnacat = 0;
-                                                    $totalacatada = 0;
-                                                    $totalnacatada = 0;
-                                                    foreach ($TotalAcat as $acat):
-                                                        if ($acat->id_indicador == 4):
-                                                            $contacat = $acat->total;
-                                                            $totalacatada = $totalacatada + $contacat;
-                                                        endif;
-                                                    endforeach;
-                                                    foreach ($TotalNotAcat as $nacat):
-                                                        if ($nacat->id_indicador == 4):
-                                                            $contnacat = $nacat->total;
-                                                            $totalnacatada = $totalnacatada + $contnacat;
-                                                        endif;
-                                                    endforeach;
-                                                    $total01 = $contacat + $contnacat;
-                                                    ?>
-                                                    <td>{{$total01}}</td>
-                                                    <!-- Not Acat-->
-                                                    <td>{{$contnacat}}</td>                                                     
-                                                    <!-- Acat-->
-                                                    <td>{{$contacat}}</td>
-                                                </tr>
-                                                <tr >
+                                                    <td><?= $totalglobal01; ?></td>
+                                                    <td><?= $totalacatada01; ?> </td>
+                                                    <td><?= $totalnacatada01; ?></td>
+                                                <tr>
+                                                <tr>
                                                     <td style="background: #ffb3b3;">IEPC002</td>
-                                                    <!-- Total-->
-                                                    <?php
-                                                    
-                                                    $contacat = 0;
-                                                    $contnacat = 0;
-                                                    foreach ($TotalAcat as $acat):
-                                                        if ($acat->id_indicador == 5):
-                                                            $contacat = $acat->total;                                                            
-                                                            $totalacatada = $totalacatada + $contacat;
-                                                        endif;
-                                                    endforeach;
-                                                    foreach ($TotalNotAcat as $nacat):
-                                                        if ($nacat->id_indicador == 5):
-                                                            $contnacat = $nacat->total;
-                                                            $totalnacatada = $totalnacatada + $contnacat;
-                                                        endif;
-                                                    endforeach;
-                                                    $total02 = $contacat + $contnacat;
-                                                    ?>
-                                                    <td>{{$total02}}</td>
-                                                    <!-- Not Acat-->
-                                                    <td>{{$contnacat}}</td>                                                     
-                                                    <!-- Acat-->
-                                                    <td>{{$contacat}}</td>
-                                                </tr>
-                                                <tr >
+                                                    <td><?= $totalglobal02; ?></td>
+                                                    <td><?= $totalacatada02; ?> </td>
+                                                    <td><?= $totalnacatada02; ?></td>
+                                                <tr>
+                                                <tr>
                                                     <td style="background: #ffffb3;">IEPC003</td>
-                                                    <!-- Total-->
-                                                    <?php
-                                                    $contacat = 0;
-                                                    $contnacat = 0;
-                                                    foreach ($TotalAcat as $acat):
-                                                        if ($acat->id_indicador == 6):
-                                                            $contacat = $acat->total;
-                                                            $totalacatada = $totalacatada + $contacat;
-
-                                                        endif;
-                                                    endforeach;
-                                                    foreach ($TotalNotAcat as $nacat):
-                                                        if ($nacat->id_indicador == 6):
-                                                            $contnacat = $nacat->total;
-                                                            $totalnacatada = $totalnacatada + $contnacat;
-                                                        endif;
-                                                    endforeach;
-                                                    $total03 = $contacat + $contnacat;
-                                                    ?>
-                                                    <td>{{$total03}}</td>
-                                                    <!-- Not Acat-->
-                                                    <td>{{$contnacat}}</td>                                                     
-                                                    <!-- Acat-->
-                                                    <td>{{$contacat}}</td>
-                                                </tr>
-                                                <tr >
+                                                    <td><?= $totalglobal03; ?></td>
+                                                    <td><?= $totalacatada03; ?> </td>
+                                                    <td><?= $totalnacatada03; ?></td>
+                                                <tr>
+                                                <tr>
                                                     <td style="background: #b3b3ff;">IEPC004</td>
-                                                    <!-- Total-->
-                                                    <?php
-                                                    $contacat = 0;
-                                                    $contnacat = 0;
-                                                    foreach ($TotalAcat as $acat):
-                                                        if ($acat->id_indicador == 7):
-                                                            $contacat = $acat->total;
-                                                            $totalacatada = $totalacatada + $contacat;
-                                                        endif;
-                                                    endforeach;
-                                                    foreach ($TotalNotAcat as $nacat):
-                                                        if ($nacat->id_indicador == 7):
-                                                            $contnacat = $nacat->total;
-                                                            $totalnacatada = $totalnacatada + $contnacat;
-                                                        endif;
-                                                    endforeach;
-                                                    $total04 = $contacat + $contnacat;
-                                                    ?>
-                                                    <td>{{$total04}}</td>
-                                                    <!-- Not Acat-->
-                                                    <td>{{$contnacat}}</td>                                                     
-                                                    <!-- Acat-->
-                                                    <td>{{$contacat}}</td>
-                                                </tr>
-                                                <tr >
-                                                    <td style="background: #ffb3d9;">IEPC005</td>
-                                                    <!-- Total-->
-                                                    <?php
-                                                    $contacat = 0;
-                                                    $contnacat = 0;
-                                                    foreach ($TotalAcat as $acat):
-                                                        if ($acat->id_indicador == 8):
-                                                            $contacat = $acat->total;
-                                                            $totalacatada = $totalacatada + $contacat;
-                                                        endif;
-                                                    endforeach;
-                                                    foreach ($TotalNotAcat as $nacat):
-                                                        if ($nacat->id_indicador == 8):
-                                                            $contnacat = $nacat->total;
-                                                            $totalnacatada = $totalnacatada + $contnacat;
-                                                        endif;
-                                                    endforeach;
-                                                    $total05 = $contacat + $contnacat;
-                                                    ?>
-                                                    <td>{{$total05}}</td>
-                                                    <!-- Not Acat-->
-                                                    <td>{{$contnacat}}</td>                                                     
-                                                    <!-- Acat-->
-                                                    <td>{{$contacat}}</td>
-                                                </tr>
-                                                <tr >
+                                                    <td><?= $totalglobal04; ?></td>
+                                                    <td><?= $totalacatada04; ?> </td>
+                                                    <td><?= $totalnacatada04; ?></td>
+                                                <tr>
+                                                <tr>
+                                                    <td style="background: #ffb3d9;">IEPC005D</td>
+                                                    <td><?= $totalglobal05D; ?></td>
+                                                    <td><?= $totalacatada05D; ?> </td>
+                                                    <td><?= $totalnacatada05D; ?></td>
+                                                <tr>
+                                                <tr>
+                                                    <td style="background: #ffb3d9;">IEPC005P</td>
+                                                    <td><?= $totalglobal05P; ?></td>
+                                                    <td><?= $totalacatada05P; ?> </td>
+                                                    <td><?= $totalnacatada05P; ?></td>
+                                                <tr>
+                                                <tr>
                                                     <td style="background: #b3d9ff;">IEPC006</td>
-                                                    <!-- Total-->
-                                                    <?php
-                                                    $contacat = 0;
-                                                    $contnacat = 0;
-                                                    foreach ($TotalAcat as $acat):
-                                                        if ($acat->id_indicador == 9):
-                                                            $contacat = $acat->total;
-                                                            $totalacatada = $totalacatada + $contacat;
-                                                        endif;
-                                                    endforeach;
-                                                    foreach ($TotalNotAcat as $nacat):
-                                                        if ($nacat->id_indicador == 9):
-                                                            $contnacat = $nacat->total;
-                                                            $totalnacatada = $totalnacatada + $contnacat;
-                                                        endif;
-                                                    endforeach;
-                                                    $total06 = $contacat + $contnacat;
-                                                    ?>
-                                                    <td>{{$total06}}</td>
-                                                    <!-- Not Acat-->
-                                                    <td>{{$contnacat}}</td>                                                     
-                                                    <!-- Acat-->
-                                                    <td>{{$contacat}}</td>
-                                                </tr>
-                                                <tr >
+                                                    <td><?= $totalglobal06; ?></td>
+                                                    <td><?= $totalacatada06; ?> </td>
+                                                    <td><?= $totalnacatada06; ?></td>
+                                                <tr>
+                                                <tr>
                                                     <td style="background: #d9d9d9;">IDSP001</td>
-                                                    <!-- Total-->
-                                                    <?php
-                                                    $contacat = 0;
-                                                    $contnacat = 0;
-                                                    foreach ($TotalAcat as $acat):
-                                                        if ($acat->id_indicador == 10):
-                                                            $contacat = $acat->total;
-                                                            $totalacatada = $totalacatada + $contacat;
-                                                        endif;
-                                                    endforeach;
-                                                    foreach ($TotalNotAcat as $nacat):
-                                                        if ($nacat->id_indicador == 10):
-                                                            $contnacat = $nacat->total;
-                                                            $totalnacatada = $totalnacatada + $contnacat;
-                                                        endif;
-                                                    endforeach;
-                                                    $total07 = $contacat + $contnacat;
-                                                    ?>
-                                                    <td>{{$total07}}</td>
-                                                    <!-- Not Acat-->
-                                                    <td>{{$contnacat}}</td>                                                     
-                                                    <!-- Acat-->
-                                                    <td>{{$contacat}}</td>
-                                                </tr>
+                                                    <td><?= $totalglobal07; ?></td>
+                                                    <td><?= $totalacatada07; ?> </td>
+                                                    <td><?= $totalnacatada07; ?></td>
+                                                <tr>
                                                 <tr style="background: #b3ffb3;">
-                                                    <td>TOTAL</td>
-                                                    <td><?= $total01 + $total02 + $total03 + $total04 + $total05 + $total05 + $total06 + $total07; ?></td>
-                                                    <td><?= $totalnacatada;?></td>
-                                                    <td><?= $totalacatada;?></td>
-                                                    
-                                                </tr>
+                                                    <td>TOTAL GLOBAL</td>
+                                                    <td><?= $totalglobal01 + $totalglobal02 + $totalglobal03 + $totalglobal04 + $totalglobal05D + $totalglobal05P + $totalglobal06 + $totalglobal07; ?></td>
+                                                    <td><?= $totalacatada01 + $totalacatada02 + $totalacatada03 + $totalacatada04 + $totalacatada05D + $totalacatada05P + $totalacatada06 + $totalacatada07; ?> </td>
+                                                    <td><?= $totalnacatada01 + $totalnacatada02 + $totalnacatada03 + $totalnacatada04 + $totalnacatada05D + $totalnacatada05P + $totalnacatada06 + $totalnacatada07; ?></td>
+                                                <tr>
                                             </tbody>
                                         </table>
-                                        <?php }?>
-                                    </div>
-                                        <?php }?><!-- fechamento for -->
-                                </div> <!-- panel-body -->
+
+                                    </div> <!-- panel-body -->
+                                <?php } ?>
                             </div>
                         </div> <!-- panel -->
                     </div> <!-- Final do Primeiro panel (TAB:popular) -->

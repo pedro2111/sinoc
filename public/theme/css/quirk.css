@@ -13,6 +13,45 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
+td .divmotivo .tooltip-table {
+    display: none;
+    background: #303841;
+    background: rgba(48, 56, 65, 0.9);
+    z-index: 100;
+    position: absolute;
+    left: 50%;
+    bottom: 35px;
+    color: #ffffff;
+    font-size: 12px;
+    line-height: 16px;
+    font-family: 'Open Sans', sans-serif;
+    padding: 10px 15px;
+    border-radius: 3px;
+    transform: translate(-50%, 0);
+    width: 100%;
+    max-width: 200px;
+    cursor: text;
+}
+
+td .divmotivo .tooltip-table:after {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(48, 56, 65, 0);
+    border-top-color: rgba(48, 56, 65, 0.9);
+    border-width: 8px;
+    margin-left: -8px;
+}
+
+td .divmotivo:hover .tooltip-table {
+    display: block;
+}
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -212,6 +251,7 @@ margin-bottom: 20px;
 .menu-mes button{
   margin-left: 10px;
 }
+
 
 /*Seção do css desenvolvido por Pedro Chaves*/
 
