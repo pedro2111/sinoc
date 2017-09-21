@@ -34,7 +34,7 @@ return [
             |
             */
 
-            'auto_connect' => true,
+            'auto_connect' => false,
 
             /*
             |--------------------------------------------------------------------------
@@ -118,7 +118,7 @@ return [
                 |
                 */
 
-                'domain_controllers' => explode(' ', env('ADLDAP_CONTROLLERS', 'corp-dc1.corp.acme.org corp-dc2.corp.acme.org')),
+                'domain_controllers' => explode(' ', env('ADLDAP_CONTROLLERS', 'ldap.forumsys.com')),
 
                 /*
                 |--------------------------------------------------------------------------
@@ -158,7 +158,7 @@ return [
                 |
                 */
 
-                'base_dn' => env('ADLDAP_BASEDN', 'dc=corp,dc=acme,dc=org'),
+                'base_dn' => env('ADLDAP_BASEDN', 'cn=read-only-admin,dc=example,dc=com'),
 
                 /*
                 |--------------------------------------------------------------------------
@@ -187,7 +187,7 @@ return [
                 |
                 */
 
-                'admin_username' => env('ADLDAP_ADMIN_USERNAME', 'username'),
+                'admin_username' => env('ADLDAP_ADMIN_USERNAME', 'read-only-admin'),
                 'admin_password' => env('ADLDAP_ADMIN_PASSWORD', 'password'),
 
                 /*

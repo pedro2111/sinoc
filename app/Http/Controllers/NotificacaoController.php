@@ -23,10 +23,40 @@ use Crypt as Crypt;
 
 use Illuminate\Http\Request;
 use DB;
+use Adldap;
 
 
 class NotificacaoController extends Controller
 {
+    public function login() {
+       
+        return view('notificacaoLogin');
+    }
+    
+    public function ldap(Request $request) {
+        
+        $user = $request->input('user');
+        $password = $request->input('password');
+        echo 'teste';
+        echo $user;
+        echo $password;
+        
+        
+        $ldap_dn = "uid=".$user.",dc=example,dc=com";
+        $ldap_password = $password;
+        
+        $ldap_con = ldap_connect("ldap.forumsys.com");
+        
+        ldap_set_option($ldap_con, LDAP_OPT_PROTOCOL_VERSION, 3);
+        
+        if(ldap_bind($ldap_con,$ldap_dn,$ldap_password)){
+            
+           echo 'autenticado!!';
+            
+        }else{
+            echo 'deu merda';
+        }
+    }
     public function index()
     {
 

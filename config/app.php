@@ -148,6 +148,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Adldap\Laravel\AdldapServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */

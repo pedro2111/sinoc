@@ -1,7 +1,8 @@
 <?php
 
 
-Route::Get('/', 'NotificacaoController@index');
+//Route::Get('/', 'NotificacaoController@index');
+Route::Get('/', 'NotificacaoController@login');
 
 
 
@@ -20,6 +21,8 @@ Route::Get('/notificacao/corrigir/{id}', 'NotificacaoController@corrigir');
 Route::Get('/notificacao/devolverpreposto/{id}', 'NotificacaoController@devolverpreposto');
 Route::Post('/notificacao/buscar', 'NotificacaoController@buscar');
 Route::Get('/notificacao/validar', 'NotificacaoController@validarnotificacao');
+Route::Get('/notificacao/ldap', 'NotificacaoController@ldap');
+Route::Post('/notificacao/ldap', 'NotificacaoController@ldap');
 Route::Get('/notificacao/testar', 'NotificacaoController@testarfuncoes');
 Route::Post('/notificacao/buscarmes', 'NotificacaoController@buscarmes');
 
