@@ -2,63 +2,55 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
 use App\Models\Empresa as Empresa;
 use App\Models\Contrato as Contrato;
 use App\Models\Preposto as Preposto;
 use App\Models\Contexto as Contexto;
-
 use App\Models\Macrocelula as Macrocelula;
 use App\Models\Celula as Celula;
-
 use App\Models\Coordenacao as Coordenacao;
 use App\Models\Impacto as Impacto;
 use App\Models\Motivo as Motivo;
 use App\Models\Indicador as Indicador;
 use App\Models\Notificacao as Notificacao;
-
+use App\Models\Email as Email;
 use Carbon\Carbon as Carbon;
-
 use Crypt as Crypt;
-
 use Illuminate\Http\Request;
 use DB;
 use Adldap;
 
+class NotificacaoController extends Controller {
 
-class NotificacaoController extends Controller
-{
     public function login() {
-       
+
         return view('notificacaoLogin');
     }
-    
+
     public function ldap(Request $request) {
-        
+
         $user = $request->input('user');
         $password = $request->input('password');
-        echo 'teste';
-        echo $user;
-        echo $password;
-        
-        
-        $ldap_dn = "uid=".$user.",dc=example,dc=com";
+
+
+        $ldap_dn = "uid=" . $user . ",dc=example,dc=com";
         $ldap_password = $password;
-        
-        $ldap_con = ldap_connect("ldap.forumsys.com");
-        
+
+        $ldap_con = ldap_connect("ldap.forumsys.com", 389);
+
         ldap_set_option($ldap_con, LDAP_OPT_PROTOCOL_VERSION, 3);
-        
-        if(ldap_bind($ldap_con,$ldap_dn,$ldap_password)){
-            
-           echo 'autenticado!!';
-            
-        }else{
+
+        if (@ldap_bind($ldap_con, $ldap_dn, $ldap_password)) {
+
+            echo 'autenticado!!';
+        } else {
             echo 'deu merda';
         }
     }
-    public function index()
-    {
+
+    public function index() {
 
         //Pegando informações do usuário que está acessando o sistema
         $matricula = getenv('USERNAME');
@@ -74,11 +66,11 @@ class NotificacaoController extends Controller
 
         //Listando todos os contratos válidos do sistema     
         $Notificacoes = DB::table('NOTIFICACAO')
-            ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
-            ->where('NOTIFICACAO.deleted_at', null)
-            ->where('CONTRATOS.deleted_at', null)
-            ->select('CONTRATOS.*', 'NOTIFICACAO.*')
-            ->get();
+                ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
+                ->where('NOTIFICACAO.deleted_at', null)
+                ->where('CONTRATOS.deleted_at', null)
+                ->select('CONTRATOS.*', 'NOTIFICACAO.*')
+                ->get();
 
 
         //Carregando View e repassando as variáveis necessárias
@@ -88,11 +80,9 @@ class NotificacaoController extends Controller
             'Coordenacoes' => $Coordenacoes,
             'Notificacoes' => $Notificacoes
         ]);
-
     }
 
-    public function nova()
-    {
+    public function nova() {
 
         //Pegando informações do usuário que está acessando o sistema 
         $matricula = getenv('USERNAME');
@@ -123,15 +113,13 @@ class NotificacaoController extends Controller
         ]);
     }
 
-
-    public function avaliar($id)
-    {
+    public function avaliar($id) {
         if (session('isrh') == 1 OR session('isgestor') == 1) {
-
+            
         } else {
             return redirect()->action('NotificacaoController@index')
-                ->with('status', 'você tentou acessar uma área restrita')
-                ->with('tipo', 'danger');
+                            ->with('status', 'você tentou acessar uma área restrita')
+                            ->with('tipo', 'danger');
         }
 
         //Pegando informações do usuário que está acessando o sistema 
@@ -151,9 +139,9 @@ class NotificacaoController extends Controller
 
         //Listando motivo da notificação
         $NotificacaoMotivo = DB::table('NOTIFICACAO_MOTIVO')
-            ->where('NOTIFICACAO_MOTIVO.id_notificacao', Crypt::decrypt($id))
-            ->select('NOTIFICACAO_MOTIVO.*')
-            ->get();
+                ->where('NOTIFICACAO_MOTIVO.id_notificacao', Crypt::decrypt($id))
+                ->select('NOTIFICACAO_MOTIVO.*')
+                ->get();
 
 
         //Carregando View e repassando as variaveis necessárias
@@ -172,17 +160,15 @@ class NotificacaoController extends Controller
         ]);
     }
 
-
-    public function justificar($id)
-    {
+    public function justificar($id) {
 
 
         if (session('isrh') == 1 OR session('ispreposto') == 1) {
-
+            
         } else {
             return redirect()->action('NotificacaoController@index')
-                ->with('status', 'você tentou acessar uma área restrita')
-                ->with('tipo', 'danger');
+                            ->with('status', 'você tentou acessar uma área restrita')
+                            ->with('tipo', 'danger');
         }
 
 
@@ -204,9 +190,9 @@ class NotificacaoController extends Controller
 
         //Listando motivo da notificação
         $NotificacaoMotivo = DB::table('NOTIFICACAO_MOTIVO')
-            ->where('NOTIFICACAO_MOTIVO.id_notificacao', Crypt::decrypt($id))
-            ->select('NOTIFICACAO_MOTIVO.*')
-            ->get();
+                ->where('NOTIFICACAO_MOTIVO.id_notificacao', Crypt::decrypt($id))
+                ->select('NOTIFICACAO_MOTIVO.*')
+                ->get();
 
 
         //Carregando View e repassando as variaveis necessárias
@@ -225,9 +211,7 @@ class NotificacaoController extends Controller
         ]);
     }
 
-
-    public function ver($id)
-    {
+    public function ver($id) {
 
 
         //Pegando informações do usuário que está acessando o sistema 
@@ -247,9 +231,9 @@ class NotificacaoController extends Controller
 
         //Listando motivo da notificação
         $NotificacaoMotivo = DB::table('NOTIFICACAO_MOTIVO')
-            ->where('NOTIFICACAO_MOTIVO.id_notificacao', Crypt::decrypt($id))
-            ->select('NOTIFICACAO_MOTIVO.*')
-            ->get();
+                ->where('NOTIFICACAO_MOTIVO.id_notificacao', Crypt::decrypt($id))
+                ->select('NOTIFICACAO_MOTIVO.*')
+                ->get();
 
 
         //Carregando View e repassando as variaveis necessárias
@@ -268,9 +252,7 @@ class NotificacaoController extends Controller
         ]);
     }
 
-
-    public function autorizar($id)
-    {
+    public function autorizar($id) {
 
 
         //Pegando informações do usuário que está acessando o sistema 
@@ -290,9 +272,9 @@ class NotificacaoController extends Controller
 
         //Listando motivo da notificação
         $NotificacaoMotivo = DB::table('NOTIFICACAO_MOTIVO')
-            ->where('NOTIFICACAO_MOTIVO.id_notificacao', Crypt::decrypt($id))
-            ->select('NOTIFICACAO_MOTIVO.*')
-            ->get();
+                ->where('NOTIFICACAO_MOTIVO.id_notificacao', Crypt::decrypt($id))
+                ->select('NOTIFICACAO_MOTIVO.*')
+                ->get();
 
 
         //Carregando View e repassando as variaveis necessárias
@@ -311,9 +293,7 @@ class NotificacaoController extends Controller
         ]);
     }
 
-
-    public function incluirautorizacao(Request $request)
-    {
+    public function incluirautorizacao(Request $request) {
 
         $matricula = getenv('USERNAME');
 
@@ -324,27 +304,27 @@ class NotificacaoController extends Controller
         $nij->ds_naoautorizado = $request->input('ds_naoautorizado');
         $nij->ma_autorizador = $matricula;
         $nij->dt_autorizacao = Carbon::now();
-        
-        $dt_prazo_old = Carbon::createFromFormat('Y-m-d H:i:s',$nij->dt_fim_justificativa);
+
+        $dt_prazo_old = Carbon::createFromFormat('Y-m-d H:i:s', $nij->dt_fim_justificativa);
 
         $dt_prazo = $dt_prazo_old->addDay(2);
         $ehferiado = DB::table('CALENDARIO')
-        ->where('dt_feriado','>=',$dt_prazo_old)
-        ->where('dt_feriado','<=',$dt_prazo)
-        ->count();
+                ->where('dt_feriado', '>=', $dt_prazo_old)
+                ->where('dt_feriado', '<=', $dt_prazo)
+                ->count();
 
-        if($ehferiado >= 1):
-                $dt_prazo->addDay(1);
-            
+        if ($ehferiado >= 1):
+            $dt_prazo->addDay(1);
+
         endif;
-                
-        if($dt_prazo->dayOfWeek == '6'):
+
+        if ($dt_prazo->dayOfWeek == '6'):
             $dt_prazo->addDay(2);
 
-        elseif($dt_prazo->dayOfWeek == '0'):
+        elseif ($dt_prazo->dayOfWeek == '0'):
             $dt_prazo->addDay(2);
 
-            endif;
+        endif;
 
         $nij->dt_fim_justificativa = $dt_prazo->endOfDay();
 
@@ -353,15 +333,11 @@ class NotificacaoController extends Controller
 
         //Redirecionandopara a página principal
         return redirect()->action('NotificacaoController@index')
-            ->with('status', 'Sua avaliação foi cadastrada com sucesso!')
-            ->with('tipo', 'success');
-
-
+                        ->with('status', 'Sua avaliação foi cadastrada com sucesso!')
+                        ->with('tipo', 'success');
     }
 
-
-    public function incluirjustificativa(Request $request)
-    {
+    public function incluirjustificativa(Request $request) {
 
         $matricula = getenv('USERNAME');
 
@@ -372,27 +348,27 @@ class NotificacaoController extends Controller
         $nij->ma_justificativa = $matricula;
         $nij->dt_justificativa = Carbon::now();
         $nij->bit_aceito = 3;
-        
-        $dt_prazo_old = Carbon::createFromFormat('Y-m-d H:i:s',$nij->dt_fim_justificativa);
+
+        $dt_prazo_old = Carbon::createFromFormat('Y-m-d H:i:s', $nij->dt_fim_justificativa);
 
         $dt_prazo = $dt_prazo_old->addDay(2);
         $ehferiado = DB::table('CALENDARIO')
-        ->where('dt_feriado','>=',$dt_prazo_old)
-        ->where('dt_feriado','<=',$dt_prazo)
-        ->count();
+                ->where('dt_feriado', '>=', $dt_prazo_old)
+                ->where('dt_feriado', '<=', $dt_prazo)
+                ->count();
 
-        if($ehferiado >= 1):
-                $dt_prazo->addDay(1);
-            
+        if ($ehferiado >= 1):
+            $dt_prazo->addDay(1);
+
         endif;
-                
-        if($dt_prazo->dayOfWeek == '6'):
+
+        if ($dt_prazo->dayOfWeek == '6'):
             $dt_prazo->addDay(2);
 
-        elseif($dt_prazo->dayOfWeek == '0'):
+        elseif ($dt_prazo->dayOfWeek == '0'):
             $dt_prazo->addDay(2);
 
-            endif;
+        endif;
 
         $nij->dt_fim_justificativa = $dt_prazo->endOfDay();
 
@@ -415,22 +391,19 @@ class NotificacaoController extends Controller
 
         //Redirecionandopara a página principal
         return redirect()->action('NotificacaoController@index')
-                ->with('status', 'Sua justificativa foi cadastrada com sucesso!')
-                ->with('tipo', 'success');
-
-
+                        ->with('status', 'Sua justificativa foi cadastrada com sucesso!')
+                        ->with('tipo', 'success');
     }
 
-    public function validarnotificacao()
-    {
+    public function validarnotificacao() {
         $notificacao = Notificacao::orderBy('created_at', 'desc')->get();
 
         foreach ($notificacao as $n):
 
-            if(Carbon::parse($n->dt_fim_justificativa) < Carbon::now()):
-            $diff = Carbon::now()->diffInDays(Carbon::parse($n->dt_fim_justificativa));
-            echo $diff;
-            echo "<br>";
+            if (Carbon::parse($n->dt_fim_justificativa) < Carbon::now()):
+                $diff = Carbon::now()->diffInDays(Carbon::parse($n->dt_fim_justificativa));
+                echo $diff;
+                echo "<br>";
 
 
                 //Fazer mais uma validaçao para verificar se não ja foi respondido, ou seja, se não respondeu e  diff > 2 e bit_aceito X então...
@@ -440,7 +413,7 @@ class NotificacaoController extends Controller
                     $n->bit_aceito = 99;
                     $n->save();
                 endif;
-                 if ($diff > 2 && $n->bit_aceito == 3):
+                if ($diff > 2 && $n->bit_aceito == 3):
 
                     $n->bit_aceito = 44;
                     $n->save();
@@ -454,12 +427,9 @@ class NotificacaoController extends Controller
 
 
         endforeach;
-
     }
 
-
-    public function incluiravaliacao(Request $request)
-    {
+    public function incluiravaliacao(Request $request) {
 
         $matricula = getenv('USERNAME');
 
@@ -470,27 +440,27 @@ class NotificacaoController extends Controller
         $nij->ds_naoacatado = $request->input('ds_naoacatado');
         $nij->ma_avaliador = $matricula;
         $nij->dt_naoacatado = Carbon::now();
-        
-        $dt_prazo_old = Carbon::createFromFormat('Y-m-d H:i:s',$nij->dt_fim_justificativa);
+
+        $dt_prazo_old = Carbon::createFromFormat('Y-m-d H:i:s', $nij->dt_fim_justificativa);
 
         $dt_prazo = $dt_prazo_old->addDay(2);
         $ehferiado = DB::table('CALENDARIO')
-        ->where('dt_feriado','>=',$dt_prazo_old)
-        ->where('dt_feriado','<=',$dt_prazo)
-        ->count();
+                ->where('dt_feriado', '>=', $dt_prazo_old)
+                ->where('dt_feriado', '<=', $dt_prazo)
+                ->count();
 
-        if($ehferiado >= 1):
-                $dt_prazo->addDay(1);
-            
+        if ($ehferiado >= 1):
+            $dt_prazo->addDay(1);
+
         endif;
-                
-        if($dt_prazo->dayOfWeek == '6'):
+
+        if ($dt_prazo->dayOfWeek == '6'):
             $dt_prazo->addDay(2);
 
-        elseif($dt_prazo->dayOfWeek == '0'):
+        elseif ($dt_prazo->dayOfWeek == '0'):
             $dt_prazo->addDay(2);
 
-            endif;
+        endif;
 
         $nij->dt_fim_justificativa = $dt_prazo->endOfDay();
 
@@ -500,12 +470,11 @@ class NotificacaoController extends Controller
 
         //Redirecionandopara a página principal
         return redirect()->action('NotificacaoController@index')
-            ->with('status', 'Sua avaliação foi cadastrada com sucesso!')
-            ->with('tipo', 'success');
-
-
+                        ->with('status', 'Sua avaliação foi cadastrada com sucesso!')
+                        ->with('tipo', 'success');
     }
-    public function devolverpreposto($id){
+
+    public function devolverpreposto($id) {
         $matricula = getenv('USERNAME');
 
         $ncj = Notificacao::find(Crypt::decrypt($id));
@@ -516,7 +485,7 @@ class NotificacaoController extends Controller
         $ncj->ds_justificativa = NULL;
         $ncj->ma_justificativa = NULL;
         $ncj->dt_justificativa = NULL;
-        
+
         $ncj->bit_aceito = 2;
 
 
@@ -524,13 +493,11 @@ class NotificacaoController extends Controller
 
         #Redirecionandopara a página principal
         return redirect()->action('NotificacaoController@index')
-            ->with('status', 'A notificação foi devolvida! O preposto já pode incluir nova justificativa.')
-            ->with('tipo', 'success');
-        
+                        ->with('status', 'A notificação foi devolvida! O preposto já pode incluir nova justificativa.')
+                        ->with('tipo', 'success');
     }
 
-    public function corrigir($id)
-    {
+    public function corrigir($id) {
 
         $matricula = getenv('USERNAME');
 
@@ -546,12 +513,11 @@ class NotificacaoController extends Controller
 
         #Redirecionandopara a página principal
         return redirect()->action('NotificacaoController@index')
-            ->with('status', 'O descumprimento de nível de serviço já pode ser corrigido!')
-            ->with('tipo', 'success');
-
+                        ->with('status', 'O descumprimento de nível de serviço já pode ser corrigido!')
+                        ->with('tipo', 'success');
     }
 
-    public function buscarmes(Request $request){
+    public function buscarmes(Request $request) {
 
         $matricula = getenv('USERNAME');
 
@@ -565,12 +531,12 @@ class NotificacaoController extends Controller
         //$Notificacoes = DB::select(DB::raw("select * from NOTIFICACAO join CONTRATOS"))
 
         $Notificacoes = DB::table('NOTIFICA.NOTIFICACAO')
-            ->join('NOTIFICA.CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
-            ->Where('NOTIFICACAO.deleted_at', null)
-            ->Where('CONTRATOS.deleted_at', null)
-            ->WhereRaw('EXTRACT(Month from "NOTIFICACAO".created_at) = '.$mes)
-            ->select('CONTRATOS.*', 'NOTIFICACAO.*')
-            ->get();
+                ->join('NOTIFICA.CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
+                ->Where('NOTIFICACAO.deleted_at', null)
+                ->Where('CONTRATOS.deleted_at', null)
+                ->WhereRaw('EXTRACT(Month from "NOTIFICACAO".created_at) = ' . $mes)
+                ->select('CONTRATOS.*', 'NOTIFICACAO.*')
+                ->get();
 
         //Carregando View e repassando as variáveis necessárias
         return view('notificacao', ['matricula' => $matricula,
@@ -580,9 +546,7 @@ class NotificacaoController extends Controller
         ]);
     }
 
-
-    public function buscar(Request $request)
-    {
+    public function buscar(Request $request) {
 
         $matricula = getenv('USERNAME');
 
@@ -599,36 +563,36 @@ class NotificacaoController extends Controller
 
         //Listando todos os contratos válidos do sistema     
         $Notificacoes = DB::table('NOTIFICACAO')
-            ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
-            ->Where('NOTIFICACAO.deleted_at', null)
-            ->Where('CONTRATOS.deleted_at', null)
-            ->when($id_notificadora, function ($query) use ($id_notificadora) {
-                return $query->Where('NOTIFICACAO.id_notificadora', $id_notificadora);
-            }, function ($query) {
-                //return $query->orderBy('name');
-            })
-            ->when($palavra_chave, function ($query) use ($palavra_chave) {
-                return $query->Where('NOTIFICACAO.nu_notificacao', 'like', '%' . $palavra_chave . '%')->orWhere('NOTIFICACAO.ds_notificacao', 'like', '%' . $palavra_chave . '%');
-            }, function ($query) {
-
-            })
-            ->when($id_contrato, function ($query) use ($id_contrato) {
-                return $query->Where('NOTIFICACAO.id_contrato', $id_contrato);
-            }, function ($query) {
-                //return $query->orderBy('name');
-            })
-            ->when($datainicio, function ($query) use ($datainicio) {
-                return $query->Where('NOTIFICACAO.created_at', '>', $datainicio);
-            }, function ($query) {
-                //return $query->orderBy('name');
-            })
-            ->when($datafinal, function ($query) use ($datafinal) {
-                return $query->Where('NOTIFICACAO.created_at', '<', $datafinal);
-            }, function ($query) {
-                //return $query->orderBy('name');
-            })
-            ->select('CONTRATOS.*', 'NOTIFICACAO.*')
-            ->get();
+                ->join('CONTRATOS', 'CONTRATOS.id_contrato', '=', 'NOTIFICACAO.id_contrato')
+                ->Where('NOTIFICACAO.deleted_at', null)
+                ->Where('CONTRATOS.deleted_at', null)
+                ->when($id_notificadora, function ($query) use ($id_notificadora) {
+                    return $query->Where('NOTIFICACAO.id_notificadora', $id_notificadora);
+                }, function ($query) {
+                    //return $query->orderBy('name');
+                })
+                ->when($palavra_chave, function ($query) use ($palavra_chave) {
+                    return $query->Where('NOTIFICACAO.nu_notificacao', 'like', '%' . $palavra_chave . '%')->orWhere('NOTIFICACAO.ds_notificacao', 'like', '%' . $palavra_chave . '%');
+                }, function ($query) {
+                    
+                })
+                ->when($id_contrato, function ($query) use ($id_contrato) {
+                    return $query->Where('NOTIFICACAO.id_contrato', $id_contrato);
+                }, function ($query) {
+                    //return $query->orderBy('name');
+                })
+                ->when($datainicio, function ($query) use ($datainicio) {
+                    return $query->Where('NOTIFICACAO.created_at', '>', $datainicio);
+                }, function ($query) {
+                    //return $query->orderBy('name');
+                })
+                ->when($datafinal, function ($query) use ($datafinal) {
+                    return $query->Where('NOTIFICACAO.created_at', '<', $datafinal);
+                }, function ($query) {
+                    //return $query->orderBy('name');
+                })
+                ->select('CONTRATOS.*', 'NOTIFICACAO.*')
+                ->get();
 
         //Carregando View e repassando as variáveis necessárias
         return view('notificacao', ['matricula' => $matricula,
@@ -636,12 +600,9 @@ class NotificacaoController extends Controller
             'Coordenacoes' => $Coordenacoes,
             'Notificacoes' => $Notificacoes
         ]);
-
     }
 
-
-    public function incluir(Request $request)
-    {
+    public function incluir(Request $request) {
 
         #Criando o objeto Notificacao
         $n = new Notificacao;
@@ -663,31 +624,29 @@ class NotificacaoController extends Controller
 
         $dt_prazo = Carbon::now()->addDay(2);
         $ehferiado = DB::table('CALENDARIO')
-        ->where('dt_feriado','>=',$dt_now)
-        ->where('dt_feriado','<=',$dt_prazo)
-        ->count();
+                ->where('dt_feriado', '>=', $dt_now)
+                ->where('dt_feriado', '<=', $dt_prazo)
+                ->count();
 
-        if($ehferiado >= 1):
-                $dt_prazo->addDay(1);
-            
+        if ($ehferiado >= 1):
+            $dt_prazo->addDay(1);
+
         endif;
-                
-        if($dt_prazo->dayOfWeek == '6'):
+
+        if ($dt_prazo->dayOfWeek == '6'):
             $dt_prazo->addDay(2);
 
-        elseif($dt_prazo->dayOfWeek == '0'):
+        elseif ($dt_prazo->dayOfWeek == '0'):
             $dt_prazo->addDay(2);
 
-            endif;
+        endif;
 
-        $n->dt_fim_justificativa = $dt_prazo->endOfDay();        
+        $n->dt_fim_justificativa = $dt_prazo->endOfDay();
 
-            //--------------------------------------------------------------------------
-            
-            //$n->dt_fim_justificativa = $dt_prazo->endOfDay()->format('d/m/Y H:i');
-
+        //--------------------------------------------------------------------------
+        //$n->dt_fim_justificativa = $dt_prazo->endOfDay()->format('d/m/Y H:i');
         //$n->dt_fim_justificativa = Carbon::now()->addDay(2)->endOfDay()->format('d/m/Y H:i');
-        
+
         if ($request->file('nome_anexo')) {
 
             $doc = $request->file('nome_anexo');
@@ -699,7 +658,6 @@ class NotificacaoController extends Controller
             } else {
                 $n->nome_anexo = $prefix . '_' . $doc->getClientOriginalName();
             }
-
         }
 
         #Salvando formulário
@@ -714,7 +672,6 @@ class NotificacaoController extends Controller
         $ncj->nu_notificacao = $nd;
         $ncj->save();
         //------------------------------------------------------------------------------
-
         #Fazendo a inclusão na tabela :Motivo
         $id_motivo = [];
         $id_motivo = $request->input('id_motivo');
@@ -726,15 +683,32 @@ class NotificacaoController extends Controller
         }
         DB::table('NOTIFICACAO_MOTIVO')->insert($datasetMot);
 
+        // INICIO EMAIL
+        Mail::send('emails.teste', ['name' => 'Pedro Chaves','msg'=> 'testando mensagem' . 'http://localhost/notifica/public/notificacao/ver/' . Crypt::encrypt($newId)], function($message)
+            {
+        $message->to('pedrohbchaves@gmail.com','Some Guy')->subject('teste controladora');
+    });
+    
+        $contato['RemetenteNome'] = 'teste nome remetente';
+        $contato['RemetenteEmail'] = 'teste nome email';
+        $contato['Mensagem'] = 'testando mensagem' . 'http://localhost/notifica/public/notificacao/ver/' . Crypt::encrypt($newId);
+        
+
+
+        $contato['Assunto'] = 'SINOC - sistema de notificações';
+        $contato['DestinoNome'] = 'Pedro chaves ';
+        $contato['DestinoEmail'] = 'pedrohbchaves@gmail.com'; //email da Pontal Piscinas!
+        $SendEmail = new Email;
+        $SendEmail->Enviar($contato);
+
+        // FIM EMAIL
         #Redirecionandopara a página principal
         return redirect()->action('NotificacaoController@index')
-                ->with('status', 'Novo descumprimento de nível de serviço foi incluida com sucesso!')
-                ->with('tipo', 'success');
+                        ->with('status', 'Novo descumprimento de nível de serviço foi incluida com sucesso!')
+                        ->with('tipo', 'success');
     }
 
-
-    public function delete($id)
-    {
+    public function delete($id) {
         // #Notificacao sendo deletada
         // #Esse metodo só irá ser disponibilizado para pessoas do RH / Logística  
 
@@ -743,23 +717,20 @@ class NotificacaoController extends Controller
 
         // #Redirecionando para a página principal
         return redirect()->action('NotificacaoController@index')
-                ->with('status', 'Notificação deletada com sucesso')
-                ->with('tipo', 'success');
+                        ->with('status', 'Notificação deletada com sucesso')
+                        ->with('tipo', 'success');
     }
 
-     public function testarfuncoes(){
+    public function testarfuncoes() {
         $dt_now = Carbon::now()->addDay(4);
-        $no_days = array(25,26,27,28,29,30,31);
-        
-        if( in_array($dt_now->day, $no_days)):
+        $no_days = array(25, 26, 27, 28, 29, 30, 31);
 
-           echo $dt_now->addMonth()->firstOfMonth()->next(Carbon::MONDAY)->format('d/m/Y H:i');
-           echo $dt_prazo = $dt_now->addDay(2)->format('d/m/Y H:i');
+        if (in_array($dt_now->day, $no_days)):
 
-            endif;
+            echo $dt_now->addMonth()->firstOfMonth()->next(Carbon::MONDAY)->format('d/m/Y H:i');
+            echo $dt_prazo = $dt_now->addDay(2)->format('d/m/Y H:i');
 
+        endif;
     }
-
-
 
 }

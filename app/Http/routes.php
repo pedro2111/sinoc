@@ -1,8 +1,9 @@
 <?php
 
 
-//Route::Get('/', 'NotificacaoController@index');
-Route::Get('/', 'NotificacaoController@login');
+Route::Get('/', 'NotificacaoController@index');
+
+//Route::Get('/', 'NotificacaoController@login');
 
 
 

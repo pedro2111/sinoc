@@ -25,7 +25,11 @@
             "App\\": "app/"
         },
         "files": [
-            "app/Helpers/Helper.php"
+            "app/Helpers/Helper.php",
+            "app/Helpers/Check.php",
+            "app/Library/PHPMailer/phpmailer.php",
+            "app/Library/PHPMailer/smtp.php",
+            "app/Models/Email.php"
         ]
     },
     "autoload-dev": {
