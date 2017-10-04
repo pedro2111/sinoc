@@ -1,3 +1,9 @@
-testando o email. Este eh meu nome {{$name }}
-este é o link {{$msg}}
+Unidade notificadora: {{$notificadora}}
+<br>
+<br>
+Descrição da notificação: {{$descricao}}
+<br>
+<br>
+Link para notificação: <a href="{{$link}}">{{$numnot}}</a>
+
 

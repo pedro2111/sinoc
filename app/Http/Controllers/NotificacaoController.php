@@ -684,9 +684,14 @@ class NotificacaoController extends Controller {
         DB::table('NOTIFICACAO_MOTIVO')->insert($datasetMot);
 
         // INICIO EMAIL
-        Mail::send('emails.teste', ['name' => 'Pedro Chaves','msg'=> 'testando mensagem' . 'http://localhost/notifica/public/notificacao/ver/' . Crypt::encrypt($newId)], function($message)
+        $notificadora = DB::table('COORDENACOES')->where('id_coordenacao', $n->id_notificadora)->value('no_coordenacao');
+        $eqnotificadora = substr($notificadora, 0,9);
+        
+        
+        
+        Mail::send('emails.teste', ['notificadora' => $eqnotificadora,'numnot' => $nd,'descricao' => $n->ds_ticket,'link'=> 'http://localhost/notifica/public/notificacao/ver/' . Crypt::encrypt($newId)], function($message)
             {
-        $message->to('pedrohbchaves@gmail.com','Some Guy')->subject('teste controladora');
+        $message->to('pedrohbchaves@gmail.com','equipe notificadora')->subject('Notificação - num da not');
     });
     
         $contato['RemetenteNome'] = 'teste nome remetente';
